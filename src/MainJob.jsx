@@ -11,7 +11,7 @@ export default function MainJob({
   url,
 }) {
   return (
-    <section className='basis-3/4 flex flex-col p-2  rounded border-4  border-indigo-200 border-t-0 border-l-0'>
+    <section className='basis-3/4 flex flex-col p-2  rounded border-4  border-indigo-200 border-t-0 border-l-0 '>
       <div className='flex items-center h-2/5'>
         <div className='w-1/2 h-full'>
           <img

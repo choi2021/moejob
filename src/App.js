@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='w-full h-screen box-border flex flex-col'>
       <Navbar></Navbar>
-      <div className='flex h-full w-full '>
+      <div className='flex h-5/6 w-full '>
         <Aside jobs={jobs}></Aside>
         <MainJob {...selectedJob}></MainJob>
       </div>
