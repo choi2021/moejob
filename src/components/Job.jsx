@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Job({ platform, name }) {
   return (
-    <div className='w-full text-center  p-2  '>
+    <div className='w-full text-center   p-2  '>
       <div className='flex items-center hover:scale-105 shadow-lg cursor-pointer transition-transform'>
         <img
           className='w-1/2'

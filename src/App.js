@@ -11,7 +11,7 @@ function App() {
       <Navbar></Navbar>
       <div className='flex h-full w-full '>
         <Aside jobs={jobs}></Aside>
-        <MainJob selectedJob={selectedJob}></MainJob>
+        <MainJob {...selectedJob}></MainJob>
       </div>
     </div>
   );
