@@ -1,6 +1,5 @@
 import React from 'react';
 import DescriptionCard from './components/DescriptionCard';
-import TextList from './components/Text';
 
 export default function MainJob({
   name,
@@ -33,7 +32,7 @@ export default function MainJob({
           </a>
         </div>
       </div>
-      <div className='flex mt-6' h>
+      <div className='flex mt-6'>
         <DescriptionCard title='주요업무' list={mainWork}></DescriptionCard>
         <DescriptionCard
           title='자격조건'

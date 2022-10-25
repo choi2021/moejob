@@ -3,12 +3,18 @@ import Aside from './Aside';
 import MainJob from './MainJob';
 import Navbar from './Navbar';
 
-function App() {
+function App({ jobService }) {
   const [jobs, setJobs] = useState(initialState);
   const [selectedJob, setSelectedJob] = useState(jobs[0]);
+
+  const handleSubmit = async (url) => {
+    const job = await jobService.postJob(url);
+    setJobs((prev) => [job, ...prev]);
+  };
+
   return (
     <div className='w-full h-screen box-border flex flex-col'>
-      <Navbar></Navbar>
+      <Navbar onSubmit={handleSubmit}></Navbar>
       <div className='flex h-5/6 w-full '>
         <Aside jobs={jobs}></Aside>
         <MainJob {...selectedJob}></MainJob>

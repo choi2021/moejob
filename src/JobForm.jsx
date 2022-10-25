@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function JobForm() {
+export default function JobForm({ onSubmit }) {
+  const [url, setUrl] = useState('');
+  const handleChange = (e) => {
+    setUrl(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(url);
+    setUrl('');
+  };
   return (
-    <form className='flex basis-3/6 justify-end'>
+    <form className='flex basis-3/6 justify-end' onSubmit={handleSubmit}>
       <input
+        value={url}
+        onChange={handleChange}
         className='basis-3/4 text-center rounded  border-solid border-2 px-2 py-1 border-indigo-200 '
         placeholder='원하는 채용공고의 url을 알려주세요😁'
       ></input>
