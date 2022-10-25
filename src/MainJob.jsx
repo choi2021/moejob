@@ -8,16 +8,13 @@ export default function MainJob({
   qualification,
   preferential,
   url,
+  img,
 }) {
   return (
     <section className=' basis-3/4 flex flex-col p-2 rounded border-4  border-indigo-200 border-t-0 border-l-0 '>
       <div className='flex items-center h-2/5'>
         <div className='w-1/2 h-full'>
-          <img
-            className='max-h-full rounded-lg'
-            src='https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F20947%2Fizyvwevuqdjqkvwu__1080_790.png&w=1000&q=75'
-            alt='jobImg'
-          />
+          <img className='max-h-full rounded-lg' src={img} alt='jobImg' />
         </div>
 
         <div className='flex w-1/2 flex-col items-center'>
