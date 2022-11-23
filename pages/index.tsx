@@ -1,30 +1,12 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import Aside from '../components/Aside';
-import MainJob from '../components/MainJob';
-import Navbar from '../components/Navbar';
 
-const Section = styled.div``;
+import Layout from '../components/Layout';
 
 export default function Home() {
-  const [jobs, setJobs] = useState(initialState);
-  const [selectedJob, setSelectedJob] = useState(jobs[0]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const handleSubmit = async (url: string) => {};
-
   return (
-    <Section className='w-full h-screen box-border flex flex-col'>
-      <Navbar
-        onSubmit={handleSubmit}
-        isLoading={isLoading}
-        error={error}
-      ></Navbar>
-      <div className='flex h-5/6 w-full '>
-        <Aside jobs={jobs}></Aside>
-        <MainJob {...selectedJob}></MainJob>
-      </div>
-    </Section>
+    <Layout>
+      <div>hi</div>
+    </Layout>
   );
 }
 

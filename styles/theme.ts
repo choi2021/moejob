@@ -1,11 +1,22 @@
-export const theme = {
-  name: 'default',
+import { DefaultTheme } from 'styled-components';
+
+export const theme: DefaultTheme = {
   colors: {
-    body: '#FFFFFF',
-    text: '#000000',
+    white: 'white',
+    blue: 'black',
+    black: 'blue',
   },
-  font: {
-    heading: 'Raleway',
-    body: 'Cabin',
+  fontSize: {
+    text: '16px',
   },
+};
+
+export type ColorsTypes = {
+  white: string;
+  blue: string;
+  black: string;
+};
+
+export type FontSizeTypes = {
+  text: string;
 };

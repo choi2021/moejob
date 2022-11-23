@@ -1,13 +1,21 @@
 import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-  /* Using this inherit reset method means you can use content-box or padding-box without a universal selector overriding your CSS */
-  html {
+  ${reset}
+  *, *::before, *::after {
     box-sizing: border-box;
   }
-  /* Only using * omits pseudo elements so specifically include these  */
-  * , *:before, *:after {
-    box-sizing: inherit;
+
+  body {
+    font-family: "Helvetica", "Arial", sans-serif;
+    line-height: 1.5;
+    margin:0;
+  }
+  button{
+    cursor: pointer;
+    background-color: transparent;
+    border:none;
   }
 `;
 
