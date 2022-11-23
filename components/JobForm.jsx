@@ -35,6 +35,7 @@ const Form = styled.form`
     border: none;
     flex: 80%;
     outline: none;
+    text-align: center;
   }
 `;
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import JobForm from './JobForm';
+import JobSection from './JobSection';
 
 const Layout = styled.div`
   max-width: 1000px;
@@ -12,6 +13,7 @@ export default function MainContent() {
   return (
     <Layout>
       <JobForm />
+      <JobSection />
     </Layout>
   );
 }
