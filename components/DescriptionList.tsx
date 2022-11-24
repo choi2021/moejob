@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TitleType } from '../types/jobtype';
 import { Titles } from '../variables/jobVariable';
 import DescriptionItem from './DescriptionItem';
 

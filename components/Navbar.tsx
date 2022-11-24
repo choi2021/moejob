@@ -38,7 +38,7 @@ export default function Navbar() {
       <Layout>
         <h1>모으잡</h1>
         <Btns>
-          <button>Wanted</button>
+          <button>Home</button>
           <button>문의하기</button>
           <button>로그아웃</button>
         </Btns>

@@ -23,16 +23,26 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Pretendard-regular",sans-serif;
     line-height: 1.5;
     margin:0;
+    color:#888;
   }
   h1{
     font-family: "Pretendard-bold";
     margin:0;
   }
-  
+  input{
+    outline: none;
+    text-align: center;
+  }
+
   button{
     cursor: pointer;
     background-color: transparent;
     border:none;
+  }
+
+  a{
+    text-decoration: none;
+    color:inherit;
   }
 `;
 

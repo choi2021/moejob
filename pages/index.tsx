@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Layout from '../components/Layout';
 import MainContent from '../components/MainContent';
+import MainLayout from '../components/MainLayout';
 
 export default function Home() {
   return (
-    <Layout>
+    <MainLayout>
       <MainContent />
-    </Layout>
+    </MainLayout>
   );
 }

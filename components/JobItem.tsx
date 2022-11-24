@@ -1,7 +1,7 @@
 import React from 'react';
-import { JobType } from '../types/jobtype';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { JobType } from '../types/jobtype';
 
 const Wrapper = styled.div`
   width: 25%;
@@ -53,10 +53,10 @@ export default function JobItem({ job }: { job: JobType }) {
   return (
     <Wrapper>
       <Badge>1</Badge>
-      <Img src={img} alt='job' width='200' height='180' />
+      <Img src={img} alt="job" width="200" height="180" />
       <Box>
         <h1>{name}</h1>
-        <Img src={'/wanted_logo.png'} width='100' height='50' alt='platform' />
+        <Img src={'/wanted_logo.png'} width="100" height="50" alt="platform" />
       </Box>
     </Wrapper>
   );
