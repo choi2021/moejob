@@ -10,3 +10,5 @@ export type JobType = {
   url: string;
   img: string;
 };
+
+export type TitleType = '주요업무' | '자격조건' | '우대사항';

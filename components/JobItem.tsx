@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: center;
   position: relative;
+  cursor: pointer;
   h1 {
     margin: 0 1rem;
   }
@@ -36,6 +37,7 @@ const Box = styled.div`
   align-items: center;
   h1 {
     margin: 0 1rem;
+    margin-bottom: 0;
   }
   img {
     width: 70px;

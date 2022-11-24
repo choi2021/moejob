@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
   }
   h1{
     font-family: "Pretendard-bold";
+    margin:0;
   }
   
   button{

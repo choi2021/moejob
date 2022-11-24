@@ -9,7 +9,6 @@ const Wrapper = styled.section`
 
 const MainLayout = styled.main`
   flex: 1;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
