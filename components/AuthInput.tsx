@@ -33,7 +33,6 @@ export default function AuthInput({
   title,
   dispatch,
 }: AuthInputProps) {
-  const isEmail = name === 'EMAIL';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     dispatch({ type: `SET_${name}`, data: value });

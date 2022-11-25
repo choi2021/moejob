@@ -54,6 +54,7 @@ const MetaBox = styled.div`
     text-align: center;
     font-size: 1.6rem;
     font-weight: bold;
+    color: black;
   }
 `;
 
@@ -63,6 +64,7 @@ const PlatformBox = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 1rem;
+
   h3 {
     font-size: 0.9rem;
     font-weight: bold;
@@ -98,15 +100,15 @@ export default function DetailJob() {
   return (
     <Wrapper>
       <TitleBox>
-        <JobImg src={obj.img} alt='detail_image' height={350} width={400} />
+        <JobImg src={obj.img} alt="detail_image" height={350} width={400} />
         <MetaBox>
           <h1>{obj.name}</h1>
           <PlatformAndTagBox>
             <PlatformBox>
               <h3>플랫폼:</h3>
               <Image
-                src='/wanted_logo.png'
-                alt='logo'
+                src="/wanted_logo.png"
+                alt="logo"
                 height={100}
                 width={100}
               />

@@ -5,12 +5,12 @@ console.log();
 const GlobalStyle = createGlobalStyle`
 @font-face {
   font-family:"Pretendard-bold" ;
-  src: url("./fonts/Pretendard-Bold.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Bold.woff2") format("woff2");
   font-weight: bold;
 }
 @font-face {
   font-family:"Pretendard-regular" ;
-  src: url("./fonts/Pretendard-Regular.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
   font-weight: 300;
 }
   ${reset}
@@ -23,11 +23,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Pretendard-regular",sans-serif;
     line-height: 1.5;
     margin:0;
-    color:#888;
+    color:${(props) => props.theme.colors.black}
   }
   h1{
     font-family: "Pretendard-bold";
-    margin:0;
   }
   input{
     outline: none;

@@ -1,3 +1,5 @@
+import { UserCredential } from 'firebase/auth';
+
 export type ActionType =
   | { type: 'SET_EMAIL'; data: string }
   | { type: 'SET_PASSWORD'; data: string };
@@ -9,15 +11,20 @@ export type UserInfoType = {
   passwordValid: boolean;
 };
 
-export type AuthResponse = {
-  accessToken: string;
-  user: {
-    email: string;
-    id: number;
-  };
-};
+export type PlatformType = 'google' | 'github';
 
 export interface AuthService {
-  signIn: (userInfo: UserInfoType) => Promise<AuthResponse>;
-  signUp: (userInfo: UserInfoType) => Promise<AuthResponse>;
+  signIn: (email: string, password: string) => Promise<UserCredential>;
+  signUp: (email: string, password: string) => Promise<UserCredential>;
+  OAuthSignIn: (platfrom: PlatformType) => Promise<UserCredential>;
+  signOut: () => Promise<void>;
 }
+
+export type ConfigType = {
+  apiKey: string;
+  authDomain: string;
+  projectId: string;
+  storageBucket: string;
+  appId: string;
+  measurementId: string;
+};

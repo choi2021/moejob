@@ -1,16 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { JobType } from '../types/jobtype';
+import { JobType } from '../types/Jobtype';
 import JobItem from './JobItem';
 
 const Wrapper = styled.ul`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 `;
 
 export default function JobList() {

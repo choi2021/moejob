@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { JobType } from '../types/jobtype';
+import { JobType } from '../types/Jobtype';
 
 const Wrapper = styled.div`
-  width: 25%;
+  width: 100%;
   height: 20rem;
   max-width: 200px;
   margin: 0 1rem;
@@ -12,10 +12,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: center;
   position: relative;
-  cursor: pointer;
+<<<<<<< HEAD
   h1 {
     margin: 0 1rem;
   }
+=======
+  cursor: pointer;
+>>>>>>> 631588b (feat: firebase를 이용해 email/password 회원가입/로그인 기능 추가)
 `;
 
 const Badge = styled.div`
@@ -36,11 +39,15 @@ const Box = styled.div`
   justify-content: center;
   align-items: center;
   h1 {
+<<<<<<< HEAD
     margin: 0 1rem;
-    margin-bottom: 0;
   }
   img {
     width: 70px;
+=======
+    margin-right: 0.5rem;
+    font-weight: bold;
+>>>>>>> 631588b (feat: firebase를 이용해 email/password 회원가입/로그인 기능 추가)
   }
 `;
 
@@ -56,7 +63,7 @@ export default function JobItem({ job }: { job: JobType }) {
       <Img src={img} alt="job" width="200" height="180" />
       <Box>
         <h1>{name}</h1>
-        <Img src={'/wanted_logo.png'} width="100" height="50" alt="platform" />
+        <h3>{platform}</h3>
       </Box>
     </Wrapper>
   );

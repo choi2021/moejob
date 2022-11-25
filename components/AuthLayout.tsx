@@ -17,10 +17,10 @@ const Wrapper = styled.section`
 const Layout = styled.main`
   background-color: white;
   max-width: 400px;
+  height: 88%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding: 1.5rem 2rem;
 `;
@@ -37,7 +37,7 @@ const Header = styled.header`
   }
   h1 {
     font-size: 1.6rem;
-    color: lightcoral;
+    color: ${(props) => props.theme.colors.mainColor};
     margin-bottom: 1rem;
   }
   h2 {
@@ -51,13 +51,14 @@ const Header = styled.header`
 `;
 
 const LinkBtn = styled(Link)`
+  margin-top: 1rem;
   background-color: #f2f4f7;
   color: #ccc;
   padding: 0.5rem 1.5rem;
   border-radius: 1rem;
   font-size: 0.8rem;
   &:hover {
-    background-color: lightcoral;
+    background-color: ${(props) => props.theme.colors.mainColor};
     color: white;
   }
 `;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   button {
     margin-right: 0.5rem;
     font-weight: bold;

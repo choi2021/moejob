@@ -1,10 +1,12 @@
 import React, { useReducer, useState } from 'react';
-import { AiOutlineUser } from 'react-icons/ai';
-import Link from 'next/link';
 import AuthInput from './AuthInput';
 import { ActionType, UserInfoType } from '../types/Authtypes';
-import Banner from './Banner';
 import styled from 'styled-components';
+import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/router';
+import ErrorMessage from './ErrorMessage';
+import { UserCredential } from 'firebase/auth';
+import { AccessToken } from '../variables/authVariable';
 
 const ACTION_CONST = {
   SET_EMAIL: 'SET_EMAIL',
@@ -26,7 +28,7 @@ const authReducer = (state: UserInfoType, action: ActionType) => {
       return { ...state, email, emailValid };
     case ACTION_CONST.SET_PASSWORD:
       const password = action.data;
-      const passwordValid = password.length >= 4;
+      const passwordValid = password.length >= 6;
       return { ...state, password, passwordValid };
     default:
       throw new Error('Unknown Action');
@@ -40,14 +42,14 @@ const EMAIL_INPUT = {
 
 const PASSWORD_INPUT = {
   name: 'PASSWORD',
-  placeholder: '세글자 이상의 비밀번호를 입력해주세요',
+  placeholder: '여섯글자 이상의 비밀번호를 입력해주세요',
 } as const;
 
 interface AuthFormProps {
   isLogin: boolean;
 }
 
-const Layout = styled.form`
+const Layout = styled.form<{ isActive: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -59,26 +61,53 @@ const Layout = styled.form`
 
   button {
     margin-top: 2rem;
-    background-color: lightcoral;
+    background-color: ${(props) =>
+      props.isActive
+        ? props.theme.colors.mainColor
+        : props.theme.colors.lightGray};
     width: 100%;
     padding: 0.5rem 0;
     border-radius: 1rem;
     color: white;
+    pointer-events: ${(props) => (props.isActive ? 'auto' : 'none')};
   }
 `;
 
 export default function AuthForm({ isLogin }: AuthFormProps) {
   const [message, setMessage] = useState('');
   const [userInfo, dispatch] = useReducer(authReducer, initialState);
-  const isActive = !userInfo.emailValid || !userInfo.passwordValid;
+  const authService = useAuth();
+  const { push } = useRouter();
+  const isInActive = !userInfo.emailValid || !userInfo.passwordValid;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { email, password } = userInfo;
+    if (isLogin) {
+      authService
+        .signIn(email, password)
+        .then((userData: UserCredential) => {
+          return userData.user.getIdToken();
+        })
+        .then((token) => {
+          localStorage.setItem(AccessToken, token);
+          push('/');
+        })
+        .catch((error) => setMessage(error.message));
+    } else {
+      authService
+        .signUp(email, password)
+        .then(() => {
+          push('/login');
+          setMessage('');
+        })
+        .catch((error) => setMessage(error.message));
+    }
   };
-  const url = isLogin ? '/register' : '/login';
   const name = isLogin ? '로그인' : '회원가입';
+
   return (
-    <Layout action="submit" onSubmit={handleSubmit}>
+    <Layout action="submit" onSubmit={handleSubmit} isActive={!isInActive}>
       <AuthInput
         name={EMAIL_INPUT.name}
         text={userInfo.email}
@@ -93,8 +122,8 @@ export default function AuthForm({ isLogin }: AuthFormProps) {
         placeholder={PASSWORD_INPUT.placeholder}
         dispatch={dispatch}
       />
-      {message && <Banner message={message} />}
-      <button type="submit" disabled={isActive}>
+      {message && <ErrorMessage message={message} />}
+      <button type="submit" disabled={isInActive}>
         {name}
       </button>
     </Layout>

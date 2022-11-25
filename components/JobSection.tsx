@@ -15,7 +15,6 @@ const Layout = styled.section`
     line-height: 1.33;
     font-weight: 700;
     color: #333;
-    margin-bottom: 1rem;
   }
 `;
 
