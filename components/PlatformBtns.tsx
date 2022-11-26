@@ -2,11 +2,10 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillGithub } from 'react-icons/ai';
 import styled from 'styled-components';
-import { useAuth } from '../context/AuthContext';
-import { OAuthType } from '../types/Authtypes';
-import { useRouter } from 'next/router';
+import { AuthService, OAuthType } from '../types/Authtypes';
+import { useAuthService } from '../context/AuthContext';
+import { useRouter, NextRouter } from 'next/router';
 import { AccessToken } from '../variables/authVariable';
-import { UserCredential } from 'firebase/auth';
 
 const Wrapper = styled.div`
   margin-top: 0.5rem;
@@ -36,22 +35,29 @@ const PLATFORM: PlatformType = {
   GITHUB: 'github',
 };
 
+export const OAuthLogin = async (
+  name: OAuthType,
+  authService: AuthService,
+  router: NextRouter
+) => {
+  const { push } = router;
+  try {
+    const userData = await authService.OAuthSignIn(name);
+    const token = await userData.user.getIdToken();
+    localStorage.setItem(AccessToken, token);
+    push('/');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default function PlatformBtns() {
-  const { push } = useRouter();
-  const authService = useAuth();
+  const authService = useAuthService();
+  const router = useRouter();
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
     if (name === PLATFORM.GOOGLE || name === PLATFORM.GITHUB) {
-      authService
-        .OAuthSignIn(name)
-        .then((userData: UserCredential) => {
-          return userData.user.getIdToken();
-        })
-        .then((token) => {
-          localStorage.setItem(AccessToken, token);
-          push('/');
-        })
-        .catch((error) => console.log(error));
+      OAuthLogin(name, authService, router);
     }
   };
   return (

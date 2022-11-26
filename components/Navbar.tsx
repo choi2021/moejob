@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
-import { useAuth } from '../context/AuthContext';
+import { useAuthService } from '../context/AuthContext';
 import { AccessToken } from '../variables/authVariable';
 
 const Wrapper = styled.nav`
@@ -38,7 +38,7 @@ const Btns = styled.div`
 
 export default function Navbar() {
   const { push } = useRouter();
-  const authService = useAuth();
+  const authService = useAuthService();
   const onSignOut = () => {
     authService
       .signOut()

@@ -14,7 +14,7 @@ export const AuthProvider = ({ children, authService }: AuthProviderProps) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuthService = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('Not under AuthProvider');
