@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useAuthService } from '../../context/AuthContext';
 import { useRouter } from 'next/router';
 import ErrorMessage from '../ErrorMessage';
-import { authReducer, login, register } from './AuthFormLogic';
+import { authReducer, login, register } from './Logic';
 
 const initialState: UserInfoType = {
   email: '',

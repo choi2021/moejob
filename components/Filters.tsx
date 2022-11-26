@@ -24,7 +24,6 @@ export default function Filters() {
     <Wrapper>
       <button>All</button>
       <button>Wanted</button>
-      <button>프로그래머스</button>
     </Wrapper>
   );
 }

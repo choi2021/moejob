@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { JobType } from '../types/Jobtype';
+import { JobType } from '../types/jobtype';
 import JobItem from './JobItem';
 
 const Wrapper = styled.ul`
@@ -49,94 +49,6 @@ const initialState = [
     ],
     url: 'https://www.wanted.co.kr/wd/10335',
     img: 'https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F6%2Fnb8ckp9ekuffwjjx__1080_790.png&w=1000&q=75',
-  },
-  {
-    name: '무신사',
-    platform: 'wanted',
-    id: 1666679409806,
-    mainWork: [],
-    qualification: [
-      '[채용 개요]프론트엔드 개발자는 고객과 입점 파트너가 직접 마주하는 UI/UX를 끊임없이 탐구하고 빠르게 개선하여 플랫폼의 성장을 이끌어 냅니다.[직무내용]',
-      '신규 플랫폼 대고객향 웹서비스 개발',
-      '신규 플랫폼 백오피스 개발',
-      '신규 플랫폼 파트너 센터 개발',
-    ],
-    preferential: [
-      '경력 3년 이상의 서비스 개발/운영 경력이 있으신 분',
-      'HTML/CSS/Javascript 생태계에 익숙하신 분',
-      '다양한 UX/UI 개발 경험이 있으신 분',
-      'Vue/React 등을 이용한 서비스 개발/운영 경험',
-      'REST API를 연동한 서비스 개발이 익숙하신 분',
-      'Git의 사용 방법과 브랜치를 이용한 협업이 익숙하신 분',
-    ],
-    url: 'https://www.wanted.co.kr/wd/70238',
-    img: 'https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4248%2Fg2c7y5q9xilzijcy__1080_790.jpg&w=1000&q=75',
-  },
-  {
-    name: '무신사',
-    platform: 'wanted',
-    id: 1666679409806,
-    mainWork: [],
-    qualification: [
-      '[채용 개요]프론트엔드 개발자는 고객과 입점 파트너가 직접 마주하는 UI/UX를 끊임없이 탐구하고 빠르게 개선하여 플랫폼의 성장을 이끌어 냅니다.[직무내용]',
-      '신규 플랫폼 대고객향 웹서비스 개발',
-      '신규 플랫폼 백오피스 개발',
-      '신규 플랫폼 파트너 센터 개발',
-    ],
-    preferential: [
-      '경력 3년 이상의 서비스 개발/운영 경력이 있으신 분',
-      'HTML/CSS/Javascript 생태계에 익숙하신 분',
-      '다양한 UX/UI 개발 경험이 있으신 분',
-      'Vue/React 등을 이용한 서비스 개발/운영 경험',
-      'REST API를 연동한 서비스 개발이 익숙하신 분',
-      'Git의 사용 방법과 브랜치를 이용한 협업이 익숙하신 분',
-    ],
-    url: 'https://www.wanted.co.kr/wd/70238',
-    img: 'https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4248%2Fg2c7y5q9xilzijcy__1080_790.jpg&w=1000&q=75',
-  },
-  {
-    name: '무신사',
-    platform: 'wanted',
-    id: 1666679409806,
-    mainWork: [],
-    qualification: [
-      '[채용 개요]프론트엔드 개발자는 고객과 입점 파트너가 직접 마주하는 UI/UX를 끊임없이 탐구하고 빠르게 개선하여 플랫폼의 성장을 이끌어 냅니다.[직무내용]',
-      '신규 플랫폼 대고객향 웹서비스 개발',
-      '신규 플랫폼 백오피스 개발',
-      '신규 플랫폼 파트너 센터 개발',
-    ],
-    preferential: [
-      '경력 3년 이상의 서비스 개발/운영 경력이 있으신 분',
-      'HTML/CSS/Javascript 생태계에 익숙하신 분',
-      '다양한 UX/UI 개발 경험이 있으신 분',
-      'Vue/React 등을 이용한 서비스 개발/운영 경험',
-      'REST API를 연동한 서비스 개발이 익숙하신 분',
-      'Git의 사용 방법과 브랜치를 이용한 협업이 익숙하신 분',
-    ],
-    url: 'https://www.wanted.co.kr/wd/70238',
-    img: 'https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4248%2Fg2c7y5q9xilzijcy__1080_790.jpg&w=1000&q=75',
-  },
-  {
-    name: '무신사',
-    platform: 'wanted',
-    id: 1666679409806,
-    mainWork: [],
-    qualification: [
-      '[채용 개요]프론트엔드 개발자는 고객과 입점 파트너가 직접 마주하는 UI/UX를 끊임없이 탐구하고 빠르게 개선하여 플랫폼의 성장을 이끌어 냅니다.[직무내용]',
-      '신규 플랫폼 대고객향 웹서비스 개발',
-      '신규 플랫폼 백오피스 개발',
-      '신규 플랫폼 파트너 센터 개발',
-    ],
-    preferential: [
-      '경력 3년 이상의 서비스 개발/운영 경력이 있으신 분',
-      'HTML/CSS/Javascript 생태계에 익숙하신 분',
-      '다양한 UX/UI 개발 경험이 있으신 분',
-      'Vue/React 등을 이용한 서비스 개발/운영 경험',
-      'REST API를 연동한 서비스 개발이 익숙하신 분',
-      'Git의 사용 방법과 브랜치를 이용한 협업이 익숙하신 분',
-    ],
-    url: 'https://www.wanted.co.kr/wd/70238',
-    img: 'https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F4248%2Fg2c7y5q9xilzijcy__1080_790.jpg&w=1000&q=75',
   },
   {
     name: '무신사',

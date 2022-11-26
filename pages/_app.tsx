@@ -9,6 +9,8 @@ import { AuthProvider } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { AccessToken } from '../variables/authVariable';
 import { useRouter } from 'next/router';
+import { DBServiceImpl } from './../service/DbService';
+import { DBProvider } from './../context/DBContext';
 
 const config: ConfigType = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY || '',
@@ -21,7 +23,8 @@ const config: ConfigType = {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const app = initializeApp(config);
-  const AuthService = new AuthServiceImpl(app);
+  const authService = new AuthServiceImpl(app);
+  const dbService = new DBServiceImpl(app);
   const { push } = useRouter();
   useEffect(() => {
     const token = localStorage.getItem(AccessToken);
@@ -33,12 +36,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <>
-      <AuthProvider authService={AuthService}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </AuthProvider>
+      <DBProvider dbService={dbService}>
+        <AuthProvider authService={authService}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </AuthProvider>
+      </DBProvider>
     </>
   );
 }
