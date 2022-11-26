@@ -10,7 +10,7 @@ import {
   signOut,
   UserCredential,
 } from 'firebase/auth';
-import { AuthService, PlatformType } from '../types/Authtypes';
+import { AuthService, OAuthType } from '../types/Authtypes';
 
 export class AuthServiceImpl implements AuthService {
   googleProvider: GoogleAuthProvider;
@@ -30,7 +30,7 @@ export class AuthServiceImpl implements AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  OAuthSignIn(platform: PlatformType): Promise<UserCredential> {
+  OAuthSignIn(platform: OAuthType): Promise<UserCredential> {
     const provider = this[`${platform}Provider`];
     return signInWithPopup(this.auth, provider);
   }

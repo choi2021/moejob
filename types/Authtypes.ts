@@ -11,12 +11,12 @@ export type UserInfoType = {
   passwordValid: boolean;
 };
 
-export type PlatformType = 'google' | 'github';
+export type OAuthType = 'google' | 'github';
 
 export interface AuthService {
   signIn: (email: string, password: string) => Promise<UserCredential>;
   signUp: (email: string, password: string) => Promise<UserCredential>;
-  OAuthSignIn: (platfrom: PlatformType) => Promise<UserCredential>;
+  OAuthSignIn: (platfrom: OAuthType) => Promise<UserCredential>;
   signOut: () => Promise<void>;
 }
 
