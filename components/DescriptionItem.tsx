@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { useDBService } from '../context/DBContext';
-import { ModifiedJobsType, ModifiedJobType } from '../types/jobtype';
+import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { Kinds } from '../variables/jobVariable';

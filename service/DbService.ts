@@ -9,7 +9,7 @@ import {
   get,
 } from 'firebase/database';
 import { DBService } from '../types/DBtypes';
-import { ModifiedJobsType, ModifiedJobType } from '../types/jobtype';
+import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
 import { UserId } from '../variables/authVariable';
 
 export class DBServiceImpl implements DBService {

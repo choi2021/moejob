@@ -1,4 +1,4 @@
-import { JobType, ModifiedJobType } from '../types/jobtype';
+import { JobType, ModifiedJobType } from '../types/Jobtype';
 
 const addCheckToJob = (job: JobType): ModifiedJobType => {
   const preferential = job.preferential.map((item) => ({
@@ -28,6 +28,7 @@ const calculateChecks = (job: ModifiedJobType) => {
     }
     return prev;
   }, 0);
+
   const checkPercentage = (preferentailCount + qualificationCount) / total;
   return { ...job, checkPercentage };
 };

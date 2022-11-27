@@ -10,7 +10,6 @@ const Wrapper = styled.section`
 
 const Layout = styled.main`
   flex: 1;
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

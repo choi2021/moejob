@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { ModifiedJobType } from '../types/jobtype';
+import { ModifiedJobType } from '../types/Jobtype';
 import { MdRemove } from 'react-icons/md';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDBService } from '../context/DBContext';
@@ -12,7 +12,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: 20rem;
   max-width: 200px;
-  margin: 0 1rem;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -46,6 +45,7 @@ const Box = styled.div`
 
 const Img = styled(Image)`
   width: 100%;
+  height: auto;
 `;
 
 const DeleteBtn = styled.button`
@@ -89,7 +89,7 @@ export default function JobItem({ job }: { job: ModifiedJobType }) {
   const handleDelete = () => {
     mutate(job);
   };
-  const over50Percent = checkPercentage > 0.5;
+  const over50Percent = checkPercentage >= 0.5;
 
   return (
     <Wrapper>

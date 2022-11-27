@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { JobType } from '../types/jobtype';
+import { JobType } from '../types/Jobtype';
 
 type InitialStateType = {
   jobs: JobType[];

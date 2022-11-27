@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CheckedDescriptionType } from '../types/jobtype';
+import { CheckedDescriptionType } from '../types/Jobtype';
 import { Kinds } from '../variables/jobVariable';
 import DescriptionItem from './DescriptionItem';
 
@@ -10,6 +10,7 @@ interface DescriptionListProps {
 }
 
 const List = styled.ul`
+  width: 100%;
   padding: 1rem;
   h3 {
     margin-bottom: 0.5rem;

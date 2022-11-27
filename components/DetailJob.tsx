@@ -4,26 +4,29 @@ import styled from 'styled-components';
 import DescriptionList from './DescriptionList';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { ModifiedJobsType } from '../types/jobtype';
+import { ModifiedJobsType } from '../types/Jobtype';
 import { useDBService } from '../context/DBContext';
 import { Kinds } from '../variables/jobVariable';
 
 const Wrapper = styled.section`
   max-width: 1000px;
+  width: 100%;
   margin-bottom: 2rem;
 `;
 
 const JobImg = styled(Image)`
   flex: 50%;
-  width: 100%;
+  height: auto;
 `;
 
 const TitleBox = styled.div`
   display: flex;
   justify-content: center;
+  flex: 50%;
 `;
 
 const MetaBox = styled.div`
+  flex: 60%;
   padding: 1rem;
   h1 {
     text-align: center;
@@ -109,9 +112,10 @@ export default function DetailJob() {
                     alt="logo"
                     height={100}
                     width={100}
+                    priority
                   />
                   <h3>태그:</h3>
-                  {data.checkPercentage > 0.5 && <div>50%이상</div>}
+                  {data.checkPercentage >= 0.5 && <div>50%이상</div>}
                 </PlatformBox>
               </PlatformAndTagBox>
 

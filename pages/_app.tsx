@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { DBProvider } from './../context/DBContext';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { JobProvider } from '../context/JobContext';
-import { DBServiceImpl } from '../service/DbService';
+import { DBServiceImpl } from '../service/DBService';
 
 const config: ConfigType = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY || '',

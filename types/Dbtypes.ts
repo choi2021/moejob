@@ -1,4 +1,4 @@
-import { ModifiedJobsType, ModifiedJobType } from './jobtype';
+import { ModifiedJobsType, ModifiedJobType } from './Jobtype';
 
 export interface DBService {
   addJob: (job: ModifiedJobType) => Promise<void>;
