@@ -2,14 +2,14 @@ import { FirebaseApp } from 'firebase/app';
 import {
   Database,
   getDatabase,
-  onValue,
   ref,
   set,
-  off,
   remove,
+  child,
+  get,
 } from 'firebase/database';
 import { DBService } from '../types/Dbtypes';
-import { JobType } from '../types/jobtype';
+import { JobType, ModifiedJobType } from '../types/jobtype';
 
 export class DBServiceImpl implements DBService {
   db: Database;
@@ -17,20 +17,30 @@ export class DBServiceImpl implements DBService {
     this.db = getDatabase(this.app);
   }
 
-  addJob(userId: string, job: JobType) {
+  addJob(userId: string, job: ModifiedJobType) {
     return set(ref(this.db, `users/${userId}/jobs/${job.id}`), job);
   }
 
-  getJobs(userId: string) {
-    const dbRef = ref(this.db, `users/${userId}/jobs`);
-    onValue(dbRef, (snapshot) => {
-      const data = snapshot.val();
-      return data;
-    });
-    return () => off(dbRef);
+  updateJob(userId: string, job: ModifiedJobType) {
+    return set(ref(this.db, `users/${userId}/jobs/${job.id}`), job);
   }
 
-  removeJob(userId: string, job: JobType) {
+  getJobs(userId: string): Promise<JobType[]> {
+    const dbRef = ref(this.db);
+    return get(child(dbRef, `users/${userId}/jobs`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          return snapshot.val();
+        } else {
+          return [];
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  removeJob(userId: string, job: ModifiedJobType) {
     return remove(ref(this.db, `users/${userId}/jobs/${job.id}`));
   }
 }

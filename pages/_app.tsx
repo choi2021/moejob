@@ -11,6 +11,8 @@ import { AccessToken } from '../variables/authVariable';
 import { useRouter } from 'next/router';
 import { DBServiceImpl } from './../service/DbService';
 import { DBProvider } from './../context/DBContext';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { JobProvider } from '../context/JobContext';
 
 const config: ConfigType = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY || '',
@@ -20,6 +22,15 @@ const config: ConfigType = {
   appId: process.env.NEXT_PUBLIC_APP_ID || '',
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID || '',
 };
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 3000,
+      cacheTime: 360000,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const app = initializeApp(config);
@@ -34,14 +45,18 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <>
-      <DBProvider dbService={dbService}>
-        <AuthProvider authService={authService}>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </AuthProvider>
-      </DBProvider>
+      <QueryClientProvider client={queryClient}>
+        <DBProvider dbService={dbService}>
+          <AuthProvider authService={authService}>
+            <JobProvider>
+              <ThemeProvider theme={theme}>
+                <GlobalStyle />
+                <Component {...pageProps} />
+              </ThemeProvider>
+            </JobProvider>
+          </AuthProvider>
+        </DBProvider>
+      </QueryClientProvider>
     </>
   );
 }

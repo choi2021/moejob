@@ -60,11 +60,8 @@ const JobAPI = async (req, res) => {
       const job = await crawler.createJob(url);
       res.status(201).json(job);
     } catch (error) {
-      res.status(400).json({});
+      res.status(400).json({ message: '잘못된 url입니다' });
     }
-  } else if (req.method === 'GET') {
-    console.log(req);
-    res.status(200).json(initialState);
   }
 };
 

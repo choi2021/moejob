@@ -1,3 +1,3 @@
 const AccessToken = 'access-token';
-
-export { AccessToken };
+const UserId = 'user-id';
+export { AccessToken, UserId };

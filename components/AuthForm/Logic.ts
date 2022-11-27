@@ -1,6 +1,6 @@
 import { NextRouter } from 'next/router';
 import { ActionType, AuthService, UserInfoType } from '../../types/Authtypes';
-import { AccessToken } from '../../variables/authVariable';
+import { AccessToken, UserId } from '../../variables/authVariable';
 
 export const login = async (
   userInfo: UserInfoType,
@@ -12,8 +12,10 @@ export const login = async (
   const { email, password } = userInfo;
   try {
     const userData = await authService.signIn(email, password);
+    const id = userData.user.uid;
     const token = await userData.user.getIdToken();
     localStorage.setItem(AccessToken, token);
+    localStorage.setItem(UserId, id);
     push('/');
   } catch (error) {
     const loginError = error as { message: string };

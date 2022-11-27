@@ -1,7 +1,7 @@
-import { JobType } from './jobtype';
+import { JobType, ModifiedJobType } from './jobtype';
 
 export interface DBService {
-  addJob: (userId: string, job: JobType) => Promise<void>;
-  getJobs: (userId: string) => () => void;
-  removeJob: (userId: string, job: JobType) => Promise<void>;
+  addJob: (userId: string, job: ModifiedJobType) => Promise<void>;
+  getJobs: (userId: string) => Promise<JobType[]>;
+  removeJob: (userId: string, job: ModifiedJobType) => Promise<void>;
 }
