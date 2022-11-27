@@ -28,9 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { push } = useRouter();
   useEffect(() => {
     const token = localStorage.getItem(AccessToken);
-    if (token) {
-      push('/');
-    } else {
+    if (!token) {
       push('/login');
     }
   }, []);

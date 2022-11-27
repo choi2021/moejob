@@ -53,7 +53,13 @@ export default function JobForm() {
   return (
     <Wrapper>
       <TextBox>
-        <Img src={'/이모티콘.gif'} width="300" height="300" alt="imoticon" />
+        <Img
+          src={'/이모티콘.gif'}
+          width="300"
+          height="300"
+          alt="imoticon"
+          priority
+        />
         <p>취준생 여러분 모두 화이팅입니다!</p>
       </TextBox>
       <Form>
