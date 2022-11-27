@@ -11,12 +11,13 @@ export interface JobType {
   img: string;
 }
 
-type CheckedDescriptionType = {
+export type CheckedDescriptionType = {
   text: string;
   checked: boolean;
 };
 
-export interface ModifiedJobType {
+//상속으로 간단히 해보자
+export type ModifiedJobType = {
   name: string;
   platform: string;
   id: number;
@@ -25,4 +26,9 @@ export interface ModifiedJobType {
   preferential: CheckedDescriptionType[];
   url: string;
   img: string;
-}
+  checkPercentage: number;
+};
+
+export type ModifiedJobsType = {
+  [key: string]: ModifiedJobType;
+};

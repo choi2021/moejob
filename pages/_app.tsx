@@ -9,10 +9,10 @@ import { AuthProvider } from '../context/AuthContext';
 import { useEffect } from 'react';
 import { AccessToken } from '../variables/authVariable';
 import { useRouter } from 'next/router';
-import { DBServiceImpl } from './../service/DbService';
 import { DBProvider } from './../context/DBContext';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { JobProvider } from '../context/JobContext';
+import { DBServiceImpl } from '../service/DbService';
 
 const config: ConfigType = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY || '',

@@ -8,8 +8,8 @@ import {
   child,
   get,
 } from 'firebase/database';
-import { DBService } from '../types/Dbtypes';
-import { JobType, ModifiedJobType } from '../types/jobtype';
+import { DBService } from '../types/DBtypes';
+import { ModifiedJobsType, ModifiedJobType } from '../types/jobtype';
 import { UserId } from '../variables/authVariable';
 
 export class DBServiceImpl implements DBService {
@@ -28,7 +28,7 @@ export class DBServiceImpl implements DBService {
     return set(ref(this.db, `users/${userId}/jobs/${job.id}`), job);
   }
 
-  async getJobs(): Promise<JobType[]> {
+  async getJobs(): Promise<ModifiedJobsType> {
     const userId = localStorage.getItem(UserId);
     const dbRef = ref(this.db);
     return get(child(dbRef, `users/${userId}/jobs`))

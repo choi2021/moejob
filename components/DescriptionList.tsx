@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Titles } from '../variables/jobVariable';
+import { CheckedDescriptionType } from '../types/jobtype';
+import { Kinds } from '../variables/jobVariable';
 import DescriptionItem from './DescriptionItem';
 
 interface DescriptionListProps {
-  list: string[];
-  title: TitleType;
+  list: CheckedDescriptionType[] | string[];
+  kind: string;
 }
 
 const List = styled.ul`
@@ -16,17 +17,32 @@ const List = styled.ul`
   }
 `;
 
-export default function DescriptionList({ list, title }: DescriptionListProps) {
+export default function DescriptionList({ list, kind }: DescriptionListProps) {
   return (
     <List>
-      <h3>{title}:</h3>
-      {list.map((item) => (
-        <DescriptionItem
-          key={item}
-          text={item}
-          isMainJob={title === Titles.MainWork}
-        />
-      ))}
+      <h3>{kind}:</h3>
+      {list.map((item) => {
+        if (typeof item === 'string') {
+          return (
+            <DescriptionItem
+              key={item}
+              kind={kind}
+              text={item}
+              isMainJob={kind === Kinds.MainWork}
+            />
+          );
+        } else {
+          return (
+            <DescriptionItem
+              key={item.text}
+              kind={kind}
+              text={item.text}
+              checked={item.checked}
+              isMainJob={kind === Kinds.MainWork}
+            />
+          );
+        }
+      })}
     </List>
   );
 }

@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { JobType } from '../types/Jobtype';
-
-const Wrapper = styled.div`
+import { ModifiedJobType } from '../types/jobtype';
+import { MdRemove } from 'react-icons/md';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useDBService } from '../context/DBContext';
+import { AxiosError } from 'axios';
+import Link from 'next/link';
+const Wrapper = styled(Link)`
   width: 100%;
   height: 20rem;
   max-width: 200px;
@@ -12,42 +16,30 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: center;
   position: relative;
-<<<<<<< HEAD
-  h1 {
-    margin: 0 1rem;
-  }
-=======
   cursor: pointer;
->>>>>>> 631588b (feat: firebase를 이용해 email/password 회원가입/로그인 기능 추가)
 `;
 
 const Badge = styled.div`
   left: -10px;
   top: -10px;
-  width: 25px;
-  height: 25px;
-  background-color: lightcoral;
+  padding: 0.25rem 0.5rem;
+  background-color: lightblue;
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
   position: absolute;
   line-height: 25px;
-  border-radius: 50%;
-  color: white;
 `;
 
 const Box = styled.div`
   margin-top: 0.5rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   h1 {
-<<<<<<< HEAD
-    margin: 0 1rem;
-  }
-  img {
-    width: 70px;
-=======
-    margin-right: 0.5rem;
     font-weight: bold;
->>>>>>> 631588b (feat: firebase를 이용해 email/password 회원가입/로그인 기능 추가)
+    font-size: 1rem;
   }
 `;
 
@@ -55,12 +47,56 @@ const Img = styled(Image)`
   width: 100%;
 `;
 
-export default function JobItem({ job }: { job: JobType }) {
-  const { name, platform, img } = job;
+const DeleteBtn = styled.button`
+  right: -5px;
+  top: -5px;
+  font-size: 1rem;
+  position: absolute;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  background-color: ${(props) => props.theme.colors.black};
+`;
+
+export default function JobItem({ job }: { job: ModifiedJobType }) {
+  const { name, platform, img, checkPercentage } = job;
+  const queryClient = useQueryClient();
+  const dbService = useDBService();
+  const { mutate } = useMutation(
+    async (job: ModifiedJobType) => {
+      return dbService.removeJob(job);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['jobs']);
+      },
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          const { response } = error;
+          if (response) {
+            console.log(response);
+          }
+        }
+      },
+    }
+  );
+  const handleDelete = () => {
+    mutate(job);
+  };
+  const over50Percent = checkPercentage > 0.5;
+
   return (
-    <Wrapper>
-      <Badge>1</Badge>
-      <Img src={img} alt="job" width="200" height="180" />
+    <Wrapper href={`/jobs/${job.id}`}>
+      <Badge>{over50Percent && '50% 이상'}</Badge>
+      <DeleteBtn onClick={handleDelete}>
+        <MdRemove />
+      </DeleteBtn>
+      <Img src={img} alt="job" width="200" height="180" priority />
       <Box>
         <h1>{name}</h1>
         <h3>{platform}</h3>

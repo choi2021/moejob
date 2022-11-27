@@ -2,14 +2,14 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDBService } from '../context/DBContext';
-import { addCheckToJob } from '../utils/addCheckToJob';
+import { addCheckToJob } from '../utils/setChecks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 
 const Wrapper = styled.section`
   width: 100%;
   height: 20rem;
-  background-color: lightcoral;
+  background-color: ${(props) => props.theme.colors.mainColor};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,12 +22,12 @@ const TextBox = styled.div`
   p {
     margin-left: 0.5rem;
     font-weight: bold;
-    color: white;
+    color: ${(props) => props.theme.colors.white};
   }
 `;
 
 const Form = styled.form`
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.white};
   padding: 1rem 2rem;
   width: 60%;
   text-align: center;
