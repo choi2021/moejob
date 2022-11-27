@@ -84,7 +84,7 @@ export default function JobForm() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl(e.target.value);
+    !isLoading && setUrl(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

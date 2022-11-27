@@ -76,7 +76,7 @@ export default function DetailJob() {
   const dbService = useDBService();
   const { id } = query;
   const jobId = typeof id === 'string' ? id : id?.join() || '';
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ['jobs'],
     () => {
       return dbService.getJobs();
@@ -89,7 +89,6 @@ export default function DetailJob() {
   );
   return (
     <Wrapper>
-      {isLoading && <p>로딩중입니다...</p>}
       {data && (
         <>
           <TitleBox>

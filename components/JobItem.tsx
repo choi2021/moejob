@@ -7,7 +7,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDBService } from '../context/DBContext';
 import { AxiosError } from 'axios';
 import Link from 'next/link';
-const Wrapper = styled(Link)`
+
+const Wrapper = styled.div`
   width: 100%;
   height: 20rem;
   max-width: 200px;
@@ -91,16 +92,18 @@ export default function JobItem({ job }: { job: ModifiedJobType }) {
   const over50Percent = checkPercentage > 0.5;
 
   return (
-    <Wrapper href={`/jobs/${job.id}`}>
-      <Badge>{over50Percent && '50% 이상'}</Badge>
+    <Wrapper>
+      {over50Percent && <Badge>50% 이상</Badge>}
       <DeleteBtn onClick={handleDelete}>
         <MdRemove />
       </DeleteBtn>
-      <Img src={img} alt="job" width="200" height="180" priority />
-      <Box>
-        <h1>{name}</h1>
-        <h3>{platform}</h3>
-      </Box>
+      <Link href={`/jobs/${job.id}`}>
+        <Img src={img} alt="job" width="200" height="180" priority />
+        <Box>
+          <h1>{name}</h1>
+          <h3>{platform}</h3>
+        </Box>
+      </Link>
     </Wrapper>
   );
 }
