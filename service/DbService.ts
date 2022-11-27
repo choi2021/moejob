@@ -10,6 +10,7 @@ import {
 } from 'firebase/database';
 import { DBService } from '../types/Dbtypes';
 import { JobType, ModifiedJobType } from '../types/jobtype';
+import { UserId } from '../variables/authVariable';
 
 export class DBServiceImpl implements DBService {
   db: Database;
@@ -17,15 +18,18 @@ export class DBServiceImpl implements DBService {
     this.db = getDatabase(this.app);
   }
 
-  addJob(userId: string, job: ModifiedJobType) {
+  addJob(job: ModifiedJobType) {
+    const userId = localStorage.getItem(UserId);
     return set(ref(this.db, `users/${userId}/jobs/${job.id}`), job);
   }
 
-  updateJob(userId: string, job: ModifiedJobType) {
+  updateJob(job: ModifiedJobType) {
+    const userId = localStorage.getItem(UserId);
     return set(ref(this.db, `users/${userId}/jobs/${job.id}`), job);
   }
 
-  getJobs(userId: string): Promise<JobType[]> {
+  async getJobs(): Promise<JobType[]> {
+    const userId = localStorage.getItem(UserId);
     const dbRef = ref(this.db);
     return get(child(dbRef, `users/${userId}/jobs`))
       .then((snapshot) => {
@@ -40,7 +44,8 @@ export class DBServiceImpl implements DBService {
       });
   }
 
-  removeJob(userId: string, job: ModifiedJobType) {
+  removeJob(job: ModifiedJobType) {
+    const userId = localStorage.getItem(UserId);
     return remove(ref(this.db, `users/${userId}/jobs/${job.id}`));
   }
 }
