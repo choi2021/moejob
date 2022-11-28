@@ -1,6 +1,10 @@
 import { NextRouter } from 'next/router';
-import { ActionType, AuthService, UserInfoType } from '../../types/Authtypes';
-import { AccessToken, UserId } from '../../variables/authVariable';
+import {
+  ActionType,
+  AuthService,
+  UserInfoType,
+} from '../../../types/Authtypes';
+import { AccessToken, UserId } from '../../../variables/authVariable';
 
 export const login = async (
   userInfo: UserInfoType,

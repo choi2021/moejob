@@ -1,7 +1,6 @@
 import React from 'react';
-
-import MainContent from '../components/MainContent';
-import MainLayout from '../components/MainLayout';
+import MainLayout from '../components/job/MainLayout';
+import MainContent from './../components/job/MainContent';
 
 export default function Home() {
   return (

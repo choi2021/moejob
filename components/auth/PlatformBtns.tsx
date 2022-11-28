@@ -2,10 +2,10 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillGithub } from 'react-icons/ai';
 import styled from 'styled-components';
-import { AuthService, OAuthType } from '../types/Authtypes';
-import { useAuthService } from '../context/AuthContext';
+import { AuthService, OAuthType } from '../../types/Authtypes';
 import { useRouter, NextRouter } from 'next/router';
-import { AccessToken } from '../variables/authVariable';
+import { AccessToken } from '../../variables/authVariable';
+import { useAuthService } from '../../context/AuthContext';
 
 const Wrapper = styled.div`
   margin-top: 0.5rem;

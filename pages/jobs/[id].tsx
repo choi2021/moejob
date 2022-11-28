@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
-import DetailJob from '../../components/DetailJob';
-import JobList from '../../components/JobList';
-import Layout from '../../components/MainLayout';
 import { useDBService } from '../../context/DBContext';
 import { useQuery } from '@tanstack/react-query';
 import { ModifiedJobsType } from '../../types/Jobtype';
 
 import NotFound from '../../components/NotFound';
+import DetailJob from '../../components/job/DetailJob';
+import JobList from '../../components/job/JobList';
+import MainLayout from '../../components/job/MainLayout';
 
 const JobListBox = styled.section`
   max-width: 1000px;
@@ -31,10 +31,11 @@ export default function Index() {
       },
     }
   );
-  if (isLoading) <p>로딩중입니다...</p>;
+
   return (
-    <Layout>
-      {!data && <NotFound />}
+    <MainLayout>
+      {isLoading && <p>로딩중입니다...</p>}
+      {!isLoading && !data && <NotFound />}
       {data && (
         <>
           <DetailJob />
@@ -43,6 +44,6 @@ export default function Index() {
           </JobListBox>
         </>
       )}
-    </Layout>
+    </MainLayout>
   );
 }

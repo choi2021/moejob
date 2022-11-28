@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CheckedDescriptionType } from '../types/Jobtype';
-import { Kinds } from '../variables/jobVariable';
 import DescriptionItem from './DescriptionItem';
+import { Kinds } from './../../variables/jobVariable';
+import { CheckedDescriptionType } from '../../types/Jobtype';
 
 interface DescriptionListProps {
   list: CheckedDescriptionType[] | string[];

@@ -1,8 +1,8 @@
 import React, { useReducer, useState } from 'react';
 import AuthInput from '../AuthInput';
-import { UserInfoType } from '../../types/Authtypes';
+import { UserInfoType } from '../../../types/Authtypes';
 import styled from 'styled-components';
-import { useAuthService } from '../../context/AuthContext';
+import { useAuthService } from '../../../context/AuthContext';
 import { useRouter } from 'next/router';
 import ErrorMessage from '../ErrorMessage';
 import { authReducer, login, register } from './Logic';

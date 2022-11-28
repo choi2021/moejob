@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { ModifiedJobType } from '../types/Jobtype';
 import { MdRemove } from 'react-icons/md';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useDBService } from '../context/DBContext';
 import { AxiosError } from 'axios';
 import Link from 'next/link';
+import { ModifiedJobType } from '../../types/Jobtype';
+import { useDBService } from '../../context/DBContext';
 
 const Wrapper = styled.div`
   width: 100%;

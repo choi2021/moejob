@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDBService } from '../context/DBContext';
 import JobItem from './JobItem';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { ModifiedJobsType } from '../types/Jobtype';
+import { ModifiedJobsType } from '../../types/Jobtype';
+import { useDBService } from '../../context/DBContext';
 
 const Wrapper = styled.ul`
   width: 100%;

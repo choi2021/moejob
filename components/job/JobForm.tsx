@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDBService } from '../context/DBContext';
-import { addCheckToJob } from '../utils/setChecks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
+import { useDBService } from '../../context/DBContext';
+import { addCheckToJob } from '../../utils/setChecks';
 
 const Wrapper = styled.section`
   width: 100%;

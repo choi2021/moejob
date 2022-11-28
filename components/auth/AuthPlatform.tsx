@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import PlatformBtns from './PlatformBtns';
 
 const Wrapper = styled.div`

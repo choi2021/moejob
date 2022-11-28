@@ -1,7 +1,7 @@
 import React from 'react';
-import MainLayout from '../components/MainLayout';
 import { TbError404 } from 'react-icons/tb';
 import styled from 'styled-components';
+import MainLayout from '../components/job/MainLayout';
 
 const NotfoundIcon = styled(TbError404)`
   width: 200px;

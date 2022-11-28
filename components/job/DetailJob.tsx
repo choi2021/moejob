@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import DescriptionList from './DescriptionList';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { ModifiedJobsType } from '../types/Jobtype';
-import { useDBService } from '../context/DBContext';
-import { Kinds } from '../variables/jobVariable';
+import { useDBService } from '../../context/DBContext';
+import { ModifiedJobsType } from '../../types/Jobtype';
+import { Kinds } from '../../variables/jobVariable';
 
 const Wrapper = styled.section`
   max-width: 1000px;
