@@ -24,7 +24,7 @@ export default class Crawler {
 
   async createJob(url: string) {
     if (!this.checkUrl(url)) {
-      throw new Error('잘못된 URL입니다.');
+      throw new Error('url 에러');
     }
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -52,6 +52,9 @@ export default class Crawler {
     });
 
     const titleList = $('.JobDescription_JobDescription__VWfcb > h6');
+    if (titleList.length === 0) {
+      throw new Error('Content 에러');
+    }
     const contentList = $(
       '.JobDescription_JobDescription__VWfcb > h6+p > span'
     );

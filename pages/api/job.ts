@@ -11,7 +11,8 @@ const JobAPI = async (req: NextApiRequest, res: NextApiResponse) => {
       const job = await crawler.createJob(url);
       res.status(201).json(job);
     } catch (error) {
-      res.status(400).json({ message: '잘못된 url입니다' });
+      const Err = error as { message: string };
+      res.status(400).json({ message: Err?.message });
     }
   } else {
     res.status(404).json({ message: '잘못된 접근입니다' });

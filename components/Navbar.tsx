@@ -8,8 +8,11 @@ import { AccessToken } from '../variables/authVariable';
 const Wrapper = styled.nav`
   width: 100%;
   position: fixed;
+  top: 0;
   background-color: ${(props) => props.theme.colors.white};
+  height: 3rem;
   border-bottom: gray 1px solid;
+  z-index: 800;
 `;
 
 const Layout = styled.nav`

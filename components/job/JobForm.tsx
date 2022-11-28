@@ -65,7 +65,6 @@ export default function JobForm() {
   const [url, setUrl] = useState('');
   const dbService = useDBService();
   const [message, setMessage] = useState(initailMessage);
-  console.info(process.env.NEXT_PUBLIC_HOST);
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
     async (url: string) => {

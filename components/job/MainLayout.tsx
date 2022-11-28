@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Navbar from '../Navbar';
 
 const Wrapper = styled.section`
+  padding-top: 3rem;
+  margin: auto;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -12,7 +14,6 @@ const Layout = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
