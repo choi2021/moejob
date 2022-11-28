@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import Crawler from '../../service/CrawlerService';
+import Crawler from './service/CrawlerService';
 
 const crawler = new Crawler();
 const POST = 'POST';

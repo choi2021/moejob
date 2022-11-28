@@ -19,7 +19,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "service/CrawlerService.ts"
+    "pages/api/service/CrawlerService.ts"
   ],
   "exclude": ["node_modules"]
 }
