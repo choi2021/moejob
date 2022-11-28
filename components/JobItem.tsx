@@ -10,11 +10,11 @@ import Link from 'next/link';
 
 const Wrapper = styled.div`
   width: 100%;
+  margin: auto;
   height: 20rem;
-  max-width: 200px;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  align-items: center;
   position: relative;
   cursor: pointer;
 `;
@@ -26,9 +26,13 @@ const Badge = styled.div`
   background-color: lightblue;
   margin-right: 0.5rem;
   font-size: 0.8rem;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   position: absolute;
   line-height: 25px;
+  @media screen and (max-width: 700px) {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.25rem;
+  }
 `;
 
 const Box = styled.div`

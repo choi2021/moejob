@@ -8,9 +8,14 @@ import { ModifiedJobsType } from '../types/Jobtype';
 
 const Wrapper = styled.ul`
   width: 100%;
+  padding: 0 1rem;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 10px 20px;
+  @media screen and (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default function JobList() {

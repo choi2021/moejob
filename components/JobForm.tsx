@@ -34,12 +34,23 @@ const Form = styled.form`
   border-radius: 2rem;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 700px) {
+    width: 80%;
+  }
   input {
+    padding: 0.5rem;
     background-color: transparent;
     border: none;
     flex: 80%;
     outline: none;
     text-align: center;
+    &::placeholder {
+      font-size: 0.8rem;
+    }
+  }
+  button {
+    flex: 20%;
+    font-size: 0.8rem;
   }
 `;
 
@@ -48,7 +59,7 @@ const Img = styled(Image)`
   height: 10rem;
 `;
 
-const initailMessage = '원하는 채용공고의 url을 알려주세요😁';
+const initailMessage = '채용공고의 url을 알려주세요😁';
 
 export default function JobForm() {
   const [url, setUrl] = useState('');

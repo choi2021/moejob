@@ -17,12 +17,18 @@ const Wrapper = styled.section`
 const JobImg = styled(Image)`
   flex: 50%;
   height: auto;
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 const TitleBox = styled.div`
   display: flex;
   justify-content: center;
   flex: 50%;
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 const MetaBox = styled.div`
@@ -72,6 +78,9 @@ const PlatformAndTagBox = styled.div`
 const DescriptionBox = styled.div`
   display: flex;
   margin-top: 1rem;
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 export default function DetailJob() {

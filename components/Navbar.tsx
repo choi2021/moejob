@@ -6,6 +6,9 @@ import { useAuthService } from '../context/AuthContext';
 import { AccessToken } from '../variables/authVariable';
 
 const Wrapper = styled.nav`
+  width: 100%;
+  position: fixed;
+  background-color: ${(props) => props.theme.colors.white};
   border-bottom: gray 1px solid;
 `;
 
