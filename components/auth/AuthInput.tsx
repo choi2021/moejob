@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ActionType } from '../types/Authtypes';
+import { ActionType } from '../../types/Authtypes';
 
 interface AuthInputProps {
   placeholder: string;

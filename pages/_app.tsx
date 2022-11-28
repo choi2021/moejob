@@ -37,6 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const authService = new AuthServiceImpl(app);
   const dbService = new DBServiceImpl(app);
   const { push } = useRouter();
+
   useEffect(() => {
     const token = localStorage.getItem(AccessToken);
     if (!token) {

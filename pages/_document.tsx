@@ -40,13 +40,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <title>모으잡</title>
-          <meta
-            name="description"
-            content="채용공고를 모을 수 있는 모으잡입니다"
-          />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
