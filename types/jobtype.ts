@@ -3,7 +3,7 @@ type DescriptionType = string[];
 export interface JobType {
   name: string;
   platform: string;
-  id: number;
+  id: string;
   mainWork: DescriptionType;
   qualification: DescriptionType;
   preferential: DescriptionType;
@@ -20,7 +20,7 @@ export type CheckedDescriptionType = {
 export type ModifiedJobType = {
   name: string;
   platform: string;
-  id: number;
+  id: string;
   mainWork: DescriptionType;
   qualification: CheckedDescriptionType[];
   preferential: CheckedDescriptionType[];

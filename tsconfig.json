@@ -19,7 +19,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "service/CrawlerService.js"
+    "service/CrawlerService.ts"
   ],
   "exclude": ["node_modules"]
 }

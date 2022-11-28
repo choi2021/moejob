@@ -22,7 +22,7 @@ export default function JobList() {
     () => dbService.getJobs(),
     {
       select: (data: ModifiedJobsType) => {
-        return Object.values(data).filter((item) => item.id.toString() !== id);
+        return Object.values(data).filter((item) => item.id !== id);
       },
     }
   );

@@ -72,7 +72,8 @@ export default function JobForm() {
         if (error instanceof AxiosError) {
           const { response } = error;
           if (response) {
-            setMessage(response?.statusText);
+            setUrl('');
+            setMessage(response?.data.message);
           }
         }
       },
