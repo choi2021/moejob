@@ -41,13 +41,10 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link
-            href='https://fonts.googleapis.com/css2?family=Cabin&display=optional'
-            rel='stylesheet'
-          />
-          <link
-            href='https://fonts.googleapis.com/css2?family=Raleway&display=optional'
-            rel='stylesheet'
+          <title>모으잡</title>
+          <meta
+            name="description"
+            content="채용공고를 모을 수 있는 모으잡입니다"
           />
         </Head>
         <body>

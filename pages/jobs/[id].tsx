@@ -9,6 +9,7 @@ import NotFound from '../../components/NotFound';
 import DetailJob from '../../components/job/DetailJob';
 import JobList from '../../components/job/JobList';
 import MainLayout from '../../components/job/MainLayout';
+import SEO from '../../components/SEO';
 
 const JobListBox = styled.section`
   max-width: 1000px;
@@ -34,6 +35,7 @@ export default function Index() {
 
   return (
     <MainLayout>
+      <SEO title={data ? `상세페이지 | ${data.name}` : '상세 페이지'} />
       {isLoading && <p>로딩중입니다...</p>}
       {!isLoading && !data && <NotFound />}
       {data && (

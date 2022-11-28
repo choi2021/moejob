@@ -68,9 +68,12 @@ export default function JobForm() {
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
     async (url: string) => {
-      const { data } = await axios.post('http://localhost:3000/api/job', {
-        url,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_HOST}/api/job`,
+        {
+          url,
+        }
+      );
       const job = addCheckToJob(data);
       dbService.addJob(job);
       resetForm();

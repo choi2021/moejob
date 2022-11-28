@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
+import SEO from '../SEO';
 import AuthForm from './AuthForm/AuthForm';
 import AuthPlatform from './AuthPlatform';
 
@@ -69,6 +70,7 @@ export default function AuthLayout() {
   const url = isLogin ? '/register' : '/login';
   return (
     <Wrapper>
+      <SEO title={isLogin ? '로그인' : '회원가입'} />
       <Layout>
         <Header>
           <h1>모으잡</h1>
