@@ -13,6 +13,8 @@ const JobAPI = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (error) {
       res.status(400).json({ message: '잘못된 url입니다' });
     }
+  } else {
+    res.status(404).json({ message: '잘못된 접근입니다' });
   }
 };
 

@@ -17,6 +17,9 @@ const Wrapper = styled.div`
   align-items: center;
   position: relative;
   cursor: pointer;
+  a {
+    width: 100%;
+  }
 `;
 
 const Badge = styled.div`
