@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
-import puppeteer from 'puppeteer';
 import { JobType } from '../types/Jobtype';
-import Chromium from 'chrome-aws-lambda';
+import Chrome from 'chrome-aws-lambda';
+import puppeteer from 'puppeteer';
 type TargetType = {
   [key: number]: 'mainWork' | 'qualification' | 'preferential';
 };
@@ -27,8 +27,11 @@ export default class Crawler {
       throw new Error('url 에러');
     }
     const browser = await puppeteer.launch({
-      args: [...Chromium.args],
-      executablePath: await Chromium.executablePath,
+      args: [...Chrome.args, '--hide-scrollbars', '--disable-web-security'],
+      defaultViewport: Chrome.defaultViewport,
+      executablePath: await Chrome.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
     await page.goto(url);
