@@ -9,8 +9,8 @@ type TargetType = {
 const MAINWORK = '주요업무';
 const QUALIFICATION = '자격요건';
 const PREFERENTIAL = '우대사항';
-const DOT_BASE = '• ';
-const HYPHEN_BASE = '- ';
+const DOT_BASE = '•';
+const HYPHEN_BASE = '-';
 
 const DotRegex = /(?<=• )(.*?)(?=<br>)/gm;
 
