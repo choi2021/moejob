@@ -52,7 +52,6 @@ const Box = styled.div`
 
 const Img = styled(Image)`
   width: 100%;
-  height: auto;
 `;
 
 const DeleteBtn = styled.button`

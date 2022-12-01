@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useDBService } from '../../context/DBContext';
 import { ModifiedJobsType } from '../../types/Jobtype';
 import { Kinds } from '../../variables/jobVariable';
+import Link from 'next/link';
 
 const Wrapper = styled.section`
   max-width: 1000px;
@@ -32,6 +33,9 @@ const TitleBox = styled.div`
 `;
 
 const MetaBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex: 60%;
   padding: 1rem;
   h1 {
@@ -39,10 +43,16 @@ const MetaBox = styled.div`
     font-size: 1.6rem;
     font-weight: bold;
     color: black;
+    margin: 1rem;
   }
 `;
 
-const PlatformBox = styled.div`
+const LinkBox = styled(Link)`
+  font-size: 1rem;
+  font-weight: bold;
+`;
+
+const DetailBox = styled.div`
   margin-top: 1rem;
   display: flex;
   justify-content: center;
@@ -67,12 +77,6 @@ const PlatformBox = styled.div`
     font-size: 0.8rem;
     border-radius: 1rem;
   }
-`;
-
-const PlatformAndTagBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const DescriptionBox = styled.div`
@@ -113,20 +117,19 @@ export default function DetailJob() {
             />
             <MetaBox>
               <h1>{data?.name}</h1>
-              <PlatformAndTagBox>
-                <PlatformBox>
-                  <h3>플랫폼:</h3>
-                  <Image
-                    src="/wanted_logo.png"
-                    alt="logo"
-                    height={100}
-                    width={100}
-                    priority
-                  />
-                  <h3>태그:</h3>
-                  {data.checkPercentage >= 0.5 && <div>50%이상</div>}
-                </PlatformBox>
-              </PlatformAndTagBox>
+              <LinkBox href={data.url}>{data.url}</LinkBox>
+              <DetailBox>
+                <h3>플랫폼:</h3>
+                <Image
+                  src="/wanted_logo.png"
+                  alt="logo"
+                  height={100}
+                  width={100}
+                  priority
+                />
+                <h3>태그:</h3>
+                {data.checkPercentage >= 0.5 && <div>50%이상</div>}
+              </DetailBox>
 
               <DescriptionList
                 kind={Kinds.MainWork}
