@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useDBService } from '../../context/DBContext';
 import { addCheckToJob } from '../../utils/setChecks';
+import { checkDuplicated } from '../../utils/checkDuplicated';
 
 const Wrapper = styled.section`
   width: 100%;
@@ -53,8 +54,9 @@ const Form = styled.form<{ message: boolean }>`
     outline: none;
     text-align: center;
     &::placeholder {
-      font-size: 0.8rem;
-      color: ${(props) => (props.message ? 'red' : 'inherit')};
+      font-size: 0.9rem;
+      color: ${(props) =>
+        props.message ? props.theme.colors.mainColor : 'inherit'};
     }
   }
   button {
@@ -78,8 +80,9 @@ const initailMessage = '채용공고의 url을 알려주세요😁';
 export default function JobForm() {
   const [url, setUrl] = useState('');
   const dbService = useDBService();
-  const [message, setMessage] = useState(initailMessage);
+  const [message, setMessage] = useState('');
   const queryClient = useQueryClient();
+  const { data: jobs } = useQuery(['jobs'], () => dbService.getJobs());
   const { mutate, isLoading } = useMutation(
     async (url: string) => {
       const { data } = await axios.post(
@@ -120,6 +123,12 @@ export default function JobForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!url) {
+      return;
+    }
+
+    if (jobs && !checkDuplicated(url, jobs)) {
+      setUrl('');
+      setMessage('이미 존재하는 공고입니다.');
       return;
     }
     mutate(url);
