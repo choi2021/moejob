@@ -28,3 +28,15 @@ export type ConfigType = {
   appId: string;
   measurementId: string;
 };
+
+type ErrorDetail = {
+  message: string;
+  domain: string;
+  reason: string;
+};
+
+export type ErrorType = {
+  code: number;
+  errors: ErrorDetail[];
+  message: string;
+};

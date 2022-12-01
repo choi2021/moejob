@@ -2,9 +2,11 @@ import { NextRouter } from 'next/router';
 import {
   ActionType,
   AuthService,
+  ErrorType,
   UserInfoType,
 } from '../../../types/Authtypes';
 import { AccessToken, UserId } from '../../../variables/authVariable';
+import HTTPError from './../../../network/httpError';
 
 export const login = async (
   userInfo: UserInfoType,
@@ -22,8 +24,11 @@ export const login = async (
     localStorage.setItem(UserId, id);
     push('/');
   } catch (error) {
-    const loginError = error as { message: string };
-    setMessage(loginError?.message);
+    if (error) {
+      const loginError = error as ErrorType;
+      const customError = new HTTPError(loginError.code, loginError.message);
+      setMessage(customError.signInMessage);
+    }
   }
 };
 
@@ -39,8 +44,12 @@ export const register = async (
     await authService.signUp(email, password);
     push('/login');
   } catch (error) {
-    const registerError = error as { message: string };
-    setMessage(registerError?.message);
+    const registerError = error as ErrorType;
+    const customError = new HTTPError(
+      registerError.code,
+      registerError.message
+    );
+    setMessage(customError.signUpMessage);
   }
 };
 
