@@ -25,82 +25,86 @@ export default class Crawler {
 
   async createJob(url: string) {
     if (!this.checkUrl(url)) {
-      throw new Error('url 에러');
+      throw new Error('원티드 채용공고의 url 전체를 알려주세요!');
     }
-    const browser = await puppeteer.launch({
-      args: [...Chrome.args, '--hide-scrollbars', '--disable-web-security'],
-      defaultViewport: Chrome.defaultViewport,
-      executablePath: await Chrome.executablePath,
-      headless: true,
-      ignoreHTTPSErrors: true,
-    });
-    const page = await browser.newPage();
-    await page.goto(url);
+    try {
+      const browser = await puppeteer.launch({
+        args: [...Chrome.args, '--hide-scrollbars', '--disable-web-security'],
+        defaultViewport: Chrome.defaultViewport,
+        executablePath: await Chrome.executablePath,
+        headless: true,
+        ignoreHTTPSErrors: true,
+      });
+      const page = await browser.newPage();
+      await page.goto(url);
 
-    const content = await page.content();
-    const $ = cheerio.load(content);
-    const imgLists = $('img');
-    const name = $('h6');
-    const result: JobType = {
-      name: $(name[0]).text(),
-      platform: 'wanted',
-      id: Date.now().toString(),
-      mainWork: [],
-      qualification: [],
-      preferential: [],
-      url,
-      img: '',
-    };
+      const content = await page.content();
+      const $ = cheerio.load(content);
+      const imgLists = $('img');
+      const name = $('h6');
+      const result: JobType = {
+        name: $(name[0]).text(),
+        platform: 'wanted',
+        id: Date.now().toString(),
+        mainWork: [],
+        qualification: [],
+        preferential: [],
+        url,
+        img: '',
+      };
 
-    imgLists.each((idx, node) => {
-      if (idx === 1) {
-        result.img = $(node).attr('src') || '';
+      imgLists.each((idx, node) => {
+        if (idx === 1) {
+          result.img = $(node).attr('src') || '';
+        }
+      });
+
+      const titleList = $('.JobDescription_JobDescription__VWfcb > h6');
+      if (titleList.length === 0) {
+        throw new Error('Content 에러');
       }
-    });
+      const contentList = $(
+        '.JobDescription_JobDescription__VWfcb > h6+p > span'
+      );
 
-    const titleList = $('.JobDescription_JobDescription__VWfcb > h6');
-    if (titleList.length === 0) {
-      throw new Error('Content 에러');
+      const target: TargetType = {};
+
+      titleList.each((idx, node) => {
+        const text = $(node).text();
+        switch (text) {
+          case MAINWORK:
+            target[idx] = 'mainWork';
+            break;
+          case QUALIFICATION:
+            target[idx] = 'qualification';
+            break;
+          case PREFERENTIAL:
+            target[idx] = 'preferential';
+            break;
+          default:
+        }
+      });
+
+      contentList.each((idx, node) => {
+        if (idx in target) {
+          const html = $(node).html()!;
+          const isDot = !!html.match(DotRegex);
+          const base = isDot ? DOT_BASE : HYPHEN_BASE;
+          const endPoint = html.search('<br><br>');
+          const data = html
+            .slice(0, endPoint)
+            .split(base)
+            .join('')
+            .split('<br>')
+            .filter((item) => !!item);
+          result[target[idx]] = data;
+        }
+      });
+
+      await browser.close();
+      return result;
+    } catch (error) {
+      throw new Error('해당 공고를 찾을 수 없습니다');
     }
-    const contentList = $(
-      '.JobDescription_JobDescription__VWfcb > h6+p > span'
-    );
-
-    const target: TargetType = {};
-
-    titleList.each((idx, node) => {
-      const text = $(node).text();
-      switch (text) {
-        case MAINWORK:
-          target[idx] = 'mainWork';
-          break;
-        case QUALIFICATION:
-          target[idx] = 'qualification';
-          break;
-        case PREFERENTIAL:
-          target[idx] = 'preferential';
-          break;
-        default:
-      }
-    });
-
-    contentList.each((idx, node) => {
-      if (idx in target) {
-        const html = $(node).html()!;
-        const isDot = !!html.match(DotRegex);
-        const base = isDot ? DOT_BASE : HYPHEN_BASE;
-        const endPoint = html.search('<br><br>');
-        const data = html
-          .slice(0, endPoint)
-          .split(base)
-          .join('')
-          .split('<br>')
-          .filter((item) => !!item);
-        result[target[idx]] = data;
-      }
-    });
-
-    await browser.close();
-    return result;
   }
 }

@@ -29,7 +29,7 @@ const TextBox = styled.div`
   }
 `;
 
-const Form = styled.form`
+const Form = styled.form<{ message: boolean }>`
   background-color: ${(props) => props.theme.colors.white};
   padding: 1rem 2rem;
   width: 60%;
@@ -54,6 +54,7 @@ const Form = styled.form`
     text-align: center;
     &::placeholder {
       font-size: 0.8rem;
+      color: ${(props) => (props.message ? 'red' : 'inherit')};
     }
   }
   button {
@@ -94,6 +95,7 @@ export default function JobForm() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['jobs']);
+        setMessage('');
       },
       onError: (error) => {
         if (error instanceof AxiosError) {
@@ -136,12 +138,12 @@ export default function JobForm() {
         {!isLoading && <p>취준생 여러분 모두 화이팅입니다!</p>}
         {isLoading && <p>공고를 불러오는 중입니다...</p>}
       </TextBox>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} message={!!message}>
         <input
           type="text"
           value={url}
           onChange={handleChange}
-          placeholder={message}
+          placeholder={message ? message : initailMessage}
         />
         <button>Send</button>
       </Form>
