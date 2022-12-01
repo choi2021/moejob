@@ -23,6 +23,9 @@ const TextBox = styled.div`
     margin-left: 0.5rem;
     font-weight: bold;
     color: ${(props) => props.theme.colors.white};
+    @media screen and (max-width: 700px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 
@@ -34,9 +37,14 @@ const Form = styled.form`
   border-radius: 2rem;
   display: flex;
   align-items: center;
-  @media screen and (max-width: 700px) {
+  @media screen and (min-width: 400px) and (max-width: 700px) {
     width: 80%;
   }
+
+  @media screen and (max-width: 400px) {
+    width: 90%;
+  }
+
   input {
     padding: 0.5rem;
     background-color: transparent;
@@ -57,6 +65,11 @@ const Form = styled.form`
 const Img = styled(Image)`
   width: 10rem;
   height: 10rem;
+  grid-template-columns: repeat(2, 1fr);
+  @media screen and (max-width: 700px) {
+    width: 7rem;
+    height: 7rem;
+  }
 `;
 
 const initailMessage = '채용공고의 url을 알려주세요😁';

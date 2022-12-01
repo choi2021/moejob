@@ -22,7 +22,7 @@ export default function JobSection() {
   return (
     <Layout>
       <h1>내가 모은 채용공고</h1>
-      <Filters />
+      {/* <Filters /> */}
       <JobList />
     </Layout>
   );

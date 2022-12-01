@@ -18,6 +18,14 @@ const Wrapper = styled.ul`
   }
 `;
 
+const GuideBox = styled.div`
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  @media screen and (max-width: 700px) {
+    font-size: 0.8rem;
+  }
+`;
+
 export default function JobList() {
   const { query } = useRouter();
   const { id } = query;
@@ -31,10 +39,14 @@ export default function JobList() {
       },
     }
   );
-
+  const vacantJobs = jobs?.length === 0;
   if (isLoading) {
-    return <div>채용공고를 불러오는 중입니다...</div>;
+    return <GuideBox>채용공고를 불러오는 중입니다...</GuideBox>;
   }
+  if (vacantJobs) {
+    return <GuideBox>입력창에 url을 입력해 채용공고를 추가해보세요😉</GuideBox>;
+  }
+
   return (
     <Wrapper>
       {jobs && jobs.map((job) => <JobItem key={job.id} job={job} />)}

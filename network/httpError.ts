@@ -11,7 +11,6 @@ export default class HTTPError extends Error {
   }
 
   get signInMessage(): string {
-    console.log(this.message);
     switch (this.message) {
       case FIREBASE_AUTH_ERROR.USER_NOT_FOUND:
         this.errorMessage = '이메일을 찾을 수 없습니다';
@@ -26,7 +25,6 @@ export default class HTTPError extends Error {
   }
 
   get signUpMessage(): string {
-    console.log(this.message);
     switch (this.message) {
       case FIREBASE_AUTH_ERROR.EMAIL_EXISTS:
         this.errorMessage = '이미 존재하는 이메일입니다';
