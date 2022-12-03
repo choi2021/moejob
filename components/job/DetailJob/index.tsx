@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useDBService } from '../../../context/DBContext';
 import { ModifiedJobsType } from '../../../types/Jobtype';
-import { Kinds } from '../../../variables/jobVariable';
 import DetailHeader from '../DetailHeader';
 import S from './styles';
+import { KINDS } from '../../../variables/jobVariable';
 
 export default function DetailJob() {
   const { query } = useRouter();
@@ -38,11 +38,11 @@ export default function DetailJob() {
           />
           <S.DescriptionBox>
             <DescriptionList
-              kind={Kinds.qualification}
+              kind={KINDS.QUALIFICATION}
               list={data.qualification}
             />
             <DescriptionList
-              kind={Kinds.preferential}
+              kind={KINDS.QUALIFICATION}
               list={data.preferential}
             />
           </S.DescriptionBox>

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { DescriptionType } from '../../../types/Jobtype';
-import { Kinds } from '../../../variables/jobVariable';
+import { KINDS } from '../../../variables/jobVariable';
 import DescriptionList from '../DescriptionList';
 import { S } from './styles';
 
@@ -10,7 +10,7 @@ interface DetailHeaderProps {
   name: string;
   url: string;
   checkPercentage: number;
-  mainWork: DescriptionType;
+  mainWork: DescriptionType[];
 }
 
 export default function DetailHeader({
@@ -44,7 +44,7 @@ export default function DetailHeader({
           <h3>태그:</h3>
           {checkPercentage >= 0.5 && <div>50%이상</div>}
         </S.InfoBox>
-        <DescriptionList kind={Kinds.MainWork} list={mainWork} />
+        <DescriptionList kind={KINDS.MAINWORK} list={mainWork} />
       </S.MetaBox>
     </S.Layout>
   );

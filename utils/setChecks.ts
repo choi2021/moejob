@@ -1,6 +1,9 @@
 import { JobType, ModifiedJobType } from '../types/Jobtype';
 
-const addCheckToJob = (job: JobType): ModifiedJobType => {
+const modifyJob = (job: JobType): ModifiedJobType => {
+  const mainWork = job.mainWork.map((item) => ({
+    text: item,
+  }));
   const preferential = job.preferential.map((item) => ({
     text: item,
     checked: false,
@@ -10,27 +13,22 @@ const addCheckToJob = (job: JobType): ModifiedJobType => {
     checked: false,
   }));
   const checkPercentage = 0;
-  return { ...job, preferential, qualification, checkPercentage };
+  return { ...job, mainWork, preferential, qualification, checkPercentage };
 };
 
 const calculateChecks = (job: ModifiedJobType) => {
   const { preferential, qualification } = job;
-  const total = preferential.length + qualification.length;
-  const preferentailCount = preferential.reduce((prev, curr) => {
-    if (curr.checked) {
-      return prev + 1;
-    }
-    return prev;
-  }, 0);
-  const qualificationCount = qualification.reduce((prev, curr) => {
+  const totalArr = [...preferential, ...qualification];
+  const sum = totalArr.reduce((prev, curr) => {
     if (curr.checked) {
       return prev + 1;
     }
     return prev;
   }, 0);
 
-  const checkPercentage = (preferentailCount + qualificationCount) / total;
+  const checkPercentage = sum / totalArr.length;
+  console.log(sum);
   return { ...job, checkPercentage };
 };
 
-export { addCheckToJob, calculateChecks };
+export { modifyJob, calculateChecks };

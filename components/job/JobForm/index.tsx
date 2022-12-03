@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useDBService } from '../../../context/DBContext';
-import { addCheckToJob } from '../../../utils/setChecks';
 import { checkDuplicated } from '../../../utils/checkDuplicated';
 import S from './styles';
+import { modifyJob } from '../../../utils/setChecks';
 
 const initailMessage = '채용공고의 url을 알려주세요😁';
 
@@ -22,7 +22,7 @@ export default function JobForm() {
           url,
         }
       );
-      const job = addCheckToJob(data);
+      const job = modifyJob(data);
       dbService.addJob(job);
       resetForm();
     },
