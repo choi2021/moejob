@@ -1,26 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
-import DescriptionItem from './DescriptionItem';
-import { Kinds } from './../../variables/jobVariable';
-import { CheckedDescriptionType } from '../../types/Jobtype';
+import DescriptionItem from '../DescriptionItem';
+import { Kinds } from '../../../variables/jobVariable';
+import { CheckedDescriptionType } from '../../../types/Jobtype';
+import S from './styles';
 
 interface DescriptionListProps {
   list: CheckedDescriptionType[] | string[];
   kind: string;
 }
 
-const List = styled.ul`
-  width: 100%;
-  padding: 1rem;
-  h3 {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-`;
-
 export default function DescriptionList({ list, kind }: DescriptionListProps) {
   return (
-    <List>
+    <S.Wrapper>
       <h3>{kind}:</h3>
       {list.map((item) => {
         if (typeof item === 'string') {
@@ -44,6 +35,6 @@ export default function DescriptionList({ list, kind }: DescriptionListProps) {
           );
         }
       })}
-    </List>
+    </S.Wrapper>
   );
 }

@@ -6,10 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 import { ModifiedJobsType } from '../../types/Jobtype';
 
 import NotFound from '../../components/NotFound';
-import DetailJob from '../../components/job/DetailJob';
 import JobList from '../../components/job/JobList';
 import MainLayout from '../../components/job/MainLayout';
 import SEO from '../../components/SEO';
+import DetailJob from '../../components/job/DetailJob';
 
 const JobListBox = styled.section`
   max-width: 1000px;

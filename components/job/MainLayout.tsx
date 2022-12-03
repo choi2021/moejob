@@ -8,6 +8,7 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-bottom: 10rem;
 `;
 
 const Layout = styled.main`

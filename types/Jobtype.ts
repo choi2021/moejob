@@ -1,4 +1,4 @@
-type DescriptionType = string[];
+export type DescriptionType = string[];
 
 export interface JobType {
   name: string;

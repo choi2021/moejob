@@ -7,6 +7,7 @@ import { ModifiedJobsType } from '../../types/Jobtype';
 import { useDBService } from '../../context/DBContext';
 
 const Wrapper = styled.ul`
+  padding-bottom: 3rem;
   width: 100%;
   padding: 0 1rem;
   height: 100%;
@@ -19,8 +20,8 @@ const Wrapper = styled.ul`
 `;
 
 const GuideBox = styled.div`
-  margin-top: 1rem;
   font-size: 1.1rem;
+  text-align: center;
   @media screen and (max-width: 700px) {
     font-size: 0.8rem;
   }
