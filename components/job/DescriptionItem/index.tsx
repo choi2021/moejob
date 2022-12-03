@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { useDBService } from '../../../context/DBContext';
-import { ModifiedJobsType, ModifiedJobType } from '../../../types/Jobtype';
+import {
+  DescriptionKindType,
+  ModifiedJobsType,
+  ModifiedJobType,
+} from '../../../types/Jobtype';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { Kinds } from '../../../variables/jobVariable';
 import { calculateChecks } from '../../../utils/setChecks';
 import S from './styles';
+
 interface DescriptionItemProps {
   text: string;
   isMainJob: boolean;
-  kind: string;
+  kind: DescriptionKindType;
   checked?: boolean;
 }
 
@@ -21,6 +25,7 @@ export default function DescriptionItem({
   checked,
   kind,
 }: DescriptionItemProps) {
+  const [isChecked, setIsChecked] = useState(checked);
   const queryClient = useQueryClient();
   const dbService = useDBService();
   const { query } = useRouter();
@@ -57,26 +62,18 @@ export default function DescriptionItem({
   );
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.currentTarget;
-    let modifiedJob;
+    setIsChecked(!isChecked);
     if (job) {
-      if (kind === Kinds.qualification) {
-        const qualification = [...job?.qualification].map((item) => {
+      if (!isMainJob) {
+        const targetList = [...job[kind]].map((item) => {
           if (item.text === name) {
             return { ...item, checked: !item.checked };
           }
           return item;
         });
-        modifiedJob = { ...job, qualification };
-      } else {
-        const preferential = [...job?.preferential].map((item) => {
-          if (item.text === name) {
-            return { ...item, checked: !item.checked };
-          }
-          return item;
-        });
-        modifiedJob = { ...job, preferential };
+        const modifiedJob = { ...job, [kind]: targetList };
+        mutate(calculateChecks(modifiedJob));
       }
-      mutate(calculateChecks(modifiedJob));
     }
   };
   return (
@@ -86,7 +83,7 @@ export default function DescriptionItem({
         <input
           type="checkbox"
           name={text}
-          checked={checked}
+          checked={isChecked}
           onChange={handleChange}
         />
       )}
