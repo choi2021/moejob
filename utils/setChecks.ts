@@ -27,7 +27,6 @@ const calculateChecks = (job: ModifiedJobType) => {
   }, 0);
 
   const checkPercentage = sum / totalArr.length;
-  console.log(sum);
   return { ...job, checkPercentage };
 };
 

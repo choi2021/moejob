@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useGetFilteredJobs } from '../../hooks/useQuery';
 import JobItem from './JobItem';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
-import { ModifiedJobsType } from '../../types/Jobtype';
-import { useDBService } from '../../context/DBContext';
 
 const Wrapper = styled.ul`
   padding-bottom: 3rem;
@@ -28,18 +25,7 @@ const GuideBox = styled.div`
 `;
 
 export default function JobList() {
-  const { query } = useRouter();
-  const { id } = query;
-  const dbService = useDBService();
-  const { data: jobs, isLoading } = useQuery(
-    ['jobs'],
-    () => dbService.getJobs(),
-    {
-      select: (data: ModifiedJobsType) => {
-        return Object.values(data).filter((item) => item.id !== id);
-      },
-    }
-  );
+  const { jobs, isLoading } = useGetFilteredJobs();
   const vacantJobs = jobs?.length === 0;
   if (isLoading) {
     return <GuideBox>채용공고를 불러오는 중입니다...</GuideBox>;

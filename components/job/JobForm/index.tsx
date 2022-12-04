@@ -1,52 +1,15 @@
 import React, { useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
-import { useDBService } from '../../../context/DBContext';
+import { useGetJobs, useCreateJob } from '../../../hooks/useQuery';
 import { checkDuplicated } from '../../../utils/checkDuplicated';
 import S from './styles';
-import { modifyJob } from '../../../utils/setChecks';
 
 const initailMessage = '채용공고의 url을 알려주세요😁';
 
 export default function JobForm() {
   const [url, setUrl] = useState('');
-  const dbService = useDBService();
   const [message, setMessage] = useState('');
-  const queryClient = useQueryClient();
-  const { data: jobs } = useQuery(['jobs'], () => dbService.getJobs());
-  const { mutate, isLoading } = useMutation(
-    async (url: string) => {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_HOST}/api/job`,
-        {
-          url,
-        }
-      );
-      const job = modifyJob(data);
-      dbService.addJob(job);
-      resetForm();
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['jobs']);
-        setMessage('');
-      },
-      onError: (error) => {
-        if (error instanceof AxiosError) {
-          const { response } = error;
-          if (response) {
-            setUrl('');
-            setMessage(response?.data.message);
-          }
-        }
-      },
-    }
-  );
-  const resetForm = () => {
-    setUrl('');
-    setMessage(initailMessage);
-  };
-
+  const { jobs } = useGetJobs();
+  const { mutate, isLoading } = useCreateJob(setMessage, setUrl);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     !isLoading && setUrl(e.target.value);
   };
@@ -56,7 +19,6 @@ export default function JobForm() {
     if (!url) {
       return;
     }
-
     if (jobs && !checkDuplicated(url, jobs)) {
       setUrl('');
       setMessage('이미 존재하는 공고입니다.');

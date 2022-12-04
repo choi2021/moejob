@@ -1,15 +1,12 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
-import { useDBService } from '../../context/DBContext';
-import { useQuery } from '@tanstack/react-query';
-import { ModifiedJobsType } from '../../types/Jobtype';
 
 import NotFound from '../../components/NotFound';
 import JobList from '../../components/job/JobList';
 import MainLayout from '../../components/job/MainLayout';
 import SEO from '../../components/SEO';
 import DetailJob from '../../components/job/DetailJob';
+import { useGetJobById } from '../../hooks/useQuery';
 
 const JobListBox = styled.section`
   max-width: 1000px;
@@ -17,21 +14,7 @@ const JobListBox = styled.section`
 `;
 
 export default function Index() {
-  const { query } = useRouter();
-  const dbService = useDBService();
-  const { id } = query;
-  const jobId = typeof id === 'string' ? id : id?.join() || '';
-  const { data, isLoading } = useQuery(
-    ['jobs'],
-    () => {
-      return dbService.getJobs();
-    },
-    {
-      select: (data: ModifiedJobsType) => {
-        return data[jobId];
-      },
-    }
-  );
+  const { isLoading, data } = useGetJobById();
 
   return (
     <MainLayout>
@@ -40,7 +23,7 @@ export default function Index() {
       {!isLoading && !data && <NotFound />}
       {data && (
         <>
-          <DetailJob />
+          <DetailJob data={data} />
           <JobListBox>
             <JobList />
           </JobListBox>

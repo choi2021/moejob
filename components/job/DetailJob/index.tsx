@@ -1,30 +1,11 @@
 import React from 'react';
 import DescriptionList from '../DescriptionList';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
-import { useDBService } from '../../../context/DBContext';
-import { ModifiedJobsType } from '../../../types/Jobtype';
+import { ModifiedJobType } from '../../../types/Jobtype';
 import DetailHeader from '../DetailHeader';
 import S from './styles';
 import { KINDS } from '../../../variables/jobVariable';
 
-export default function DetailJob() {
-  const { query } = useRouter();
-  const dbService = useDBService();
-  const { id } = query;
-  const jobId = typeof id === 'string' ? id : id?.join() || '';
-  const { data } = useQuery(
-    ['jobs'],
-    () => {
-      return dbService.getJobs();
-    },
-    {
-      select: (data: ModifiedJobsType) => {
-        return data[jobId];
-      },
-    }
-  );
-
+export default function DetailJob({ data }: { data: ModifiedJobType }) {
   return (
     <S.Wrapper>
       {data && (
@@ -42,7 +23,7 @@ export default function DetailJob() {
               list={data.qualification}
             />
             <DescriptionList
-              kind={KINDS.QUALIFICATION}
+              kind={KINDS.PREFERENTIAL}
               list={data.preferential}
             />
           </S.DescriptionBox>

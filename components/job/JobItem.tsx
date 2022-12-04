@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { MdRemove } from 'react-icons/md';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { ModifiedJobType } from '../../types/Jobtype';
-import { useDBService } from '../../context/DBContext';
+import { useDeleteJob } from '../../hooks/useQuery';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -72,28 +70,9 @@ const DeleteBtn = styled.button`
 
 export default function JobItem({ job }: { job: ModifiedJobType }) {
   const { name, platform, img, checkPercentage } = job;
-  const queryClient = useQueryClient();
-  const dbService = useDBService();
-  const { mutate } = useMutation(
-    async (job: ModifiedJobType) => {
-      return dbService.removeJob(job);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['jobs']);
-      },
-      onError: (error) => {
-        if (error instanceof AxiosError) {
-          const { response } = error;
-          if (response) {
-            console.log(response);
-          }
-        }
-      },
-    }
-  );
+  const onDelete = useDeleteJob();
   const handleDelete = () => {
-    mutate(job);
+    onDelete(job);
   };
   const over50Percent = checkPercentage >= 0.5;
 
