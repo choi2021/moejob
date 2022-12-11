@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useGetFilteredJobs } from '../../hooks/useQuery';
+import { useSpecificJobs } from '../../hooks/useJobs';
 import JobItem from './JobItem';
 
 const Wrapper = styled.ul`
@@ -25,7 +25,8 @@ const GuideBox = styled.div`
 `;
 
 export default function JobList() {
-  const { jobs, isLoading } = useGetFilteredJobs();
+  const { getFilteredJobs } = useSpecificJobs();
+  const { isLoading, data: jobs } = getFilteredJobs;
   const vacantJobs = jobs?.length === 0;
   if (isLoading) {
     return <GuideBox>채용공고를 불러오는 중입니다...</GuideBox>;

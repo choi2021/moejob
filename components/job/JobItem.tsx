@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { MdRemove } from 'react-icons/md';
 import Link from 'next/link';
 import { ModifiedJobType } from '../../types/Jobtype';
-import { useDeleteJob } from '../../hooks/useQuery';
+import { useJobs } from '../../hooks/useJobs';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -70,9 +70,9 @@ const DeleteBtn = styled.button`
 
 export default function JobItem({ job }: { job: ModifiedJobType }) {
   const { name, platform, img, checkPercentage } = job;
-  const onDelete = useDeleteJob();
+  const { deleteJob } = useJobs();
   const handleDelete = () => {
-    onDelete(job);
+    deleteJob.mutate(job);
   };
   const over50Percent = checkPercentage >= 0.5;
 

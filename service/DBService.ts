@@ -18,11 +18,11 @@ export class DBServiceImpl implements DBService {
     this.db = getDatabase(this.app);
   }
 
-  async addJob(job: ModifiedJobType, user: User) {
+  addJob(job: ModifiedJobType, user: User) {
     return set(ref(this.db, `users/${user.uid}/jobs/${job.id}`), job);
   }
 
-  async updateJob(job: ModifiedJobType, user: User) {
+  updateJob(job: ModifiedJobType, user: User) {
     return set(ref(this.db, `users/${user.uid}/jobs/${job.id}`), job);
   }
 
@@ -33,7 +33,7 @@ export class DBServiceImpl implements DBService {
         if (snapshot.exists()) {
           return snapshot.val();
         } else {
-          return [];
+          return {};
         }
       })
       .catch((error) => {
@@ -41,7 +41,7 @@ export class DBServiceImpl implements DBService {
       });
   }
 
-  async removeJob(job: ModifiedJobType, user: User) {
+  removeJob(job: ModifiedJobType, user: User) {
     return remove(ref(this.db, `users/${user.uid}/jobs/${job.id}`));
   }
 }

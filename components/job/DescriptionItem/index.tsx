@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
+import { useJobs, useSpecificJobs } from '../../../hooks/useJobs';
 import { DescriptionKindType } from '../../../types/Jobtype';
 import { calculateChecks } from '../../../utils/setChecks';
 import S from './styles';
-import { useGetJobById, useUpdateJob } from '../../../hooks/useQuery';
 
 interface DescriptionItemProps {
   text: string;
@@ -19,8 +19,9 @@ export default function DescriptionItem({
   kind,
 }: DescriptionItemProps) {
   const [isChecked, setIsChecked] = useState(checked);
-  const onChange = useUpdateJob();
-  const { data: job } = useGetJobById();
+  const { updateJob } = useJobs();
+  const { getJobById } = useSpecificJobs();
+  const { data: job } = getJobById;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.currentTarget;
@@ -33,7 +34,7 @@ export default function DescriptionItem({
       });
       const modifiedJob = { ...job, [kind]: targetList };
 
-      onChange(calculateChecks(modifiedJob));
+      updateJob.mutate(calculateChecks(modifiedJob));
     }
     setIsChecked(!isChecked);
   };

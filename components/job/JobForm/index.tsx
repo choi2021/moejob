@@ -1,5 +1,6 @@
+import { AxiosError } from 'axios';
 import React, { useState } from 'react';
-import { useGetJobs, useCreateJob } from '../../../hooks/useQuery';
+import { useJobs } from '../../../hooks/useJobs';
 import { checkDuplicated } from '../../../utils/checkDuplicated';
 import S from './styles';
 
@@ -8,8 +9,9 @@ const initailMessage = '채용공고의 url을 알려주세요😁';
 export default function JobForm() {
   const [url, setUrl] = useState('');
   const [message, setMessage] = useState('');
-  const { jobs } = useGetJobs();
-  const { mutate, isLoading } = useCreateJob(setMessage, setUrl);
+  const { getJobs, addJob } = useJobs();
+  const { data: jobs } = getJobs;
+  const { mutate, isLoading } = addJob;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     !isLoading && setUrl(e.target.value);
   };
@@ -24,7 +26,22 @@ export default function JobForm() {
       setMessage('이미 존재하는 공고입니다.');
       return;
     }
-    mutate(url);
+    mutate(url, {
+      onSuccess: () => {
+        setMessage('');
+      },
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          const { response } = error;
+          if (response) {
+            setMessage(response.data.message);
+          }
+        }
+      },
+      onSettled: () => {
+        setUrl('');
+      },
+    });
   };
 
   return (

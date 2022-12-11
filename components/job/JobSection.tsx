@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Filters from './Filters';
 import JobList from './JobList';
 
-const Layout = styled.section`
+const Wrapper = styled.section`
   padding-top: 2rem;
   width: 100%;
   height: 100%;
@@ -21,10 +21,10 @@ const Layout = styled.section`
 
 export default function JobSection() {
   return (
-    <Layout>
+    <Wrapper>
       <h1>내가 모은 채용공고</h1>
       {/* <Filters /> */}
       <JobList />
-    </Layout>
+    </Wrapper>
   );
 }

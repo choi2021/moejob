@@ -8,7 +8,6 @@ import { initializeApp } from 'firebase/app';
 import { AuthProvider } from '../context/AuthContext';
 import { DBProvider } from './../context/DBContext';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { JobProvider } from '../context/JobContext';
 import { DBServiceImpl } from '../service/DBService';
 
 const config: ConfigType = {
@@ -38,12 +37,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <DBProvider dbService={dbService}>
           <AuthProvider authService={authService}>
-            <JobProvider>
-              <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                <Component {...pageProps} />
-              </ThemeProvider>
-            </JobProvider>
+            <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              <Component {...pageProps} />
+            </ThemeProvider>
           </AuthProvider>
         </DBProvider>
       </QueryClientProvider>
