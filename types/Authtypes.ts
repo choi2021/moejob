@@ -1,4 +1,5 @@
-import { UserCredential } from 'firebase/auth';
+import { User, UserCredential } from 'firebase/auth';
+import { Dispatch, SetStateAction } from 'react';
 
 export type ActionType =
   | { type: 'SET_EMAIL'; data: string }
@@ -14,10 +15,11 @@ export type UserInfoType = {
 export type OAuthType = 'google' | 'github';
 
 export interface AuthService {
-  signIn: (email: string, password: string) => Promise<UserCredential>;
+  logIn: (email: string, password: string) => Promise<UserCredential>;
   signUp: (email: string, password: string) => Promise<UserCredential>;
   OAuthSignIn: (platfrom: OAuthType) => Promise<UserCredential>;
-  signOut: () => Promise<void>;
+  logOut: () => Promise<void>;
+  onUserStateChanged: (callback: Dispatch<SetStateAction<User | null>>) => void;
 }
 
 export type ConfigType = {

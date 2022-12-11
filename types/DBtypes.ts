@@ -1,8 +1,9 @@
+import { User } from 'firebase/auth';
 import { ModifiedJobsType, ModifiedJobType } from './Jobtype';
 
 export interface DBService {
-  addJob: (job: ModifiedJobType) => Promise<void>;
-  getJobs: () => Promise<ModifiedJobsType>;
-  removeJob: (job: ModifiedJobType) => Promise<void>;
-  updateJob: (job: ModifiedJobType) => Promise<void>;
+  addJob: (job: ModifiedJobType, user: User) => Promise<void>;
+  getJobs: (user: User) => Promise<ModifiedJobsType>;
+  removeJob: (job: ModifiedJobType, user: User) => Promise<void>;
+  updateJob: (job: ModifiedJobType, user: User) => Promise<void>;
 }

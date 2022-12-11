@@ -5,12 +5,15 @@ import {
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  User,
   UserCredential,
 } from 'firebase/auth';
 import { AuthService, OAuthType } from '../types/Authtypes';
+import { Dispatch, SetStateAction } from 'react';
 
 export class AuthServiceImpl implements AuthService {
   googleProvider: GoogleAuthProvider;
@@ -22,7 +25,7 @@ export class AuthServiceImpl implements AuthService {
     this.githubProvider = new GithubAuthProvider();
     this.auth = getAuth(this.app);
   }
-  signIn(email: string, password: string) {
+  logIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
@@ -35,7 +38,11 @@ export class AuthServiceImpl implements AuthService {
     return signInWithPopup(this.auth, provider);
   }
 
-  signOut() {
+  onUserStateChanged(callback: Dispatch<SetStateAction<User | null>>) {
+    return onAuthStateChanged(this.auth, callback);
+  }
+
+  logOut() {
     return signOut(this.auth);
   }
 }

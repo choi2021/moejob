@@ -6,9 +6,6 @@ import { AuthServiceImpl } from '../service/AuthService';
 import { ConfigType } from '../types/Authtypes';
 import { initializeApp } from 'firebase/app';
 import { AuthProvider } from '../context/AuthContext';
-import { useEffect } from 'react';
-import { AccessToken } from '../variables/authVariable';
-import { useRouter } from 'next/router';
 import { DBProvider } from './../context/DBContext';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { JobProvider } from '../context/JobContext';
@@ -36,14 +33,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const app = initializeApp(config);
   const authService = new AuthServiceImpl(app);
   const dbService = new DBServiceImpl(app);
-  const { push } = useRouter();
-
-  useEffect(() => {
-    const token = localStorage.getItem(AccessToken);
-    if (!token) {
-      push('/login');
-    }
-  }, []);
   return (
     <>
       <QueryClientProvider client={queryClient}>

@@ -5,7 +5,6 @@ import {
   ErrorType,
   UserInfoType,
 } from '../../../types/Authtypes';
-import { AccessToken, UserId } from '../../../variables/authVariable';
 import HTTPError from './../../../network/httpError';
 
 export const login = async (
@@ -17,11 +16,7 @@ export const login = async (
   const { push } = router;
   const { email, password } = userInfo;
   try {
-    const userData = await authService.signIn(email, password);
-    const id = userData.user.uid;
-    const token = await userData.user.getIdToken();
-    localStorage.setItem(AccessToken, token);
-    localStorage.setItem(UserId, id);
+    const userData = await authService.logIn(email, password);
     push('/');
   } catch (error) {
     if (error) {

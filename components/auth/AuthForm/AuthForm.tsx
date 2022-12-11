@@ -56,7 +56,7 @@ export default function AuthForm({ isLogin }: AuthFormProps) {
   const [message, setMessage] = useState('');
   const [userInfo, dispatch] = useReducer(authReducer, initialState);
   const isInActive = !userInfo.emailValid || !userInfo.passwordValid;
-  const authService = useAuthService();
+  const { authService } = useAuthService();
   const router = useRouter();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

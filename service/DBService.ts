@@ -1,4 +1,5 @@
 import { FirebaseApp } from 'firebase/app';
+import { User } from 'firebase/auth';
 import {
   Database,
   getDatabase,
@@ -10,7 +11,6 @@ import {
 } from 'firebase/database';
 import { DBService } from '../types/DBtypes';
 import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
-import { UserId } from '../variables/authVariable';
 
 export class DBServiceImpl implements DBService {
   db: Database;
@@ -18,20 +18,17 @@ export class DBServiceImpl implements DBService {
     this.db = getDatabase(this.app);
   }
 
-  addJob(job: ModifiedJobType) {
-    const userId = localStorage.getItem(UserId);
-    return set(ref(this.db, `users/${userId}/jobs/${job.id}`), job);
+  async addJob(job: ModifiedJobType, user: User) {
+    return set(ref(this.db, `users/${user.uid}/jobs/${job.id}`), job);
   }
 
-  updateJob(job: ModifiedJobType) {
-    const userId = localStorage.getItem(UserId);
-    return set(ref(this.db, `users/${userId}/jobs/${job.id}`), job);
+  async updateJob(job: ModifiedJobType, user: User) {
+    return set(ref(this.db, `users/${user.uid}/jobs/${job.id}`), job);
   }
 
-  async getJobs(): Promise<ModifiedJobsType> {
-    const userId = localStorage.getItem(UserId);
+  async getJobs(user: User): Promise<ModifiedJobsType> {
     const dbRef = ref(this.db);
-    return get(child(dbRef, `users/${userId}/jobs`))
+    return get(child(dbRef, `users/${user.uid}/jobs`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           return snapshot.val();
@@ -44,8 +41,7 @@ export class DBServiceImpl implements DBService {
       });
   }
 
-  removeJob(job: ModifiedJobType) {
-    const userId = localStorage.getItem(UserId);
-    return remove(ref(this.db, `users/${userId}/jobs/${job.id}`));
+  async removeJob(job: ModifiedJobType, user: User) {
+    return remove(ref(this.db, `users/${user.uid}/jobs/${job.id}`));
   }
 }

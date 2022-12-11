@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 import { useAuthService } from '../context/AuthContext';
-import { AccessToken } from '../variables/authVariable';
 
 const Wrapper = styled.nav`
   width: 100%;
@@ -44,14 +43,11 @@ const Btns = styled.div`
 
 export default function Navbar() {
   const { push } = useRouter();
-  const authService = useAuthService();
+  const { authService } = useAuthService();
   const onSignOut = () => {
     authService
-      .signOut()
-      .then(() => {
-        localStorage.removeItem(AccessToken);
-        push('/login');
-      })
+      .logOut()
+      .then(() => push('/login'))
       .catch((error) => console.log(error));
   };
   return (

@@ -1,16 +1,32 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import React from 'react';
 import { AuthService } from '../types/Authtypes';
+import { User } from 'firebase/auth';
+import Router, { useRouter } from 'next/router';
 
-interface AuthProviderProps {
+type AuthProviderProps = {
   children: React.ReactNode;
   authService: AuthService;
-}
+};
 
-const AuthContext = createContext<AuthService | null>(null);
+type InitialValue = {
+  authService: AuthService;
+  user: User | null;
+};
+
+const AuthContext = createContext<InitialValue | null>(null);
 export const AuthProvider = ({ children, authService }: AuthProviderProps) => {
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    authService.onUserStateChanged((user) => {
+      setUser(user);
+    });
+  }, []);
+
   return (
-    <AuthContext.Provider value={authService}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, authService }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
