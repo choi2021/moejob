@@ -9,6 +9,7 @@ import { AuthProvider } from '../context/AuthContext';
 import { DBProvider } from './../context/DBContext';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { DBServiceImpl } from '../service/DBService';
+import AuthStateChanged from '../components/AuthStateChanged';
 
 const config: ConfigType = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY || '',
@@ -37,10 +38,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <DBProvider dbService={dbService}>
           <AuthProvider authService={authService}>
-            <ThemeProvider theme={theme}>
-              <GlobalStyle />
-              <Component {...pageProps} />
-            </ThemeProvider>
+            <AuthStateChanged>
+              <ThemeProvider theme={theme}>
+                <GlobalStyle />
+                <Component {...pageProps} />
+              </ThemeProvider>
+            </AuthStateChanged>
           </AuthProvider>
         </DBProvider>
       </QueryClientProvider>

@@ -43,11 +43,14 @@ const Btns = styled.div`
 
 export default function Navbar() {
   const { push } = useRouter();
-  const { authService } = useAuthService();
+  const { authService, setUser } = useAuthService();
   const onSignOut = () => {
     authService
       .logOut()
-      .then(() => push('/login'))
+      .then(() => {
+        push('/login');
+        setUser(null);
+      })
       .catch((error) => console.log(error));
   };
   return (

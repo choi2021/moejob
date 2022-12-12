@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import React from 'react';
 import { AuthService } from '../types/Authtypes';
 import { User } from 'firebase/auth';
-import Router, { useRouter } from 'next/router';
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -12,19 +11,14 @@ type AuthProviderProps = {
 type InitialValue = {
   authService: AuthService;
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
 const AuthContext = createContext<InitialValue | null>(null);
 export const AuthProvider = ({ children, authService }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    authService.onUserStateChanged((user) => {
-      setUser(user);
-    });
-  }, []);
-
   return (
-    <AuthContext.Provider value={{ user, authService }}>
+    <AuthContext.Provider value={{ user, setUser, authService }}>
       {children}
     </AuthContext.Provider>
   );
