@@ -1,16 +1,34 @@
+import { GetServerSideProps } from 'next';
+import { getSession, useSession } from 'next-auth/react';
 import React from 'react';
 import MainLayout from '../components/job/MainLayout';
-import { withProtected } from '../components/ProtectedRoute';
 import SEO from '../components/SEO';
 import MainContent from './../components/job/MainContent';
 
-function Home() {
-  return (
-    <MainLayout>
-      <SEO title={'모으잡'} />
-      <MainContent />
-    </MainLayout>
-  );
+export default function Home() {
+  const { data: session, status } = useSession();
+  console.log(session);
+  if (status === 'authenticated') {
+    return (
+      <MainLayout>
+        <SEO title={'모으잡'} />
+        <MainContent />
+      </MainLayout>
+    );
+  }
 }
 
-export default withProtected(Home);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login',
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+};

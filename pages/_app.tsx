@@ -1,24 +1,15 @@
 import type { AppProps } from 'next/app';
 import GlobalStyle from '../styles/globalStyles';
+import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../styles/theme';
 import { AuthServiceImpl } from '../service/AuthService';
-import { ConfigType } from '../types/Authtypes';
-import { initializeApp } from 'firebase/app';
 import { AuthProvider } from '../context/AuthContext';
 import { DBProvider } from './../context/DBContext';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { DBServiceImpl } from '../service/DBService';
 import AuthStateChanged from '../components/AuthStateChanged';
-
-const config: ConfigType = {
-  apiKey: process.env.NEXT_PUBLIC_API_KEY || '',
-  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN || '',
-  projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '',
-  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET || '',
-  appId: process.env.NEXT_PUBLIC_APP_ID || '',
-  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID || '',
-};
+import { firebaseApp } from '../src/firerbase.config';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,21 +21,22 @@ const queryClient = new QueryClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const app = initializeApp(config);
-  const authService = new AuthServiceImpl(app);
-  const dbService = new DBServiceImpl(app);
+  const authService = new AuthServiceImpl(firebaseApp);
+  const dbService = new DBServiceImpl(firebaseApp);
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <DBProvider dbService={dbService}>
-          <AuthProvider authService={authService}>
-            <AuthStateChanged>
-              <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                <Component {...pageProps} />
-              </ThemeProvider>
-            </AuthStateChanged>
-          </AuthProvider>
+          <SessionProvider>
+            <AuthProvider authService={authService}>
+              <AuthStateChanged>
+                <ThemeProvider theme={theme}>
+                  <GlobalStyle />
+                  <Component {...pageProps} />
+                </ThemeProvider>
+              </AuthStateChanged>
+            </AuthProvider>
+          </SessionProvider>
         </DBProvider>
       </QueryClientProvider>
     </>
