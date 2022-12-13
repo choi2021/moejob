@@ -5,7 +5,6 @@ import { useAuthService } from '../context/AuthContext';
 import { useDBService } from '../context/DBContext';
 import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
 import { modifyJob } from '../utils/setChecks';
-import { useEffect } from 'react';
 
 const JOBS_KEY = 'jobs';
 
@@ -102,9 +101,6 @@ export const useSpecificJobs = () => {
     },
     {
       select: (data: ModifiedJobsType) => {
-        if (!data) {
-          return [];
-        }
         return Object.values(data).filter((item) => item.id !== id);
       },
       onError: (error) => {
@@ -112,9 +108,6 @@ export const useSpecificJobs = () => {
       },
     }
   );
-  useEffect(() => {
-    getFilteredJobs.refetch();
-  }, [user]);
 
   const jobId = typeof id === 'string' ? id : id?.join() || '';
   const getJobById = useQuery(

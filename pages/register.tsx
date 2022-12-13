@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import AuthLayout from '../components/auth/AuthLayout';
+import { withPublic } from '../components/ProtectedRoute';
 
-export default function Register() {
-  const router = useRouter();
-
+function Register() {
   return <AuthLayout />;
 }
+
+export default withPublic(Register);

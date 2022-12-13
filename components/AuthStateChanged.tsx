@@ -17,7 +17,7 @@ export default function AuthStateChanged({
   }, []);
 
   if (loading) {
-    return <h1>로딩 중</h1>;
+    return <></>;
   }
 
   return <>{children}</>;

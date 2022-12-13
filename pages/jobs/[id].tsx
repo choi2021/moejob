@@ -7,13 +7,14 @@ import MainLayout from '../../components/job/MainLayout';
 import SEO from '../../components/SEO';
 import DetailJob from '../../components/job/DetailJob';
 import { useSpecificJobs } from '../../hooks/useJobs';
+import { withProtected } from '../../components/ProtectedRoute';
 
 const JobListBox = styled.section`
   max-width: 1000px;
   width: 100%;
 `;
 
-export default function Index() {
+function Index() {
   const { getJobById } = useSpecificJobs();
   const { isLoading, data } = getJobById;
   return (
@@ -32,3 +33,5 @@ export default function Index() {
     </MainLayout>
   );
 }
+
+export default withProtected(Index);

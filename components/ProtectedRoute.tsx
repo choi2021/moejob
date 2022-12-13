@@ -7,7 +7,7 @@ export function withPublic<T>(Component: ComponentType<T>) {
     const router = useRouter();
     if (auth.user) {
       router.replace('/');
-      return <h1>Route</h1>;
+      return <></>;
     }
     return <Component auth={auth} {...props} />;
   };
@@ -19,7 +19,7 @@ export function withProtected<T>(Component: React.ComponentType<T>) {
     const router = useRouter();
     if (!auth.user) {
       router.replace('/login');
-      return <h1>Route</h1>;
+      return <></>;
     }
     return <Component auth={auth} {...props} />;
   };
