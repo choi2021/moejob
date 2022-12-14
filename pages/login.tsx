@@ -1,27 +1,41 @@
 import React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { withPublic } from './../components/ProtectedRoute';
+import { getSession, getProviders } from 'next-auth/react';
+import { InferGetServerSidePropsType, NextPageContext } from 'next';
+import SEO from '../components/SEO';
+import AuthLayout from '../components/auth/AuthLayout';
 
-function Login() {
-  const { data: session } = useSession();
-  console.log(session);
-  if (session) {
-    return (
-      <div>
-        <p>Welcome, {session.user.email}</p>
-        <img src={session.user.image} alt="image" />
-        <button onClick={() => signOut()}>Sign Out</button>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <p>You are not signed in</p>
-        <button onClick={() => signIn()}>sign IN</button>
-      </div>
-    );
+const Login = ({
+  providers,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return (
+    <>
+      <SEO title="로그인" />
+      <AuthLayout providers={providers} />;
+    </>
+  );
+};
+
+export default Login;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const { req, res } = context;
+  const session = await getSession({ req });
+  if (session && res && session.accessToken) {
+    res.writeHead(302, {
+      Location: '/',
+    });
+    res.end();
+    return {
+      props: {},
+      redirect: {
+        destination: '/',
+      },
+    };
   }
-  // return <AuthLayout />;
-}
 
-export default withPublic(Login);
+  return {
+    props: {
+      providers: await getProviders(),
+    },
+  };
+};

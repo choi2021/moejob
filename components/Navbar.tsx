@@ -1,8 +1,8 @@
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
-import { useAuthService } from '../context/AuthContext';
 
 const Wrapper = styled.nav`
   width: 100%;
@@ -43,15 +43,9 @@ const Btns = styled.div`
 
 export default function Navbar() {
   const { push } = useRouter();
-  const { authService, setUser } = useAuthService();
-  const onSignOut = () => {
-    authService
-      .logOut()
-      .then(() => {
-        push('/login');
-        setUser(null);
-      })
-      .catch((error) => console.log(error));
+  const onSignOut = async () => {
+    const data = await signOut({ redirect: false, callbackUrl: '/login' });
+    push(data.url);
   };
   return (
     <Wrapper>

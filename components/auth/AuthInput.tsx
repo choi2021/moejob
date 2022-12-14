@@ -1,51 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ActionType } from '../../types/Authtypes';
-
-interface AuthInputProps {
-  placeholder: string;
-  text: string;
-  name: 'EMAIL' | 'PASSWORD';
-  title: '이메일' | '비밀번호';
-  dispatch: React.Dispatch<ActionType>;
-}
 
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.5em;
   span {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     color: #888;
   }
   input {
-    margin-top: 0.5rem;
+    outline: none;
+    border-radius: 0.5rem;
+    margin: 0.7rem 0;
     width: 100%;
     padding: 0.5rem 1rem;
+    border: #888 2px solid;
   }
 `;
 
-export default function AuthInput({
-  placeholder,
-  text,
-  name,
-  title,
-  dispatch,
-}: AuthInputProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    dispatch({ type: `SET_${name}`, data: value });
-  };
+type AuthInputProps = {
+  email: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export default function AuthInput({ email, onChange }: AuthInputProps) {
   return (
     <Wrapper>
-      <span>{title}</span>
+      <label>이메일</label>
       <input
-        name={name}
-        value={text}
-        placeholder={placeholder}
-        type={name.toLowerCase()}
-        onChange={handleChange}
+        value={email}
+        placeholder="이메일을 입력해주세요"
+        onChange={onChange}
         required
       />
     </Wrapper>
