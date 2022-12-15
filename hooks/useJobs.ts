@@ -1,15 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useAuthService } from '../context/AuthContext';
 import { useDBService } from '../context/DBContext';
 import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
 import { modifyJob } from '../utils/setChecks';
+import { useSession } from 'next-auth/react';
 
 const JOBS_KEY = 'jobs';
 
 export const useJobs = () => {
-  const { user } = useAuthService();
+  const { data: session } = useSession();
+  console.log(session);
   const dbService = useDBService();
   const queryClient = useQueryClient();
   const getJobs = useQuery([JOBS_KEY], async () => {
@@ -86,7 +87,8 @@ export const useJobs = () => {
 };
 
 export const useSpecificJobs = () => {
-  const { user } = useAuthService();
+  const { data: session } = useSession();
+  console.log(session);
   const { query } = useRouter();
   const { id } = query;
   const dbService = useDBService();

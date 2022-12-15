@@ -1,8 +1,7 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { ConfigType } from '../types/Authtypes';
 
-export const firebaseConfig: ConfigType = {
+export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY || '',
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN || '',
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '',
@@ -11,5 +10,6 @@ export const firebaseConfig: ConfigType = {
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID || '',
 };
 
-export const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseApp =
+  getApps.length > 0 ? getApp() : initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);

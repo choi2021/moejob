@@ -17,14 +17,9 @@ const Login = ({
 
 export default Login;
 
-export const getServerSideProps = async (context: NextPageContext) => {
-  const { req, res } = context;
+export const getServerSideProps = async ({ req }: NextPageContext) => {
   const session = await getSession({ req });
-  if (session && res && session.accessToken) {
-    res.writeHead(302, {
-      Location: '/',
-    });
-    res.end();
+  if (session) {
     return {
       props: {},
       redirect: {

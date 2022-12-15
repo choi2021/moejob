@@ -1,9 +1,8 @@
 import React from 'react';
-import AuthLayout from '../components/auth/AuthLayout';
-import { withPublic } from '../components/ProtectedRoute';
+import AuthLayout from './../components/auth/AuthLayout';
 
 function Register() {
   return <AuthLayout />;
 }
 
-export default withPublic(Register);
+export default Register;
