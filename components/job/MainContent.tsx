@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import JobForm from './JobForm';
+import Banner from './Banner';
 import JobSection from './JobSection';
 
 const Layout = styled.div`
@@ -12,7 +12,7 @@ const Layout = styled.div`
 export default function MainContent() {
   return (
     <Layout>
-      <JobForm />
+      <Banner />
       <JobSection />
     </Layout>
   );

@@ -8,7 +8,7 @@ import { User } from '../types/Authtypes';
 
 const JOBS_KEY = 'jobs';
 
-export const useJobs = (user: User) => {
+export const useJobs = (user?: User) => {
   const dbService = useDBService();
   const queryClient = useQueryClient();
   const getJobs = useQuery([JOBS_KEY], async () => {
@@ -72,7 +72,7 @@ export const useJobs = (user: User) => {
   return { getJobs, addJob, updateJob, deleteJob };
 };
 
-export const useSpecificJobs = (user: User) => {
+export const useSpecificJobs = (user?: User) => {
   const { query } = useRouter();
   const { id } = query;
   const jobId = typeof id === 'string' ? id : id?.join() || '';

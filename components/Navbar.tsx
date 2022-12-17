@@ -1,6 +1,7 @@
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { BsPencil } from 'react-icons/bs';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -33,6 +34,7 @@ const Btns = styled.div`
   display: flex;
   align-items: center;
   button {
+    margin-right: 0.5rem;
     font-weight: bold;
     padding: 0.5rem;
     &:hover {
@@ -41,18 +43,65 @@ const Btns = styled.div`
   }
 `;
 
+const PATH = {
+  HOME: 'home',
+  USER: 'user',
+  LOGIN: 'login',
+  ADMIN: 'admin',
+  LOGOUT: 'logout',
+} as const;
+
 export default function Navbar() {
   const { push } = useRouter();
-  const onSignOut = async () => {
-    const data = await signOut({ redirect: false, callbackUrl: '/login' });
-    push(data.url);
+  const { data: session } = useSession();
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.currentTarget;
+    let url;
+    switch (name) {
+      case PATH.HOME:
+        url = `/`;
+        break;
+      case PATH.USER:
+        url = `/user`;
+        break;
+      case PATH.ADMIN:
+        url = `/admin`;
+        break;
+      case PATH.LOGIN:
+        url = '/login';
+        break;
+      case PATH.LOGOUT:
+        await signOut({ redirect: false, callbackUrl: '/login' });
+        return;
+      default:
+        throw new Error(`Wrong name clicked`);
+    }
+    push(url);
   };
   return (
     <Wrapper>
       <Layout>
         <Link href="/">모으잡</Link>
         <Btns>
-          <button onClick={onSignOut}>로그아웃</button>
+          <button name="home" onClick={handleClick}>
+            홈
+          </button>
+          <button name="user" onClick={handleClick}>
+            모은 공고
+          </button>
+          <button name="admin" onClick={handleClick}>
+            <BsPencil />
+          </button>
+          {session && (
+            <button name="logout" onClick={handleClick}>
+              로그아웃
+            </button>
+          )}
+          {!session && (
+            <button name="login" onClick={handleClick}>
+              로그인
+            </button>
+          )}
         </Btns>
       </Layout>
     </Wrapper>

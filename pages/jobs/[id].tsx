@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import NotFound from '../../components/NotFound';
 import JobList from '../../components/job/JobList';
 import MainLayout from '../../components/job/MainLayout';
 import SEO from '../../components/SEO';
 import DetailJob from '../../components/job/DetailJob';
 import { useSpecificJobs } from '../../hooks/useJobs';
-import { withProtected } from '../../components/ProtectedRoute';
 
 const JobListBox = styled.section`
   max-width: 1000px;
@@ -34,4 +32,4 @@ function Index() {
   );
 }
 
-export default withProtected(Index);
+export default Index;

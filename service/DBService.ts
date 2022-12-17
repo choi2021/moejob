@@ -20,8 +20,8 @@ export class DBServiceImpl implements DBService {
 
   async getJobs(user?: User): Promise<ModifiedJobsType> {
     const dbRef = ref(this.db);
-    const query = `${user?.email}/`;
-    return get(child(dbRef, `users/${query}jobs`))
+    const query = user ? `users/${user?.email}/` : '';
+    return get(child(dbRef, `${query}jobs`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           return snapshot.val();

@@ -10,19 +10,19 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  h1 {
-    font-size: 1.2rem;
-    line-height: 1.33;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 2rem;
-  }
+`;
+
+const Title = styled.h1`
+  font-size: 1.2rem;
+  line-height: 1.33;
+  font-weight: 700;
+  margin-bottom: 2rem;
 `;
 
 export default function JobSection() {
   return (
     <Wrapper>
-      <h1>내가 모은 채용공고</h1>
+      <Title>채용공고 확인하고 추가해보세요!</Title>
       {/* <Filters /> */}
       <JobList />
     </Wrapper>
