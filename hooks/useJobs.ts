@@ -4,26 +4,18 @@ import { useRouter } from 'next/router';
 import { useDBService } from '../context/DBContext';
 import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
 import { modifyJob } from '../utils/setChecks';
-import { useSession } from 'next-auth/react';
+import { User } from '../types/Authtypes';
 
 const JOBS_KEY = 'jobs';
 
-export const useJobs = () => {
-  const { data: session } = useSession();
-  console.log(session);
+export const useJobs = (user: User) => {
   const dbService = useDBService();
   const queryClient = useQueryClient();
   const getJobs = useQuery([JOBS_KEY], async () => {
-    if (!user) {
-      return null;
-    }
     return dbService.getJobs(user);
   });
   const addJob = useMutation(
     async (url: string) => {
-      if (!user) {
-        return null;
-      }
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_HOST}/api/job`,
         {
@@ -42,9 +34,6 @@ export const useJobs = () => {
 
   const updateJob = useMutation(
     async (job: ModifiedJobType) => {
-      if (!user) {
-        return null;
-      }
       return dbService.updateJob(job, user);
     },
     {
@@ -63,9 +52,6 @@ export const useJobs = () => {
   );
   const deleteJob = useMutation(
     async (job: ModifiedJobType) => {
-      if (!user) {
-        return null;
-      }
       return dbService.removeJob(job, user);
     },
     {
@@ -86,19 +72,14 @@ export const useJobs = () => {
   return { getJobs, addJob, updateJob, deleteJob };
 };
 
-export const useSpecificJobs = () => {
-  const { data: session } = useSession();
-  console.log(session);
+export const useSpecificJobs = (user: User) => {
   const { query } = useRouter();
   const { id } = query;
+  const jobId = typeof id === 'string' ? id : id?.join() || '';
   const dbService = useDBService();
-
   const getFilteredJobs = useQuery(
     [JOBS_KEY],
     () => {
-      if (!user) {
-        return {};
-      }
       return dbService.getJobs(user);
     },
     {
@@ -106,12 +87,11 @@ export const useSpecificJobs = () => {
         return Object.values(data).filter((item) => item.id !== id);
       },
       onError: (error) => {
-        console.log(error);
+        console.error(error);
       },
     }
   );
 
-  const jobId = typeof id === 'string' ? id : id?.join() || '';
   const getJobById = useQuery(
     [JOBS_KEY],
     () => {
@@ -123,6 +103,9 @@ export const useSpecificJobs = () => {
     {
       select: (data: ModifiedJobsType) => {
         return data[jobId];
+      },
+      onError: (error) => {
+        console.error(error);
       },
     }
   );

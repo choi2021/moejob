@@ -1,3 +1,5 @@
+import { DefaultSession } from 'next-auth/core/types';
+
 type ErrorDetail = {
   message: string;
   domain: string;
@@ -21,3 +23,5 @@ export type Provider = {
   type: string;
   signinUrl: string;
 };
+
+export type User = DefaultSession['user'];

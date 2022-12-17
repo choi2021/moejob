@@ -34,4 +34,5 @@ export default NextAuth({
     signIn: '/login',
   },
   secret: process.env.JWT_SECRET,
+  debug: true,
 });
