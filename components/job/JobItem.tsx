@@ -102,12 +102,11 @@ export default function JobItem({
     });
   };
   const handleAdd = () => {
-    user &&
-      addOrUpdateJob.mutate(job, {
-        onSuccess: () => {
-          setMessage('성공적으로 추가했습니다');
-        },
-      });
+    addOrUpdateJob.mutate(job, {
+      onSuccess: () => {
+        setMessage('성공적으로 추가했습니다');
+      },
+    });
   };
   const over50Percent = checkPercentage >= 0.5;
 
