@@ -43,7 +43,7 @@ export default function JobList({ session }: { session: Session | undefined }) {
 
   return (
     <Wrapper>
-      {jobs && jobs.map((job) => <JobItem user={user} key={job.id} job={job} />)}
+      {jobs && jobs.map((job) => <JobItem key={job.id} job={job} />)}
     </Wrapper>
   );
 }

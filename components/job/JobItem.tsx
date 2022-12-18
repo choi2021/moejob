@@ -79,19 +79,14 @@ const Btn = styled.button`
 
 //todo: 관리자 권한으로 삭제가 되야해
 
-export default function JobItem({
-  job,
-  user,
-}: {
-  job: ModifiedJobType;
-  user: User | undefined;
-}) {
+export default function JobItem({ job }: { job: ModifiedJobType }) {
   const { name, platform, img, checkPercentage } = job;
   const { pathname } = useRouter();
   const link = checkPath(pathname, job.id);
   const isHome = pathname === '/';
   const [message, setMessage] = useState('');
   const { data: session } = useSession();
+  const user = session?.user;
   const isLoggedin = !!session;
   const { addOrUpdateJob, deleteJob } = useJobs(user);
   const handleDelete = () => {
