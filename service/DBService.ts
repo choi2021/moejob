@@ -8,9 +8,9 @@ import {
   child,
   get,
 } from 'firebase/database';
-import { User } from '../types/Authtypes';
-import { DBService } from '../types/DBtypes';
-import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
+import { User } from '../src/types/Authtypes';
+import { DBService } from '../src/types/DBtypes';
+import { Job, ModifiedJobsType, ModifiedJobType } from '../src/types/Jobtype';
 
 export class DBServiceImpl implements DBService {
   db: Database;
@@ -34,15 +34,18 @@ export class DBServiceImpl implements DBService {
       });
   }
 
-  async addJob(job: ModifiedJobType, user: User) {
-    return set(ref(this.db, `users/${user?.email}/jobs/${job.id}`), job);
+  async addJob(job: Job, user?: User) {
+    const query = user ? `users/${user?.email}/` : '';
+    return set(ref(this.db, `${query}jobs/${job.id}`), job);
   }
 
-  async updateJob(job: ModifiedJobType, user: User) {
-    return set(ref(this.db, `users/${user?.email}/jobs/${job.id}`), job);
+  async updateJob(job: ModifiedJobType, user?: User) {
+    const query = user ? `users/${user?.email}/` : '';
+    return set(ref(this.db, `${query}jobs/${job.id}`), job);
   }
 
-  async removeJob(job: ModifiedJobType, user: User) {
-    return remove(ref(this.db, `users/${user?.email}/jobs/${job.id}`));
+  async removeJob(job: ModifiedJobType, user?: User) {
+    const query = user ? `users/${user?.email}/` : '';
+    return remove(ref(this.db, `${query}jobs/${job.id}`));
   }
 }

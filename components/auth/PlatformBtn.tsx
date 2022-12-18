@@ -2,7 +2,7 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillGithub } from 'react-icons/ai';
 import { signIn } from 'next-auth/react';
-import { Provider } from '../../types/Authtypes';
+import { Provider } from '../../src/types/Authtypes';
 
 export default function PlatformBtn({ provider }: { provider: Provider }) {
   const { name, id } = provider;

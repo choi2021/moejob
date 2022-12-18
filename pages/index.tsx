@@ -1,28 +1,16 @@
 import React from 'react';
+import Banner from '../components/job/Banner';
+import JobSection from '../components/job/JobSection';
 import MainLayout from '../components/job/MainLayout';
 import SEO from '../components/SEO';
-import MainContent from './../components/job/MainContent';
 function Home() {
   return (
     <MainLayout>
       <SEO title={'모으잡'} />
-      <MainContent />
+      <Banner />
+      <JobSection />
     </MainLayout>
   );
 }
 
 export default Home;
-
-// export const getServerSideProps = async (context: NextPageContext) => {
-//   const session = await getSession(context);
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/login',
-//       },
-//     };
-//   }
-//   return {
-//     props: { session },
-//   };
-// };

@@ -1,5 +1,17 @@
 export type DescriptionKindType = 'mainWork' | 'qualification' | 'preferential';
 
+export type Job = {
+  name: string;
+  platform: string;
+  id: string;
+  mainWork: DescriptionType[];
+  qualification: DescriptionType[];
+  preferential: DescriptionType[];
+  url: string;
+  img: string;
+  checkPercentage: number;
+};
+
 export interface JobType {
   name: string;
   platform: string;
@@ -11,9 +23,8 @@ export interface JobType {
   img: string;
 }
 
-export type DescriptionType = { text: string; checked?: boolean };
+export type DescriptionType = { text: string; checked?: boolean; id: string };
 
-//상속으로 간단히 해보자
 export type ModifiedJobType = {
   name: string;
   platform: string;

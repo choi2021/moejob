@@ -2,9 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { MdRemove } from 'react-icons/md';
+import { AiOutlinePlus } from 'react-icons/ai';
 import Link from 'next/link';
-import { ModifiedJobType } from '../../types/Jobtype';
+import { ModifiedJobType } from '../../src/types/Jobtype';
 import { useJobs } from '../../hooks/useJobs';
+import { useRouter } from 'next/router';
+import { checkPath } from './../../src/utils/checkPath';
+import { useSession } from 'next-auth/react';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -46,14 +50,17 @@ const Box = styled.div`
     font-weight: bold;
     font-size: 1rem;
   }
+  h3 {
+    font-size: 0.8rem;
+  }
 `;
 
 const Img = styled(Image)`
   width: 100%;
 `;
 
-const DeleteBtn = styled.button`
-  right: -5px;
+const Btn = styled.button`
+  right: -10px;
   top: -5px;
   font-size: 1rem;
   position: absolute;
@@ -68,21 +75,39 @@ const DeleteBtn = styled.button`
   background-color: ${(props) => props.theme.colors.black};
 `;
 
+//todo: 관리자 권한으로 삭제가 되야해
+
 export default function JobItem({ job }: { job: ModifiedJobType }) {
   const { name, platform, img, checkPercentage } = job;
-  const { deleteJob } = useJobs();
+  const { pathname, query } = useRouter();
+  const link = checkPath(pathname, job.id);
+  const isHome = pathname === '/';
+
+  const { data: session } = useSession();
+  const user = session?.user;
+  const { addJob, deleteJob } = useJobs(user);
   const handleDelete = () => {
     deleteJob.mutate(job);
+  };
+  const handleAdd = () => {
+    user && addJob.mutate(job);
   };
   const over50Percent = checkPercentage >= 0.5;
 
   return (
     <Wrapper>
       {over50Percent && <Badge>50% 이상</Badge>}
-      <DeleteBtn onClick={handleDelete}>
-        <MdRemove />
-      </DeleteBtn>
-      <Link href={`/jobs/${job.id}`}>
+      {!isHome && (
+        <Btn onClick={handleDelete}>
+          <MdRemove />
+        </Btn>
+      )}
+      {isHome && user && (
+        <Btn onClick={handleAdd}>
+          <AiOutlinePlus />
+        </Btn>
+      )}
+      <Link href={link}>
         <Img src={img} alt="job" width="200" height="180" priority />
         <Box>
           <h1>{name}</h1>

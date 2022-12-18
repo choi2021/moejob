@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import React from 'react';
-import { DBService } from '../types/DBtypes';
+import { DBService } from '../src/types/DBtypes';
 
 interface DBProviderProps {
   children: React.ReactNode;

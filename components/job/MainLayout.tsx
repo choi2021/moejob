@@ -7,11 +7,14 @@ const Wrapper = styled.section`
   margin: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   padding-bottom: 10rem;
 `;
 
 const Layout = styled.main`
+  max-width: 1000px;
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;

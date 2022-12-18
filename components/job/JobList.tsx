@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSpecificJobs } from '../../hooks/useJobs';
 import JobItem from './JobItem';
+import { User } from '../../src/types/Authtypes';
 
 const Wrapper = styled.ul`
   padding-bottom: 3rem;
@@ -23,16 +24,19 @@ const GuideBox = styled.div`
     font-size: 0.8rem;
   }
 `;
+type JobListProps = {
+  user?: User;
+};
 
-export default function JobList() {
-  const { getFilteredJobs } = useSpecificJobs();
+export default function JobList({ user }: JobListProps) {
+  const { getFilteredJobs } = useSpecificJobs(user);
   const { isLoading, data: jobs } = getFilteredJobs;
   const vacantJobs = jobs?.length === 0;
   if (isLoading) {
     return <GuideBox>채용공고를 불러오는 중입니다...</GuideBox>;
   }
   if (vacantJobs) {
-    return <GuideBox>입력창에 url을 입력해 채용공고를 추가해보세요😉</GuideBox>;
+    return <GuideBox>채용공고가 비어있습니다😉</GuideBox>;
   }
 
   return (

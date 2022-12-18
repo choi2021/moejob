@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Providers } from '../../types/Authtypes';
+import { Providers } from '../../src/types/Authtypes';
 import AuthForm from './AuthForm';
 import AuthHeader from './AuthHeader';
 import PlatformBtns from './PlatformBtns';

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import { DescriptionType } from '../../../types/Jobtype';
-import { KINDS } from '../../../variables/jobVariable';
+import { DescriptionType } from '../../../src/types/Jobtype';
+import { KINDS } from '../../../src/variables/jobVariable';
 import DescriptionList from '../DescriptionList';
 import { S } from './styles';
 

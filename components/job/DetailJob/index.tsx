@@ -1,9 +1,9 @@
 import React from 'react';
 import DescriptionList from '../DescriptionList';
-import { ModifiedJobType } from '../../../types/Jobtype';
+import { ModifiedJobType } from '../../../src/types/Jobtype';
 import DetailHeader from '../DetailHeader';
 import S from './styles';
-import { KINDS } from '../../../variables/jobVariable';
+import { KINDS } from '../../../src/variables/jobVariable';
 
 export default function DetailJob({ data }: { data: ModifiedJobType }) {
   return (

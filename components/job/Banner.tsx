@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 
 const Wrapper = styled.section`
+  max-width: 1000px;
   width: 100%;
   height: 6rem;
   background-color: ${(props) => props.theme.colors.mainColor};

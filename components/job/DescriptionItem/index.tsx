@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { useJobs, useSpecificJobs } from '../../../hooks/useJobs';
-import { DescriptionKindType } from '../../../types/Jobtype';
-import { calculateChecks } from '../../../utils/setChecks';
+import { DescriptionKindType } from '../../../src/types/Jobtype';
+import { calculateChecks } from '../../../src/utils/setChecks';
 import S from './styles';
 
 interface DescriptionItemProps {

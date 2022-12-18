@@ -1,33 +1,26 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useDBService } from '../context/DBContext';
-import { ModifiedJobsType, ModifiedJobType } from '../types/Jobtype';
-import { modifyJob } from '../utils/setChecks';
-import { User } from '../types/Authtypes';
+import { Job, ModifiedJobsType, ModifiedJobType } from '../src/types/Jobtype';
+import { User } from '../src/types/Authtypes';
 
 const JOBS_KEY = 'jobs';
 
 export const useJobs = (user?: User) => {
   const dbService = useDBService();
   const queryClient = useQueryClient();
-  const getJobs = useQuery([JOBS_KEY], async () => {
+  const getJobs = useQuery([JOBS_KEY, user], async () => {
     return dbService.getJobs(user);
   });
   const addJob = useMutation(
-    async (url: string) => {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_HOST}/api/job`,
-        {
-          url,
-        }
-      );
-      const job = modifyJob(data);
+    async (job: Job) => {
       return dbService.addJob(job, user);
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([JOBS_KEY]);
+        !user && queryClient.invalidateQueries([JOBS_KEY]);
+        user && queryClient.invalidateQueries([JOBS_KEY, user]);
       },
     }
   );
@@ -38,7 +31,8 @@ export const useJobs = (user?: User) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([JOBS_KEY]);
+        !user && queryClient.invalidateQueries([JOBS_KEY]);
+        user && queryClient.invalidateQueries([JOBS_KEY, user]);
       },
       onError: (error) => {
         if (error instanceof AxiosError) {
@@ -56,7 +50,8 @@ export const useJobs = (user?: User) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([JOBS_KEY]);
+        !user && queryClient.invalidateQueries([JOBS_KEY]);
+        user && queryClient.invalidateQueries([JOBS_KEY, user]);
       },
       onError: (error) => {
         if (error instanceof AxiosError) {
