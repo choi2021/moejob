@@ -39,6 +39,7 @@ const Wrapper = styled.section`
   }
 
   form {
+    position: relative;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
