@@ -14,7 +14,6 @@ import {
 } from '../../src/types/Jobtype';
 import { useJobs } from '../../hooks/useJobs';
 import Modal from './../Modal';
-import { useQueryClient } from '@tanstack/react-query';
 
 const Wrapper = styled.section`
   padding-top: 2rem;

@@ -1,5 +1,5 @@
 import { NextPageContext } from 'next';
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import React from 'react';
 import MainLayout from '../../components/job/MainLayout';
 import JobSection from './../../components/job/JobSection';

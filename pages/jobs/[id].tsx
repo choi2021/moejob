@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import NotFound from '../../components/NotFound';
 import JobList from '../../components/job/JobList';
 import MainLayout from '../../components/job/MainLayout';

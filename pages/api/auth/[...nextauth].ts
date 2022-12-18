@@ -4,8 +4,6 @@ import EmailProvider from 'next-auth/providers/email';
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '../../../prisma/prisma';
-import { Session, User } from 'next-auth';
-import { AdapterUser } from 'next-auth/adapters';
 
 export default NextAuth({
   providers: [

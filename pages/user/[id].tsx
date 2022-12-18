@@ -8,7 +8,7 @@ import NotFound from '../../components/NotFound';
 import SEO from '../../components/SEO';
 import { useSpecificJobs } from '../../hooks/useJobs';
 
-export default function id({
+export default function UserDetail({
   session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const user = session.user;

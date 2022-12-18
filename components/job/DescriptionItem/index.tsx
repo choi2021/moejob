@@ -1,4 +1,3 @@
-import { Session } from 'next-auth';
 import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { useJobs, useSpecificJobs } from '../../../hooks/useJobs';

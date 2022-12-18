@@ -1,5 +1,4 @@
 import { Session } from 'next-auth';
-import { DefaultSession } from 'next-auth/core/types';
 
 type ErrorDetail = {
   message: string;
