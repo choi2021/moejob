@@ -4,6 +4,8 @@ import uuid from 'react-uuid';
 import AdminForm from '../../components/admin/AdminForm';
 import { useSpecificJobs } from '../../hooks/useJobs';
 import MainLayout from './../../components/job/MainLayout';
+import { getSession } from 'next-auth/react';
+import { NextPageContext } from 'next';
 
 const newValue = {
   name: '',
@@ -38,3 +40,17 @@ export default function AdminDetail() {
     </MainLayout>
   );
 }
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+};

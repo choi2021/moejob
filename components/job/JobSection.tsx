@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import Filters from './Filters';
 import JobList from './JobList';
+import { Session } from 'next-auth';
 
 const Wrapper = styled.section`
   padding-top: 2rem;
@@ -14,9 +15,10 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   header {
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: rem;
   }
 `;
 
@@ -34,22 +36,29 @@ const Title = styled.h2`
   font-weight: 700;
 `;
 
-export default function JobSection() {
+export default function JobSection({
+  session,
+}: {
+  session: Session | undefined;
+}) {
   const { pathname } = useRouter();
-  const isHome = pathname === '/';
-  const title = isHome ? '채용공고를 추가해보세요!' : '채용공고를 수정해보세요';
+  const isAdmin = pathname === '/admin';
+
+  const title = !isAdmin
+    ? '채용공고를 추가해보세요!'
+    : '채용공고를 수정해보세요';
   return (
     <Wrapper>
       <header>
         <Title>{title}</Title>
-        {!isHome && (
+        {isAdmin && (
           <Btn href={'/admin/new'}>
             <AiOutlinePlusCircle />
           </Btn>
         )}
       </header>
       {/* <Filters /> */}
-      <JobList />
+      <JobList session={session} />
     </Wrapper>
   );
 }

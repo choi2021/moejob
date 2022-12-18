@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DescriptionKindType, DescriptionType } from '../src/types/Jobtype';
+import { DescriptionKindType, DescriptionType } from '../../src/types/Jobtype';
 import { BsDot, BsTrash } from 'react-icons/bs';
 const Wrapper = styled.li`
   padding: 0.5rem 1rem;

@@ -13,9 +13,9 @@ export const useJobs = (user?: User) => {
   const getJobs = useQuery([JOBS_KEY, user], async () => {
     return dbService.getJobs(user);
   });
-  const addJob = useMutation(
+  const addOrUpdateJob = useMutation(
     async (job: Job) => {
-      return dbService.addJob(job, user);
+      return dbService.addOrUpdateJob(job, user);
     },
     {
       onSuccess: () => {
@@ -25,25 +25,6 @@ export const useJobs = (user?: User) => {
     }
   );
 
-  const updateJob = useMutation(
-    async (job: ModifiedJobType) => {
-      return dbService.updateJob(job, user);
-    },
-    {
-      onSuccess: () => {
-        !user && queryClient.invalidateQueries([JOBS_KEY]);
-        user && queryClient.invalidateQueries([JOBS_KEY, user]);
-      },
-      onError: (error) => {
-        if (error instanceof AxiosError) {
-          const { response } = error;
-          if (response) {
-            console.log(response);
-          }
-        }
-      },
-    }
-  );
   const deleteJob = useMutation(
     async (job: ModifiedJobType) => {
       return dbService.removeJob(job, user);
@@ -64,7 +45,7 @@ export const useJobs = (user?: User) => {
     }
   );
 
-  return { getJobs, addJob, updateJob, deleteJob };
+  return { getJobs, addOrUpdateJob, deleteJob };
 };
 
 export const useSpecificJobs = (user?: User) => {
@@ -73,7 +54,7 @@ export const useSpecificJobs = (user?: User) => {
   const jobId = typeof id === 'string' ? id : id?.join() || '';
   const dbService = useDBService();
   const getFilteredJobs = useQuery(
-    [JOBS_KEY],
+    [JOBS_KEY, user],
     () => {
       return dbService.getJobs(user);
     },
@@ -88,7 +69,7 @@ export const useSpecificJobs = (user?: User) => {
   );
 
   const getJobById = useQuery(
-    [JOBS_KEY],
+    [JOBS_KEY, user],
     () => {
       if (!user) {
         return {};

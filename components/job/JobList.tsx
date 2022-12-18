@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSpecificJobs } from '../../hooks/useJobs';
 import JobItem from './JobItem';
-import { User } from '../../src/types/Authtypes';
+import { useRouter } from 'next/router';
+import { Session } from 'next-auth';
 
 const Wrapper = styled.ul`
   padding-bottom: 3rem;
-  width: 100%;
   padding: 0 1rem;
+  width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -18,18 +19,19 @@ const Wrapper = styled.ul`
 `;
 
 const GuideBox = styled.div`
+  margin-top: 1rem;
   font-size: 1.1rem;
   text-align: center;
   @media screen and (max-width: 700px) {
     font-size: 0.8rem;
   }
 `;
-type JobListProps = {
-  user?: User;
-};
 
-export default function JobList({ user }: JobListProps) {
-  const { getFilteredJobs } = useSpecificJobs(user);
+export default function JobList({ session }: { session: Session | undefined }) {
+  const { pathname } = useRouter();
+  const isUser = pathname === '/user' || pathname === '/user/[id]';
+  const user = session?.user;
+  const { getFilteredJobs } = useSpecificJobs(isUser ? user : undefined);
   const { isLoading, data: jobs } = getFilteredJobs;
   const vacantJobs = jobs?.length === 0;
   if (isLoading) {
@@ -41,7 +43,7 @@ export default function JobList({ user }: JobListProps) {
 
   return (
     <Wrapper>
-      {jobs && jobs.map((job) => <JobItem key={job.id} job={job} />)}
+      {jobs && jobs.map((job) => <JobItem user={user} key={job.id} job={job} />)}
     </Wrapper>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { MdRemove } from 'react-icons/md';
@@ -9,6 +9,8 @@ import { useJobs } from '../../hooks/useJobs';
 import { useRouter } from 'next/router';
 import { checkPath } from './../../src/utils/checkPath';
 import { useSession } from 'next-auth/react';
+import Modal from '../Modal';
+import { User } from '../../src/types/Authtypes';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -77,43 +79,61 @@ const Btn = styled.button`
 
 //todo: 관리자 권한으로 삭제가 되야해
 
-export default function JobItem({ job }: { job: ModifiedJobType }) {
+export default function JobItem({
+  job,
+  user,
+}: {
+  job: ModifiedJobType;
+  user: User | undefined;
+}) {
   const { name, platform, img, checkPercentage } = job;
-  const { pathname, query } = useRouter();
+  const { pathname } = useRouter();
   const link = checkPath(pathname, job.id);
   const isHome = pathname === '/';
-
+  const [message, setMessage] = useState('');
   const { data: session } = useSession();
-  const user = session?.user;
-  const { addJob, deleteJob } = useJobs(user);
+  const isLoggedin = !!session;
+  const { addOrUpdateJob, deleteJob } = useJobs(user);
   const handleDelete = () => {
-    deleteJob.mutate(job);
+    deleteJob.mutate(job, {
+      onSuccess: () => {
+        setMessage('성공적으로 제거했습니다');
+      },
+    });
   };
   const handleAdd = () => {
-    user && addJob.mutate(job);
+    user &&
+      addOrUpdateJob.mutate(job, {
+        onSuccess: () => {
+          setMessage('성공적으로 추가했습니다');
+        },
+      });
   };
   const over50Percent = checkPercentage >= 0.5;
 
   return (
-    <Wrapper>
-      {over50Percent && <Badge>50% 이상</Badge>}
-      {!isHome && (
-        <Btn onClick={handleDelete}>
-          <MdRemove />
-        </Btn>
-      )}
-      {isHome && user && (
-        <Btn onClick={handleAdd}>
-          <AiOutlinePlus />
-        </Btn>
-      )}
-      <Link href={link}>
-        <Img src={img} alt="job" width="200" height="180" priority />
-        <Box>
-          <h1>{name}</h1>
-          <h3>{platform}</h3>
-        </Box>
-      </Link>
-    </Wrapper>
+    <>
+      <Wrapper>
+        {over50Percent && <Badge>50% 이상</Badge>}
+        {!isHome && (
+          <Btn onClick={handleDelete}>
+            <MdRemove />
+          </Btn>
+        )}
+        {isHome && isLoggedin && (
+          <Btn onClick={handleAdd}>
+            <AiOutlinePlus />
+          </Btn>
+        )}
+        <Link href={link}>
+          <Img src={img} alt="job" width="200" height="180" priority />
+          <Box>
+            <h1>{name}</h1>
+            <h3>{platform}</h3>
+          </Box>
+        </Link>
+      </Wrapper>
+      {message && <Modal message={message} />}
+    </>
   );
 }

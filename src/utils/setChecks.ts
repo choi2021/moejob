@@ -1,6 +1,6 @@
-import { JobType, ModifiedJobType } from '../types/Jobtype';
+import { Job } from '../types/Jobtype';
 
-const calculateChecks = (job: ModifiedJobType) => {
+const calculateChecks = (job: Job) => {
   const { preferential, qualification } = job;
   const totalArr = [...preferential, ...qualification];
   const sum = totalArr.reduce((prev, curr) => {

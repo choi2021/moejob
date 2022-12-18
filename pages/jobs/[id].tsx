@@ -7,11 +7,6 @@ import SEO from '../../components/SEO';
 import DetailJob from '../../components/job/DetailJob';
 import { useSpecificJobs } from '../../hooks/useJobs';
 
-const JobListBox = styled.section`
-  max-width: 1000px;
-  width: 100%;
-`;
-
 function Index() {
   const { getJobById } = useSpecificJobs();
   const { isLoading, data } = getJobById;
@@ -23,9 +18,7 @@ function Index() {
       {data && (
         <>
           <DetailJob data={data} />
-          <JobListBox>
-            <JobList />
-          </JobListBox>
+          <JobList session={undefined} />
         </>
       )}
     </MainLayout>

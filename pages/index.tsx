@@ -8,7 +8,7 @@ function Home() {
     <MainLayout>
       <SEO title={'모으잡'} />
       <Banner />
-      <JobSection />
+      <JobSection session={undefined} />
     </MainLayout>
   );
 }

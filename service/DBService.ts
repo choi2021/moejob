@@ -20,7 +20,7 @@ export class DBServiceImpl implements DBService {
 
   async getJobs(user?: User): Promise<ModifiedJobsType> {
     const dbRef = ref(this.db);
-    const query = user ? `users/${user?.email}/` : '';
+    const query = user ? `users/${user?.id}/` : '';
     return get(child(dbRef, `${query}jobs`))
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -34,18 +34,13 @@ export class DBServiceImpl implements DBService {
       });
   }
 
-  async addJob(job: Job, user?: User) {
-    const query = user ? `users/${user?.email}/` : '';
-    return set(ref(this.db, `${query}jobs/${job.id}`), job);
-  }
-
-  async updateJob(job: ModifiedJobType, user?: User) {
-    const query = user ? `users/${user?.email}/` : '';
+  async addOrUpdateJob(job: ModifiedJobType, user?: User) {
+    const query = user ? `users/${user?.id}/` : '';
     return set(ref(this.db, `${query}jobs/${job.id}`), job);
   }
 
   async removeJob(job: ModifiedJobType, user?: User) {
-    const query = user ? `users/${user?.email}/` : '';
+    const query = user ? `users/${user?.id}/` : '';
     return remove(ref(this.db, `${query}jobs/${job.id}`));
   }
 }

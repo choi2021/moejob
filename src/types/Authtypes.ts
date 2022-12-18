@@ -1,3 +1,4 @@
+import { Session } from 'next-auth';
 import { DefaultSession } from 'next-auth/core/types';
 
 type ErrorDetail = {
@@ -24,4 +25,4 @@ export type Provider = {
   signinUrl: string;
 };
 
-export type User = DefaultSession['user'];
+export type User = Session['user'];

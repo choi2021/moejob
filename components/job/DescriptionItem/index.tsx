@@ -1,9 +1,12 @@
+import { Session } from 'next-auth';
 import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { useJobs, useSpecificJobs } from '../../../hooks/useJobs';
 import { DescriptionKindType } from '../../../src/types/Jobtype';
 import { calculateChecks } from '../../../src/utils/setChecks';
 import S from './styles';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 interface DescriptionItemProps {
   text: string;
@@ -19,10 +22,13 @@ export default function DescriptionItem({
   kind,
 }: DescriptionItemProps) {
   const [isChecked, setIsChecked] = useState(checked);
-  const { updateJob } = useJobs();
-  const { getJobById } = useSpecificJobs();
+  const { data: session } = useSession();
+  const user = session?.user;
+  const { addOrUpdateJob } = useJobs(user);
+  const { getJobById } = useSpecificJobs(user);
   const { data: job } = getJobById;
-
+  const { pathname } = useRouter();
+  const onUser = pathname === '/user/[id]';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.currentTarget;
     if (job && !isMainJob) {
@@ -34,14 +40,14 @@ export default function DescriptionItem({
       });
       const modifiedJob = { ...job, [kind]: targetList };
 
-      updateJob.mutate(calculateChecks(modifiedJob));
+      addOrUpdateJob.mutate(calculateChecks(modifiedJob));
     }
     setIsChecked(!isChecked);
   };
   return (
     <S.Wrapper>
       {isMainJob && <RiCheckboxBlankCircleFill />}
-      {!isMainJob && (
+      {!isMainJob && onUser && (
         <input
           type="checkbox"
           name={text}

@@ -1,5 +1,5 @@
 import { NextPageContext } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import React from 'react';
 import MainLayout from '../../components/job/MainLayout';
 import JobSection from './../../components/job/JobSection';
@@ -7,7 +7,7 @@ import JobSection from './../../components/job/JobSection';
 export default function index() {
   return (
     <MainLayout>
-      <JobSection />
+      <JobSection session={undefined} />
     </MainLayout>
   );
 }

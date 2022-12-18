@@ -52,7 +52,7 @@ const PATH = {
 } as const;
 
 export default function Navbar() {
-  const { push } = useRouter();
+  const { push, pathname } = useRouter();
   const { data: session } = useSession();
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
@@ -72,6 +72,9 @@ export default function Navbar() {
         break;
       case PATH.LOGOUT:
         await signOut({ redirect: false, callbackUrl: '/login' });
+        if (pathname === '/user' || pathname === '/admin') {
+          push('/');
+        }
         return;
       default:
         throw new Error(`Wrong name clicked`);

@@ -7,13 +7,14 @@ import uuid from 'react-uuid';
 import AdminDescriptionList from './AdminDescriptionList';
 import AdminFormItem from './AdminFormItem';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import {
   DescriptionKindType,
   DescriptionType,
   Job,
 } from '../../src/types/Jobtype';
 import { useJobs } from '../../hooks/useJobs';
+import Modal from './../Modal';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Wrapper = styled.section`
   padding-top: 2rem;
@@ -85,16 +86,6 @@ const Btn = styled.button`
   border-radius: 1rem;
 `;
 
-const Message = styled.p`
-  position: fixed;
-  min-width: 10rem;
-  padding: 0.5rem 1rem;
-  right: 0;
-  bottom: 0.5rem;
-  background-color: ${(props) => props.theme.colors.blue};
-  color: ${(props) => props.theme.colors.white};
-`;
-
 const ITEM_Name = {
   NAME: 'name',
   PLATFORM: 'platform',
@@ -113,8 +104,8 @@ type AdminFormProps = {
 export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
   const [job, setJob] = useState<Job>(initialValue);
   const [message, setMessage] = useState('');
-  const { addJob } = useJobs();
-  const { mutate } = addJob;
+  const { addOrUpdateJob } = useJobs();
+  const { mutate } = addOrUpdateJob;
   const handleAdd = (name: DescriptionKindType) => {
     setJob((prev) => {
       const list = prev[name];
@@ -151,6 +142,7 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.currentTarget;
+    console.log(name, value);
     setJob((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -162,7 +154,6 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
     }
     mutate(job, {
       onSuccess: () => {
-        setJob(initialValue);
         setMessage(
           isNew ? '성공적으로 추가되었습니다' : '성공적으로 수정되었습니다'
         );
@@ -221,6 +212,7 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
             onChange={handleSelect}
             value={job.platform}
           >
+            <option value="platform">플랫폼</option>
             <option value="원티드">원티드</option>
             <option value="프로그래머스">프로그래머스</option>
             <option value="점핏">점핏</option>
@@ -255,7 +247,7 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
         <Btn>{BtnText}</Btn>
       </form>
 
-      {message && <Message>{message}</Message>}
+      {message && <Modal message={message} />}
     </Wrapper>
   );
 }
