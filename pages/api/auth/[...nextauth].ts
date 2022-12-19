@@ -29,6 +29,7 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
+
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: '/login',

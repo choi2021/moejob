@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <QueryClientProvider client={queryClient}>
         <DBProvider dbService={dbService}>
-          <SessionProvider>
+          <SessionProvider basePath={process.env.NEXTAUTH_URL}>
             <ThemeProvider theme={theme}>
               <GlobalStyle />
               <Component {...pageProps} />
