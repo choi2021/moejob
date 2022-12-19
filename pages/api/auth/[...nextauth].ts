@@ -4,6 +4,8 @@ import EmailProvider from 'next-auth/providers/email';
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '../../../prisma/prisma';
+import nodemailer from 'nodemailer';
+import { html, text } from '../../../src/utils/emailFormat';
 
 export default NextAuth({
   providers: [
@@ -18,15 +20,23 @@ export default NextAuth({
       allowDangerousEmailAccountLinking: true,
     }),
     EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
+      server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
+      async sendVerificationRequest({
+        identifier: email,
+        url,
+        provider: { server, from },
+      }) {
+        const { host } = new URL(url);
+        const transport = nodemailer.createTransport(server);
+        await transport.sendMail({
+          to: email,
+          from,
+          subject: `Sign in to ${host}`,
+          text: text({ url, host }),
+          html: html({ url, host, email }),
+        });
+      },
     }),
   ],
 
