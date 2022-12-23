@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { useJobs, useSpecificJobs } from '../../../hooks/useJobs';
 import { DescriptionKindType } from '../../../src/types/Jobtype';
-import { calculateChecks } from '../../../src/utils/setChecks';
-import S from './styles';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { calculateChecks } from '../../../src/utils/calculateChecks';
+import S from './styles';
 
 interface DescriptionItemProps {
   text: string;

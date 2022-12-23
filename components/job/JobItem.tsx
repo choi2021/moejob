@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { MdRemove } from 'react-icons/md';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Link from 'next/link';
-import { ModifiedJobType } from '../../src/types/Jobtype';
 import { useJobs } from '../../hooks/useJobs';
 import { useRouter } from 'next/router';
 import { redirectPath } from '../../src/utils/redirectPath';
 import { useSession } from 'next-auth/react';
 import Modal from '../Modal';
+import { Job } from '../../src/types/Jobtype';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -78,7 +78,7 @@ const Btn = styled.button`
 
 //todo: 관리자 권한으로 삭제가 되야해
 
-export default function JobItem({ job }: { job: ModifiedJobType }) {
+export default function JobItem({ job }: { job: Job }) {
   const { name, platform, img, checkPercentage } = job;
   const { pathname } = useRouter();
   const link = redirectPath(pathname, job.id);

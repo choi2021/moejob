@@ -10,7 +10,7 @@ export type Job = {
   url: string;
   img: string;
   checkPercentage: number;
-  createdFrom: string;
+  // createdFrom: string; 자기가 만든건 바로 추가되게 구성
 };
 
 export interface JobType {

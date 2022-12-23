@@ -1,34 +1,41 @@
 import React from 'react';
 import DescriptionList from '../DescriptionList';
-import { ModifiedJobType } from '../../../src/types/Jobtype';
 import DetailHeader from '../DetailHeader';
 import S from './styles';
 import { KINDS } from '../../../src/variables/jobVariable';
+import { Job } from '../../../src/types/Jobtype';
+import SideBox from '../SideBox';
+import Modal from '../../Modal';
 
-export default function DetailJob({ data }: { data: ModifiedJobType }) {
+export default function DetailJob({ job }: { job: Job }) {
+  const {
+    platform,
+    mainWork,
+    img,
+    name,
+    url,
+    checkPercentage,
+    qualification,
+    preferential,
+  } = job;
   return (
     <S.Wrapper>
-      {data && (
-        <>
-          <DetailHeader
-            img={data.img}
-            name={data.name}
-            url={data.url}
-            checkPercentage={data.checkPercentage}
-            mainWork={data.mainWork}
-          />
-          <S.DescriptionBox>
-            <DescriptionList
-              kind={KINDS.QUALIFICATION}
-              list={data.qualification}
-            />
-            <DescriptionList
-              kind={KINDS.PREFERENTIAL}
-              list={data.preferential}
-            />
-          </S.DescriptionBox>
-        </>
-      )}
+      <S.DetailBox>
+        <DetailHeader
+          platform={platform}
+          img={img}
+          name={name}
+          url={url}
+          checkPercentage={checkPercentage}
+          mainWork={mainWork}
+        />
+        <S.DescriptionBox>
+          <DescriptionList kind={KINDS.MAINWORK} list={mainWork} />
+          <DescriptionList kind={KINDS.QUALIFICATION} list={qualification} />
+          <DescriptionList kind={KINDS.PREFERENTIAL} list={preferential} />
+        </S.DescriptionBox>
+      </S.DetailBox>
+      <SideBox job={job} />
     </S.Wrapper>
   );
 }

@@ -4,19 +4,22 @@ import Image from 'next/image';
 
 const Layout = styled.header`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  flex: 50%;
   @media screen and (max-width: 700px) {
     flex-direction: column;
   }
 `;
 
+const ImgBox = styled.div`
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+`;
+
 const JobImg = styled(Image)`
-  flex: 50%;
+  width: 100%;
   height: auto;
-  @media screen and (max-width: 700px) {
-    width: 100%;
-  }
 `;
 
 const MetaBox = styled.div`
@@ -51,7 +54,7 @@ const LinkBox = styled(Link)`
 const InfoBox = styled.div`
   margin-top: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   margin-right: 1rem;
 
@@ -59,11 +62,6 @@ const InfoBox = styled.div`
     font-size: 0.9rem;
     font-weight: bold;
     margin-right: 0.5rem;
-  }
-  img {
-    width: 50px;
-    height: 35px;
-    margin-right: 1rem;
   }
 
   div {
@@ -81,6 +79,7 @@ const S = {
   MetaBox,
   LinkBox,
   InfoBox,
+  ImgBox,
 };
 
 export { S };

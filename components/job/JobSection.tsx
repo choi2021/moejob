@@ -15,6 +15,8 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 1rem;
+  background-color: ${(props) => props.theme.colors.white};
   header {
     margin-bottom: 2rem;
     display: flex;
@@ -43,6 +45,7 @@ export default function JobSection({
   session: Session | undefined;
 }) {
   const { pathname } = useRouter();
+  console.log(pathname);
   const isAdmin = pathname === '/admin';
   const title = getTitle(pathname);
   return (

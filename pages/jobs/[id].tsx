@@ -5,6 +5,7 @@ import MainLayout from '../../components/job/MainLayout';
 import SEO from '../../components/SEO';
 import DetailJob from '../../components/job/DetailJob';
 import { useSpecificJobs } from '../../hooks/useJobs';
+import JobSection from '../../components/job/JobSection';
 
 function Index() {
   const { getJobById } = useSpecificJobs();
@@ -16,8 +17,8 @@ function Index() {
       {!isLoading && !data && <NotFound />}
       {data && (
         <>
-          <DetailJob data={data} />
-          <JobList session={undefined} />
+          <DetailJob job={data} />
+          <JobSection session={undefined} />
         </>
       )}
     </MainLayout>
