@@ -14,14 +14,17 @@ type AdminDescriptionListProps = {
 };
 
 const Wrapper = styled.div`
-  height: 170px;
+  grid-column: span 2;
+  height: 250px;
   padding: 1rem;
-  margin-bottom: 1rem;
+
   ul {
+    padding: 0.5rem;
+    height: 100%;
     margin-top: 0.5rem;
     overflow-y: auto;
     border-radius: 1rem;
-    max-height: 150px;
+    max-height: 250px;
     background-color: ${(props) => props.theme.colors.lightGray};
   }
   header {

@@ -10,6 +10,7 @@ export type Job = {
   url: string;
   img: string;
   checkPercentage: number;
+  createdFrom: string;
 };
 
 export interface JobType {
@@ -23,20 +24,8 @@ export interface JobType {
   img: string;
 }
 
+export type Jobs = {
+  [key: string]: Job;
+};
+
 export type DescriptionType = { text: string; checked?: boolean; id: string };
-
-export type ModifiedJobType = {
-  name: string;
-  platform: string;
-  id: string;
-  mainWork: DescriptionType[];
-  qualification: DescriptionType[];
-  preferential: DescriptionType[];
-  url: string;
-  img: string;
-  checkPercentage: number;
-};
-
-export type ModifiedJobsType = {
-  [key: string]: ModifiedJobType;
-};

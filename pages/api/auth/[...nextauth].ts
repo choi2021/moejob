@@ -32,7 +32,7 @@ export default NextAuth({
         await transport.sendMail({
           to: email,
           from,
-          subject: `Sign in to ${host}`,
+          subject: `${host} 로그인 인증 메일`,
           text: text({ url, host }),
           html: html({ url, host, email }),
         });

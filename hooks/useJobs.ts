@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useDBService } from '../context/DBContext';
-import { Job, ModifiedJobsType, ModifiedJobType } from '../src/types/Jobtype';
+import { Job, Jobs } from '../src/types/Jobtype';
 import { User } from '../src/types/Authtypes';
 
 const JOBS_KEY = 'jobs';
@@ -26,7 +26,7 @@ export const useJobs = (user?: User) => {
   );
 
   const deleteJob = useMutation(
-    async (job: ModifiedJobType) => {
+    async (job: Job) => {
       return dbService.removeJob(job, user);
     },
     {
@@ -55,11 +55,9 @@ export const useSpecificJobs = (user?: User) => {
   const dbService = useDBService();
   const getFilteredJobs = useQuery(
     [JOBS_KEY, user],
-    () => {
-      return dbService.getJobs(user);
-    },
+    () => dbService.getJobs(user),
     {
-      select: (data: ModifiedJobsType) => {
+      select: (data: Jobs) => {
         return Object.values(data).filter((item) => item.id !== id);
       },
       onError: (error) => {
@@ -68,23 +66,14 @@ export const useSpecificJobs = (user?: User) => {
     }
   );
 
-  const getJobById = useQuery(
-    [JOBS_KEY, user],
-    () => {
-      if (!user) {
-        return {};
-      }
-      return dbService.getJobs(user);
+  const getJobById = useQuery([JOBS_KEY, user], () => dbService.getJobs(user), {
+    select: (data: Jobs) => {
+      return data[jobId];
     },
-    {
-      select: (data: ModifiedJobsType) => {
-        return data[jobId];
-      },
-      onError: (error) => {
-        console.error(error);
-      },
-    }
-  );
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
   return { getFilteredJobs, getJobById };
 };

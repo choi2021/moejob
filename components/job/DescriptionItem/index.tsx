@@ -45,7 +45,7 @@ export default function DescriptionItem({
   };
   return (
     <S.Wrapper>
-      {isMainJob && <RiCheckboxBlankCircleFill />}
+      {(isMainJob || !onUser) && <RiCheckboxBlankCircleFill />}
       {!isMainJob && onUser && (
         <input
           type="checkbox"

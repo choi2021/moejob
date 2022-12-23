@@ -7,10 +7,9 @@ import Link from 'next/link';
 import { ModifiedJobType } from '../../src/types/Jobtype';
 import { useJobs } from '../../hooks/useJobs';
 import { useRouter } from 'next/router';
-import { checkPath } from './../../src/utils/checkPath';
+import { redirectPath } from '../../src/utils/redirectPath';
 import { useSession } from 'next-auth/react';
 import Modal from '../Modal';
-import { User } from '../../src/types/Authtypes';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -82,7 +81,7 @@ const Btn = styled.button`
 export default function JobItem({ job }: { job: ModifiedJobType }) {
   const { name, platform, img, checkPercentage } = job;
   const { pathname } = useRouter();
-  const link = checkPath(pathname, job.id);
+  const link = redirectPath(pathname, job.id);
   const isHome = pathname === '/';
   const [message, setMessage] = useState('');
   const { data: session } = useSession();
@@ -94,12 +93,19 @@ export default function JobItem({ job }: { job: ModifiedJobType }) {
       onSuccess: () => {
         setMessage('성공적으로 제거했습니다');
       },
+      onSettled: () => {
+        console.log('hi');
+        setTimeout(() => setMessage(''), 4000);
+      },
     });
   };
   const handleAdd = () => {
     addOrUpdateJob.mutate(job, {
       onSuccess: () => {
         setMessage('성공적으로 추가했습니다');
+      },
+      onSettled: () => {
+        setTimeout(() => setMessage(''), 4000);
       },
     });
   };

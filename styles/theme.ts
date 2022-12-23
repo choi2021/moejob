@@ -5,7 +5,7 @@ const colors = {
   blue: '#07BED1',
   black: '#333',
   gray: '#888',
-  lightGray: '#f2f4f7',
+  lightGray: '#F8FAFC',
   mainColor: 'lightcoral',
 };
 

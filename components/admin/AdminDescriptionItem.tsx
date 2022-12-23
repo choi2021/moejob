@@ -9,10 +9,12 @@ const Wrapper = styled.li`
   align-items: center;
 
   input {
+    font-size: 0.8rem;
     background-color: ${(props) => props.theme.colors.lightGray};
     width: 100%;
+    line-height: 1.5rem;
     border: none;
-    border-bottom: 2px solid ${(props) => props.theme.colors.gray};
+    border-bottom: 1px solid ${(props) => props.theme.colors.gray};
   }
 `;
 

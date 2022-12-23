@@ -16,8 +16,7 @@ import { useJobs } from '../../hooks/useJobs';
 import Modal from './../Modal';
 
 const Wrapper = styled.section`
-  padding-top: 2rem;
-  max-width: 1000px;
+  padding-top: 1rem;
   text-align: center;
   header {
     width: 100%;
@@ -41,6 +40,7 @@ const Wrapper = styled.section`
     position: relative;
     width: 100%;
     display: grid;
+    gap: 1.5rem;
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 3rem;
     @media screen and (max-width: 500px) {
@@ -75,7 +75,7 @@ const SelectBox = styled.div`
 
 const Btn = styled.button`
   position: absolute;
-  bottom: -1rem;
+  bottom: -3rem;
   right: 50%;
   transform: translate(50%, 50%);
   background-color: ${(props) => props.theme.colors.mainColor};

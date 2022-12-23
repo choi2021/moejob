@@ -1,4 +1,4 @@
-export const checkPath = (pathname: string, id: string) => {
+export const redirectPath = (pathname: string, id: string) => {
   switch (pathname) {
     case '/':
     case '/jobs/[id]':

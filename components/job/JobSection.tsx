@@ -6,6 +6,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 import Filters from './Filters';
 import JobList from './JobList';
 import { Session } from 'next-auth';
+import { getTitle } from '../../src/utils/getTitle';
 
 const Wrapper = styled.section`
   padding-top: 2rem;
@@ -43,10 +44,7 @@ export default function JobSection({
 }) {
   const { pathname } = useRouter();
   const isAdmin = pathname === '/admin';
-
-  const title = !isAdmin
-    ? '채용공고를 추가해보세요!'
-    : '채용공고를 수정해보세요';
+  const title = getTitle(pathname);
   return (
     <Wrapper>
       <header>
