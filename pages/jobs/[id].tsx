@@ -1,6 +1,5 @@
 import React from 'react';
 import NotFound from '../../components/NotFound';
-import JobList from '../../components/job/JobList';
 import MainLayout from '../../components/job/MainLayout';
 import SEO from '../../components/SEO';
 import DetailJob from '../../components/job/DetailJob';

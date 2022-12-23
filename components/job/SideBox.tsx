@@ -43,13 +43,13 @@ const Btn = styled.button`
 export default function SideBox({ job }: { job: Job }) {
   const {
     platform,
-    mainWork,
-    img,
+    // mainWork,
+    // img,
     name,
-    url,
+    // url,
     checkPercentage,
-    qualification,
-    preferential,
+    // qualification,
+    // preferential,
   } = job;
   const [message, setMessage] = useState('');
   const { data: session } = useSession();

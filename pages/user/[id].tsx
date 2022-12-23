@@ -21,7 +21,7 @@ export default function UserDetail({
       {!isLoading && !data && <NotFound />}
       {data && (
         <>
-          <DetailJob data={data} />
+          <DetailJob job={data} />
           <JobList session={session} />
         </>
       )}
