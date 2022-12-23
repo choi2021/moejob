@@ -15,8 +15,8 @@ type AdminDescriptionListProps = {
 
 const Wrapper = styled.div`
   grid-column: span 2;
-  height: 250px;
   padding: 1rem;
+  min-height: 15rem;
 
   ul {
     padding: 0.5rem;
@@ -24,13 +24,10 @@ const Wrapper = styled.div`
     margin-top: 0.5rem;
     overflow-y: auto;
     border-radius: 1rem;
-    max-height: 250px;
-    background-color: ${(props) => props.theme.colors.lightGray};
-  }
-  header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    max-height: 15rem;
+    background-color: ${(props) => props.theme.colors.white};
+
+    /* background-color: ${(props) => props.theme.colors.lightGray}; */
   }
 `;
 

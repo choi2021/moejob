@@ -10,7 +10,7 @@ const Wrapper = styled.li`
 
   input {
     font-size: 0.8rem;
-    background-color: ${(props) => props.theme.colors.lightGray};
+    background-color: ${(props) => props.theme.colors.white};
     width: 100%;
     line-height: 1.5rem;
     border: none;

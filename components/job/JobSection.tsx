@@ -9,9 +9,10 @@ import { Session } from 'next-auth';
 import { getTitle } from '../../src/utils/getTitle';
 
 const Wrapper = styled.section`
-  padding-top: 2rem;
+  padding: 2rem 1.5rem;
   width: 100%;
   height: 100%;
+  min-height: 40rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +46,6 @@ export default function JobSection({
   session: Session | undefined;
 }) {
   const { pathname } = useRouter();
-  console.log(pathname);
   const isAdmin = pathname === '/admin';
   const title = getTitle(pathname);
   return (

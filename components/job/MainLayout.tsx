@@ -9,7 +9,6 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding-bottom: 10rem;
   background-color: ${(props) => props.theme.colors.lightGray};
 `;
 

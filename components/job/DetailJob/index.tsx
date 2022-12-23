@@ -5,7 +5,6 @@ import S from './styles';
 import { KINDS } from '../../../src/variables/jobVariable';
 import { Job } from '../../../src/types/Jobtype';
 import SideBox from '../SideBox';
-import Modal from '../../Modal';
 
 export default function DetailJob({ job }: { job: Job }) {
   const {

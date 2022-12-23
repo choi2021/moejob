@@ -5,10 +5,12 @@ type AdminFormItemProp = {
   name: string;
   title: string;
   value: string;
+  type: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   font-size: 0.9rem;
@@ -24,7 +26,7 @@ const Wrapper = styled.div`
     flex: 1;
     border: none;
     padding: 0.1rem 0.2rem;
-    border-bottom: 2px solid ${(props) => props.theme.colors.gray};
+    border-bottom: 1px solid ${(props) => props.theme.colors.gray};
   }
 `;
 
@@ -32,6 +34,7 @@ export default function AdminFormItem({
   name,
   title,
   value,
+  type,
   onChange,
 }: AdminFormItemProp) {
   return (
@@ -40,7 +43,7 @@ export default function AdminFormItem({
       <input
         required
         name={name}
-        type="text"
+        type={type}
         onChange={onChange}
         value={value}
       />

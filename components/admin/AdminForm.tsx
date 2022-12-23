@@ -16,8 +16,13 @@ import { useJobs } from '../../hooks/useJobs';
 import Modal from './../Modal';
 
 const Wrapper = styled.section`
-  padding-top: 1rem;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 800px;
+  background-color: ${(props) => props.theme.colors.white};
   text-align: center;
+  display: flex;
+  flex-direction: column;
   header {
     width: 100%;
     display: flex;
@@ -65,7 +70,7 @@ const SelectBox = styled.div`
     outline: none;
     padding: 0.1rem 0.2rem;
     border: none;
-    border-bottom: 2px solid ${(props) => props.theme.colors.black};
+    border-bottom: 1px solid ${(props) => props.theme.colors.black};
     text-align: center;
   }
   @media screen and (max-width: 500px) {
@@ -119,7 +124,9 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
       return { ...prev, [name]: list };
     });
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.currentTarget;
     setJob((prev) => ({ ...prev, [name]: value }));
   };
@@ -138,12 +145,6 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
       });
       return { ...prev, [name]: updated };
     });
-  };
-
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.currentTarget;
-    console.log(name, value);
-    setJob((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -188,6 +189,7 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
         <AdminFormItem
           name={ITEM_Name.NAME}
           title="회사 명"
+          type="text"
           value={job.name}
           onChange={handleChange}
         />
@@ -195,12 +197,14 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
         <AdminFormItem
           name={ITEM_Name.URL}
           title="URL"
+          type="text"
           value={job.url}
           onChange={handleChange}
         />
         <AdminFormItem
           name={ITEM_Name.IMG}
           title="이미지"
+          type="text"
           value={job.img}
           onChange={handleChange}
         />
@@ -209,7 +213,7 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
           <select
             name={ITEM_Name.PLATFORM}
             id={ITEM_Name.PLATFORM}
-            onChange={handleSelect}
+            onChange={handleChange}
             value={job.platform}
           >
             <option value="platform">플랫폼</option>

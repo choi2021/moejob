@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { MdRemove } from 'react-icons/md';
 import { AiOutlinePlus } from 'react-icons/ai';
-import Link from 'next/link';
 import { useJobs } from '../../hooks/useJobs';
 import { useRouter } from 'next/router';
 import { redirectPath } from '../../src/utils/redirectPath';
@@ -14,7 +13,7 @@ import { Job } from '../../src/types/Jobtype';
 const Wrapper = styled.div`
   width: 100%;
   margin: auto;
-  height: 20rem;
+  height: 14rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +21,17 @@ const Wrapper = styled.div`
   cursor: pointer;
   a {
     width: 100%;
+  }
+
+  @media screen and (max-width: 500px) {
+    height: 20rem;
+  }
+  @media screen and (min-width: 501px) and (max-width: 700px) {
+    height: 18rem;
+  }
+
+  @media screen and (min-width: 701px) and (max-width: 900px) {
+    height: 16rem;
   }
 `;
 
@@ -41,7 +51,7 @@ const Badge = styled.div`
   }
 `;
 
-const Box = styled.div`
+const MetaBox = styled.div`
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -58,13 +68,21 @@ const Box = styled.div`
 
 const Img = styled(Image)`
   width: 100%;
+  border-radius: 1rem;
+`;
+
+const ImgBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 const Btn = styled.button`
-  right: -10px;
+  right: -0.5rem;
   top: -5px;
   font-size: 1rem;
   position: absolute;
+  z-index: 100;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -80,8 +98,7 @@ const Btn = styled.button`
 
 export default function JobItem({ job }: { job: Job }) {
   const { name, platform, img, checkPercentage } = job;
-  const { pathname } = useRouter();
-  const link = redirectPath(pathname, job.id);
+  const { pathname, push } = useRouter();
   const isHome = pathname === '/';
   const [message, setMessage] = useState('');
   const { data: session } = useSession();
@@ -109,6 +126,11 @@ export default function JobItem({ job }: { job: Job }) {
       },
     });
   };
+
+  const handleClick = () => {
+    const link = redirectPath(pathname, job.id);
+    push(link);
+  };
   const over50Percent = checkPercentage >= 0.5;
 
   return (
@@ -125,13 +147,21 @@ export default function JobItem({ job }: { job: Job }) {
             <AiOutlinePlus />
           </Btn>
         )}
-        <Link href={link}>
-          <Img src={img} alt="job" width="200" height="180" priority />
-          <Box>
-            <h1>{name}</h1>
-            <h3>{platform}</h3>
-          </Box>
-        </Link>
+        <ImgBox onClick={handleClick}>
+          <Img
+            src={img}
+            alt="job"
+            sizes='(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"'
+            fill
+            priority
+          />
+        </ImgBox>
+        <MetaBox>
+          <h1>{name}</h1>
+          <h3>{platform}</h3>
+        </MetaBox>
       </Wrapper>
       {message && <Modal message={message} />}
     </>

@@ -6,15 +6,20 @@ import { useRouter } from 'next/router';
 import { Session } from 'next-auth';
 
 const Wrapper = styled.ul`
-  padding-bottom: 3rem;
-  padding: 0 1rem;
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px 20px;
-  @media screen and (max-width: 700px) {
+  gap: 1.5rem;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media screen and (min-width: 501px) and (max-width: 700px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 701px) and (max-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
