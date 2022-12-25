@@ -16,6 +16,7 @@ import Modal from './../Modal';
 import { JOB_SCHEMA } from '../../src/variables/jobVariable';
 import Select from './select';
 import { useForm } from './../../hooks/useForm';
+import { normalizeDescriptions } from './../../src/utils/normalizeDescriptions';
 
 const Wrapper = styled.section`
   border-radius: 1rem;
@@ -81,9 +82,14 @@ type DescriptionListType = {
 };
 
 export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
-  const { job, onAdd, onChange, onDelete, onUpdateDescription } =
+  const { job, onAdd, onChange, onDelete, onUpdateDescription, setJob } =
     useForm(initialValue);
   const [message, setMessage] = useState('');
+  const [descriptions, setDescriptions] = useState({
+    mainWork: '',
+    qualification: '',
+    preferential: '',
+  });
 
   const DescriptionList: DescriptionListType[] = [
     {
@@ -109,13 +115,27 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
 
   const { addOrUpdateJob } = useJobs();
   const { mutate } = addOrUpdateJob;
+  const handleNewDescriptionChange = (
+    name: DescriptionNameType,
+    value: string
+  ) => {
+    setDescriptions((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { dataset } = e.currentTarget;
     if (dataset.tag !== 'form') {
       return;
     }
-    mutate(job, {
+    let targetJob = job;
+
+    if (isNew) {
+      const normalizedDescriptions = normalizeDescriptions(descriptions);
+      targetJob = { ...job, ...normalizedDescriptions };
+    }
+    mutate(targetJob, {
       onSuccess: () => {
         setMessage(
           isNew ? '성공적으로 추가되었습니다' : '성공적으로 수정되었습니다'
@@ -173,9 +193,10 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
           <AdminDescriptionList
             name={item.name}
             title={item.title}
-            value={item.value}
+            value={isNew ? descriptions[item.name] : item.value}
             onAdd={onAdd}
             onDelete={onDelete}
+            onNewDescriptionChange={handleNewDescriptionChange}
             onChange={onUpdateDescription}
           />
         ))}

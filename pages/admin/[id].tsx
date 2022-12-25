@@ -11,18 +11,9 @@ const newValue = {
   name: '',
   platform: '플랫폼',
   id: uuid(),
-  mainWork: [
-    { text: '', checked: false, id: uuid() },
-    { text: '', checked: false, id: uuid() },
-  ],
-  qualification: [
-    { text: '', checked: false, id: uuid() },
-    { text: '', checked: false, id: uuid() },
-  ],
-  preferential: [
-    { text: '', checked: false, id: uuid() },
-    { text: '', checked: false, id: uuid() },
-  ],
+  mainWork: [],
+  qualification: [],
+  preferential: [],
   url: '',
   img: '',
   checkPercentage: 0,

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DescriptionKindType, DescriptionType } from '../../src/types/Jobtype';
+import { DescriptionNameType, DescriptionType } from '../../src/types/Jobtype';
 import { BsDot, BsTrash } from 'react-icons/bs';
 const Wrapper = styled.li`
   padding: 0.5rem 1rem;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
 
@@ -20,9 +21,9 @@ const Wrapper = styled.li`
 
 type AdminDescriptionItemType = {
   item: DescriptionType;
-  name: DescriptionKindType;
-  onDelete: (name: DescriptionKindType, id: string) => void;
-  onChange: (name: DescriptionKindType, value: string, id: string) => void;
+  name: DescriptionNameType;
+  onDelete: (name: DescriptionNameType, id: string) => void;
+  onChange: (name: DescriptionNameType, value: string, id: string) => void;
 };
 
 export default function AdminDescriptionItem({

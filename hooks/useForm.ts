@@ -44,5 +44,5 @@ export const useForm = (initialValue: Job) => {
     });
   };
 
-  return { job, onAdd, onDelete, onChange, onUpdateDescription };
+  return { job, onAdd, onDelete, onChange, onUpdateDescription, setJob };
 };

@@ -13,10 +13,10 @@ export const useJobs = (user?: User) => {
   const { query } = useRouter();
   const { id } = query;
   const jobId = typeof id === 'string' ? id : id?.join() || '';
-
   const getJobs = useQuery([JOBS_KEY, user], async () => {
     return dbService.getJobs(user);
   });
+
   const addOrUpdateJob = useMutation(
     async (job: Job) => {
       return dbService.addOrUpdateJob(job, user);
@@ -37,14 +37,6 @@ export const useJobs = (user?: User) => {
       onSuccess: () => {
         !user && queryClient.invalidateQueries([JOBS_KEY]);
         user && queryClient.invalidateQueries([JOBS_KEY, user]);
-      },
-      onError: (error) => {
-        if (error instanceof AxiosError) {
-          const { response } = error;
-          if (response) {
-            console.log(response);
-          }
-        }
       },
     }
   );
