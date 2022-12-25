@@ -23,11 +23,13 @@ export default function AdminDetail() {
   const { query } = useRouter();
   const isNew = query.id === 'new';
   const { getJobById } = useJobs();
-  const { data } = getJobById;
+  const { data, isLoading } = getJobById;
   const initialValue = data || newValue;
+
   return (
     <MainLayout>
-      <AdminForm isNew={isNew} initialValue={initialValue} />
+      {isLoading && <div>로딩중입니다</div>}
+      {!isLoading && <AdminForm isNew={isNew} initialValue={initialValue} />}
     </MainLayout>
   );
 }

@@ -82,7 +82,7 @@ type DescriptionListType = {
 };
 
 export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
-  const { job, onAdd, onChange, onDelete, onUpdateDescription, setJob } =
+  const { job, onAdd, onChange, onDelete, onUpdateDescription } =
     useForm(initialValue);
   const [message, setMessage] = useState('');
   const [descriptions, setDescriptions] = useState({
@@ -191,6 +191,7 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
         <Select onChange={onChange} platform={job.platform} />
         {DescriptionList.map((item) => (
           <AdminDescriptionList
+            key={item.name}
             name={item.name}
             title={item.title}
             value={isNew ? descriptions[item.name] : item.value}

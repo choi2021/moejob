@@ -104,7 +104,8 @@ export default function JobItem({ job }: { job: Job }) {
   const { data: session } = useSession();
   const user = session?.user;
   const isLoggedin = !!session;
-  const { addOrUpdateJob, deleteJob } = useJobs(user);
+  const isAdmin = pathname === '/admin';
+  const { addOrUpdateJob, deleteJob } = useJobs(isAdmin ? undefined : user);
   const handleDelete = () => {
     deleteJob.mutate(job, {
       onSuccess: () => {

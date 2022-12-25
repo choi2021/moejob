@@ -31,6 +31,7 @@ export const useJobs = (user?: User) => {
 
   const deleteJob = useMutation(
     async (job: Job) => {
+      console.log(job, user);
       return dbService.removeJob(job, user);
     },
     {

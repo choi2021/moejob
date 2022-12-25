@@ -1,6 +1,5 @@
 import uuid from 'react-uuid';
 import { DescriptionType } from '../types/Jobtype';
-// export type DescriptionType = { text: string; checked?: boolean; id: string };
 type RawDescriptionsType = {
   mainWork: string;
   qualification: string;

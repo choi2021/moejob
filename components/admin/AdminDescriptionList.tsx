@@ -11,7 +11,6 @@ const Wrapper = styled.div`
   min-height: 15rem;
   ul {
     padding: 0.5rem;
-    height: 100%;
     margin-top: 0.5rem;
     overflow-y: auto;
     border-radius: 1rem;
@@ -53,6 +52,7 @@ export default function AdminDescriptionList({
   onNewDescriptionChange,
 }: AdminDescriptionListProps) {
   const isString = typeof value === 'string';
+  console.log(value);
   return (
     <Wrapper>
       <header>

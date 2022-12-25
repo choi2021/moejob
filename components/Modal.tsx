@@ -9,6 +9,7 @@ const Message = styled.p`
   bottom: 0.5rem;
   background-color: ${(props) => props.theme.colors.blue};
   color: ${(props) => props.theme.colors.white};
+  z-index: 100;
 `;
 
 export default function Modal({ message }: { message: string }) {
