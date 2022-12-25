@@ -52,7 +52,6 @@ export default function AdminDescriptionList({
   onNewDescriptionChange,
 }: AdminDescriptionListProps) {
   const isString = typeof value === 'string';
-  console.log(value);
   return (
     <Wrapper>
       <header>

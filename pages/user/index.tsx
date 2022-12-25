@@ -3,14 +3,18 @@ import MainLayout from '../../components/job/MainLayout';
 import { getSession } from 'next-auth/react';
 import { InferGetServerSidePropsType, NextPageContext } from 'next';
 import JobSection from '../../components/job/JobSection';
+import { NextSeo } from 'next-seo';
 
 export default function User({
   session,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <MainLayout>
-      <JobSection session={session} />
-    </MainLayout>
+    <>
+      <NextSeo title="모은 공고" />
+      <MainLayout>
+        <JobSection session={session} />
+      </MainLayout>
+    </>
   );
 }
 

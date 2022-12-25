@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import Filters from './Filters';
 import JobList from './JobList';
 import { Session } from 'next-auth';
 import { getTitle } from '../../src/utils/getTitle';
@@ -58,7 +57,6 @@ export default function JobSection({
           </Btn>
         )}
       </header>
-      {/* <Filters /> */}
       <JobList session={session} />
     </Wrapper>
   );

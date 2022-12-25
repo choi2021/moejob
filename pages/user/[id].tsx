@@ -6,6 +6,7 @@ import JobList from '../../components/job/JobList';
 import MainLayout from '../../components/job/MainLayout';
 import NotFound from '../../components/NotFound';
 import { useJobs } from '../../hooks/useJobs';
+import { NextSeo } from 'next-seo';
 
 export default function UserDetail({
   session,
@@ -14,16 +15,24 @@ export default function UserDetail({
   const { getJobById } = useJobs(user);
   const { isLoading, data } = getJobById;
   return (
-    <MainLayout>
-      {isLoading && <p>로딩중입니다...</p>}
-      {!isLoading && !data && <NotFound />}
-      {data && (
-        <>
-          <DetailJob job={data} />
-          <JobList session={session} />
-        </>
-      )}
-    </MainLayout>
+    <>
+      <NextSeo
+        title={`${data?.name}`}
+        openGraph={{
+          images: [{ url: data?.img || '' }],
+        }}
+      />
+      <MainLayout>
+        {isLoading && <p>로딩중입니다...</p>}
+        {!isLoading && !data && <NotFound />}
+        {data && (
+          <>
+            <DetailJob job={data} />
+            <JobList session={session} />
+          </>
+        )}
+      </MainLayout>
+    </>
   );
 }
 

@@ -14,9 +14,9 @@ import {
 import { useJobs } from '../../hooks/useJobs';
 import Modal from './../Modal';
 import { JOB_SCHEMA } from '../../src/variables/jobVariable';
-import Select from './select';
 import { useForm } from './../../hooks/useForm';
 import { normalizeDescriptions } from './../../src/utils/normalizeDescriptions';
+import Select from './Select';
 
 const Wrapper = styled.section`
   border-radius: 1rem;

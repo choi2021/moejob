@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import { TbError404 } from 'react-icons/tb';
 import styled from 'styled-components';
@@ -10,9 +11,12 @@ const NotfoundIcon = styled(TbError404)`
 
 export default function Error() {
   return (
-    <MainLayout>
-      <NotfoundIcon />
-      <span>Notfound</span>
-    </MainLayout>
+    <>
+      <NextSeo title="Not found" />
+      <MainLayout>
+        <NotfoundIcon />
+        <span>Notfound</span>
+      </MainLayout>
+    </>
   );
 }

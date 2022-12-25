@@ -40,7 +40,12 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <meta
+            name="google-site-verification"
+            content="Twow_czW-obgy-okALpUMff670hD0qvkWrdoa7or4lE"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

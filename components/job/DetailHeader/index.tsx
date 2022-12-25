@@ -34,8 +34,12 @@ export default function DetailHeader({
         <S.LinkBox href={url}>{url}</S.LinkBox>
         <S.InfoBox>
           <h3>플랫폼: {platform}</h3>
-          <h3>태그:</h3>
-          {checkPercentage >= 0.5 && <div>50%이상</div>}
+
+          {checkPercentage >= 0.5 && (
+            <h3>
+              태그:<div>50%이상</div>
+            </h3>
+          )}
         </S.InfoBox>
       </S.MetaBox>
     </S.Layout>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { useJobs } from '../../../hooks/useJobs';
-import { DescriptionKindType } from '../../../src/types/Jobtype';
+import { DescriptionNameType } from '../../../src/types/Jobtype';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { calculateChecks } from '../../../src/utils/calculateChecks';
@@ -10,7 +10,7 @@ import S from './styles';
 interface DescriptionItemProps {
   text: string;
   isMainJob: boolean;
-  kind: DescriptionKindType;
+  kind: DescriptionNameType;
   checked?: boolean;
 }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import DescriptionItem from '../DescriptionItem';
 import {
-  DescriptionKindType,
+  DescriptionNameType,
   DescriptionType,
 } from '../../../src/types/Jobtype';
 import S from './styles';
 
 interface DescriptionListProps {
   list: DescriptionType[];
-  kind: DescriptionKindType;
+  kind: DescriptionNameType;
 }
 
 const title = {

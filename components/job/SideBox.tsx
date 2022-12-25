@@ -21,7 +21,8 @@ const Wrapper = styled.div`
   height: 8rem;
   border: 1px solid ${(props) => props.theme.colors.lightGray};
   h3 {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
   }
   @media screen and (max-width: 700px) {
     display: none;
@@ -69,8 +70,12 @@ export default function SideBox({ job }: { job: Job }) {
       <h1>{name}</h1>
       {/* <h3>3D/2D 지도 프론트엔드 개발자</h3> */}
       <h3>플랫폼: {platform}</h3>
-      <h3>태그:</h3>
-      {checkPercentage >= 0.5 && <div>50%이상</div>}
+
+      {checkPercentage >= 0.5 && (
+        <h3>
+          태그:<div>50%이상</div>
+        </h3>
+      )}
       <Btn onClick={handleClick}>추가하기</Btn>
       {message && <Modal message={message} />}
     </Wrapper>

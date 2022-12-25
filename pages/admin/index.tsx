@@ -1,14 +1,18 @@
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import MainLayout from '../../components/job/MainLayout';
 import JobSection from './../../components/job/JobSection';
 
 export default function index() {
   return (
-    <MainLayout>
-      <JobSection session={undefined} />
-    </MainLayout>
+    <>
+      <NextSeo title="전체공고" />
+      <MainLayout>
+        <JobSection session={undefined} />
+      </MainLayout>
+    </>
   );
 }
 
