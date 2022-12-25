@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { AiOutlinePlus } from 'react-icons/ai';
 import AdminDescriptionItem from './AdminDescriptionItem';
-import { DescriptionKindType, DescriptionType } from '../../src/types/Jobtype';
+import { DescriptionNameType, DescriptionType } from '../../src/types/Jobtype';
 
 type AdminDescriptionListProps = {
-  name: DescriptionKindType;
+  name: DescriptionNameType;
   title: '주요 업무' | '자격 요건' | '우대 사항';
   value: DescriptionType[];
-  onAdd: (name: DescriptionKindType) => void;
-  onChange: (name: DescriptionKindType, value: string, id: string) => void;
-  onDelete: (name: DescriptionKindType, id: string) => void;
+  onAdd: (name: DescriptionNameType) => void;
+  onChange: (name: DescriptionNameType, value: string, id: string) => void;
+  onDelete: (name: DescriptionNameType, id: string) => void;
 };
 
 const Wrapper = styled.div`

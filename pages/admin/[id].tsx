@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import uuid from 'react-uuid';
 import AdminForm from '../../components/admin/AdminForm';
-import { useSpecificJobs } from '../../hooks/useJobs';
+import { useJobs } from '../../hooks/useJobs';
 import MainLayout from './../../components/job/MainLayout';
 import { getSession } from 'next-auth/react';
 import { NextPageContext } from 'next';
@@ -31,7 +31,7 @@ const newValue = {
 export default function AdminDetail() {
   const { query } = useRouter();
   const isNew = query.id === 'new';
-  const { getJobById } = useSpecificJobs();
+  const { getJobById } = useJobs();
   const { data } = getJobById;
   const initialValue = data || newValue;
   return (

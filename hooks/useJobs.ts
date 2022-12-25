@@ -10,6 +10,10 @@ const JOBS_KEY = 'jobs';
 export const useJobs = (user?: User) => {
   const dbService = useDBService();
   const queryClient = useQueryClient();
+  const { query } = useRouter();
+  const { id } = query;
+  const jobId = typeof id === 'string' ? id : id?.join() || '';
+
   const getJobs = useQuery([JOBS_KEY, user], async () => {
     return dbService.getJobs(user);
   });
@@ -45,14 +49,6 @@ export const useJobs = (user?: User) => {
     }
   );
 
-  return { getJobs, addOrUpdateJob, deleteJob };
-};
-
-export const useSpecificJobs = (user?: User) => {
-  const { query } = useRouter();
-  const { id } = query;
-  const jobId = typeof id === 'string' ? id : id?.join() || '';
-  const dbService = useDBService();
   const getFilteredJobs = useQuery(
     [JOBS_KEY, user],
     () => dbService.getJobs(user),
@@ -75,5 +71,5 @@ export const useSpecificJobs = (user?: User) => {
     },
   });
 
-  return { getFilteredJobs, getJobById };
+  return { getJobs, addOrUpdateJob, deleteJob, getJobById, getFilteredJobs };
 };

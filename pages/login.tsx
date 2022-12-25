@@ -1,7 +1,6 @@
 import React from 'react';
 import { getSession, getProviders } from 'next-auth/react';
 import { InferGetServerSidePropsType, NextPageContext } from 'next';
-import SEO from '../components/SEO';
 import AuthLayout from '../components/auth/AuthLayout';
 
 const Login = ({
@@ -9,7 +8,6 @@ const Login = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
-      <SEO title="로그인" />
       <AuthLayout providers={providers} />;
     </>
   );

@@ -111,7 +111,6 @@ export default function JobItem({ job }: { job: Job }) {
         setMessage('성공적으로 제거했습니다');
       },
       onSettled: () => {
-        console.log('hi');
         setTimeout(() => setMessage(''), 4000);
       },
     });

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
-import { useJobs, useSpecificJobs } from '../../../hooks/useJobs';
+import { useJobs } from '../../../hooks/useJobs';
 import { DescriptionKindType } from '../../../src/types/Jobtype';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -23,8 +23,7 @@ export default function DescriptionItem({
   const [isChecked, setIsChecked] = useState(checked);
   const { data: session } = useSession();
   const user = session?.user;
-  const { addOrUpdateJob } = useJobs(user);
-  const { getJobById } = useSpecificJobs(user);
+  const { addOrUpdateJob, getJobById } = useJobs(user);
   const { data: job } = getJobById;
   const { pathname } = useRouter();
   const onUser = pathname === '/user/[id]';

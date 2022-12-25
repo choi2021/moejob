@@ -1,5 +1,5 @@
-export type DescriptionKindType = 'mainWork' | 'qualification' | 'preferential';
-
+export type DescriptionNameType = 'mainWork' | 'qualification' | 'preferential';
+export type DescriptionTitle = '주요 업무' | '자격 요건' | '우대 사항';
 export type Job = {
   name: string;
   platform: string;

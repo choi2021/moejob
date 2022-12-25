@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSpecificJobs } from '../../hooks/useJobs';
+import { useJobs } from '../../hooks/useJobs';
 import JobItem from './JobItem';
 import { useRouter } from 'next/router';
 import { Session } from 'next-auth';
@@ -36,7 +36,7 @@ export default function JobList({ session }: { session: Session | undefined }) {
   const { pathname } = useRouter();
   const isUser = pathname === '/user' || pathname === '/user/[id]';
   const user = session?.user;
-  const { getFilteredJobs } = useSpecificJobs(isUser ? user : undefined);
+  const { getFilteredJobs } = useJobs(isUser ? user : undefined);
   const { isLoading, data: jobs } = getFilteredJobs;
   const vacantJobs = jobs?.length === 0;
   if (isLoading) {

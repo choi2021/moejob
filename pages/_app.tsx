@@ -7,6 +7,7 @@ import { DBProvider } from './../context/DBContext';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { DBServiceImpl } from '../service/DBService';
 import { firebaseApp } from '../src/firerbase.config';
+import { NextSeo } from 'next-seo';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const dbService = new DBServiceImpl(firebaseApp);
   return (
     <>
+      <NextSeo title="모으잡" />
       <QueryClientProvider client={queryClient}>
         <DBProvider dbService={dbService}>
           <SessionProvider basePath={process.env.NEXTAUTH_URL}>
