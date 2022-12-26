@@ -13,3 +13,5 @@ export const JOB_SCHEMA = {
   PREFERENTIAL: 'preferential',
   QUALIFICATION: 'qualification',
 } as const;
+
+export const JOBS_KEY = 'jobs';

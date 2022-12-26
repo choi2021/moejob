@@ -3,27 +3,35 @@ import NotFound from '../../components/NotFound';
 import MainLayout from '../../components/job/MainLayout';
 import DetailJob from '../../components/job/DetailJob';
 import JobSection from '../../components/job/JobSection';
-import { useJobs } from '../../hooks/useJobs';
 import { NextSeo } from 'next-seo';
+import {  NextPageContext } from 'next';
+import { DBServiceImpl } from '../../service/DBService';
+import { firebaseApp } from '../../src/firerbase.config';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { Jobs } from '../../src/types/Jobtype';
+import { JOBS_KEY } from '../../src/variables/jobVariable';
+import { AxiosError } from 'axios';
+import { useJobs } from '../../hooks/useJobs';
 
 function Index() {
-  const { getJobById } = useJobs();
-  const { isLoading, data } = getJobById;
+  const { getFilteredJobs, getJobById } = useJobs();
+  const { data: job } = getJobById;
+  const { data: allJobs } = getFilteredJobs;
+
   return (
     <>
       <NextSeo
-        title={`${data?.name}`}
+        title={`${job?.name}`}
         openGraph={{
-          images: [{ url: data?.img || '' }],
+          images: [{ url: job?.img || '' }],
         }}
       />
       <MainLayout>
-        {isLoading && <p>로딩중입니다...</p>}
-        {!isLoading && !data && <NotFound />}
-        {data && (
+        {!job && <NotFound />}
+        {job && (
           <>
-            <DetailJob job={data} />
-            <JobSection session={undefined} />
+            <DetailJob job={job} />
+            <JobSection jobs={allJobs} />
           </>
         )}
       </MainLayout>
@@ -32,3 +40,26 @@ function Index() {
 }
 
 export default Index;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const query = context.query;
+  const id = query.id?.toString();
+  const queryClient = new QueryClient();
+  const dbService = new DBServiceImpl(firebaseApp);
+  if (!id) {
+    return {
+      redirect: {
+        destination: '/',
+      },
+    };
+  }
+
+  await queryClient.prefetchQuery<Jobs, AxiosError, Jobs, [string, string]>(
+    [JOBS_KEY, 'all'],
+    () => dbService.getJobs()
+  );
+
+  return {
+    props: { dehydratedState: dehydrate(queryClient) },
+  };
+};

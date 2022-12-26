@@ -2,21 +2,18 @@ import type { AppProps } from 'next/app';
 import GlobalStyle from '../styles/globalStyles';
 import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../styles/theme';
+import { DefaultSeo } from 'next-seo';
 import { DBProvider } from './../context/DBContext';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import {
+  QueryClientProvider,
+  QueryClient,
+  Hydrate,
+} from '@tanstack/react-query';
 import { DBServiceImpl } from '../service/DBService';
 import { firebaseApp } from '../src/firerbase.config';
-import { DefaultSeo } from 'next-seo';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 3000,
-      cacheTime: 360000,
-    },
-  },
-});
+import { theme } from '../styles/theme';
+import { useState } from 'react';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const defaultSEO = {
   defaultTitle: '모으잡',
@@ -43,6 +40,7 @@ const defaultSEO = {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
   const dbService = new DBServiceImpl(firebaseApp);
   return (
     <>
@@ -52,10 +50,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           <SessionProvider basePath={process.env.NEXTAUTH_URL}>
             <ThemeProvider theme={theme}>
               <GlobalStyle />
-              <Component {...pageProps} />
+              <Hydrate state={pageProps.dehydratedState}>
+                <Component {...pageProps} />
+              </Hydrate>
             </ThemeProvider>
           </SessionProvider>
         </DBProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );

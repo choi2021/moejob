@@ -44,3 +44,20 @@ export class DBServiceImpl implements DBService {
     return remove(ref(this.db, `${query}jobs/${job.id}`));
   }
 }
+
+// const db =getDatabase(firebaseApp);
+// export async function getJobs(user?: User): Promise<Jobs> {
+//   const dbRef = ref(db);
+//   const query = user ? `users/${user?.id}/` : '';
+//   return get(child(dbRef, `${query}jobs`))
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         return snapshot.val();
+//       } else {
+//         return {};
+//       }
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }

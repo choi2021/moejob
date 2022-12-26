@@ -6,6 +6,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 import JobList from './JobList';
 import { Session } from 'next-auth';
 import { getTitle } from '../../src/utils/getTitle';
+import { Job, Jobs } from '../../src/types/Jobtype';
 
 const Wrapper = styled.section`
   padding: 2rem 1.5rem;
@@ -39,11 +40,11 @@ const Title = styled.h2`
   font-weight: 700;
 `;
 
-export default function JobSection({
-  session,
-}: {
-  session: Session | undefined;
-}) {
+type JobSectionProps = {
+  jobs: Job[] | undefined;
+};
+
+export default function JobSection({ jobs }: JobSectionProps) {
   const { pathname } = useRouter();
   const isAdmin = pathname === '/admin';
   const title = getTitle(pathname);
@@ -57,7 +58,7 @@ export default function JobSection({
           </Btn>
         )}
       </header>
-      <JobList session={session} />
+      <JobList jobs={jobs} />
     </Wrapper>
   );
 }

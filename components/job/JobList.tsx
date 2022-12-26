@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useJobs } from '../../hooks/useJobs';
 import JobItem from './JobItem';
-import { useRouter } from 'next/router';
-import { Session } from 'next-auth';
+import { Job, Jobs } from '../../src/types/Jobtype';
 
 const Wrapper = styled.ul`
   width: 100%;
@@ -32,23 +30,19 @@ const GuideBox = styled.div`
   }
 `;
 
-export default function JobList({ session }: { session: Session | undefined }) {
-  const { pathname } = useRouter();
-  const isUser = pathname === '/user' || pathname === '/user/[id]';
-  const user = session?.user;
-  const { getFilteredJobs } = useJobs(isUser ? user : undefined);
-  const { isLoading, data: jobs } = getFilteredJobs;
-  const vacantJobs = jobs?.length === 0;
-  if (isLoading) {
-    return <GuideBox>채용공고를 불러오는 중입니다...</GuideBox>;
-  }
+type JobListProps = {
+  jobs: Job[] | undefined;
+};
+
+export default function JobList({ jobs }: JobListProps) {
+  const vacantJobs = jobs?.length === 0 || !jobs;
   if (vacantJobs) {
     return <GuideBox>채용공고가 비어있습니다😉</GuideBox>;
   }
 
   return (
     <Wrapper>
-      {jobs && jobs.map((job) => <JobItem key={job.id} job={job} />)}
+      {!vacantJobs && jobs.map((job) => <JobItem key={job.id} job={job} />)}
     </Wrapper>
   );
 }
