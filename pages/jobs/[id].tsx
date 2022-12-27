@@ -4,7 +4,7 @@ import MainLayout from '../../components/job/MainLayout';
 import DetailJob from '../../components/job/DetailJob';
 import JobSection from '../../components/job/JobSection';
 import { NextSeo } from 'next-seo';
-import {  NextPageContext } from 'next';
+import { NextPageContext } from 'next';
 import { DBServiceImpl } from '../../service/DBService';
 import { firebaseApp } from '../../src/firerbase.config';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -21,9 +21,18 @@ function Index() {
   return (
     <>
       <NextSeo
-        title={`${job?.name}`}
+        title={job?.name}
         openGraph={{
-          images: [{ url: job?.img || '' }],
+          title: `${job?.name}`,
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/jobs/${job?.id}`,
+          images: [
+            {
+              url: job?.img || '',
+              width: 285,
+              height: 167,
+              alt: '상세 이미지',
+            },
+          ],
         }}
       />
       <MainLayout>

@@ -6,8 +6,7 @@ import NotFound from '../../components/NotFound';
 import { NextSeo } from 'next-seo';
 import { DBServiceImpl } from '../../service/DBService';
 import { firebaseApp } from '../../src/firerbase.config';
-import { useDBService } from '../../context/DBContext';
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { Jobs } from '../../src/types/Jobtype';
 import { JOBS_KEY } from '../../src/variables/jobVariable';
 import { AxiosError } from 'axios';
@@ -25,9 +24,18 @@ export default function UserDetail({
   return (
     <>
       <NextSeo
-        title={`${job?.name}`}
+        title={job?.name}
         openGraph={{
-          images: [{ url: job?.img || '' }],
+          title: `${job?.name}`,
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/user/${job?.id}`,
+          images: [
+            {
+              url: job?.img || '',
+              width: 285,
+              height: 167,
+              alt: '상세 이미지',
+            },
+          ],
         }}
       />
       <MainLayout>

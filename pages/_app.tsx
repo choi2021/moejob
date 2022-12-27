@@ -28,6 +28,7 @@ const defaultSEO = {
     url: 'https://moejob.vercel.app',
     title: '모으잡',
     site_name: '모으잡',
+    description: '원하는 회사의 채용공고를 모으고 비교해보자',
     images: [
       {
         url: '/banner.jpg',

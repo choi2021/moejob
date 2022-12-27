@@ -38,7 +38,16 @@ export default function AdminDetail({
       <NextSeo
         title={SEOTitle}
         openGraph={{
-          images: [{ url: job?.img || '' }],
+          title: `${job?.name}`,
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/admin/${job?.id}`,
+          images: [
+            {
+              url: job?.img || '',
+              width: 285,
+              height: 167,
+              alt: '상세 이미지',
+            },
+          ],
         }}
       />
       <MainLayout>
