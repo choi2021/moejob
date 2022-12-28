@@ -16,7 +16,7 @@
 
 ### 🔗 배포 링크
 
- [서비스 이용하러 가기][(http://moejob.shop/](https://moejob.vercel.app/)
+ [서비스 이용하러 가기](https://moejob.vercel.app/)
 
 
 <br/>
