@@ -4,6 +4,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import AdminDescriptionItem from './AdminDescriptionItem';
 import { DescriptionNameType, DescriptionType } from '../../src/types/Jobtype';
 import TextArea from './TextArea';
+import { useRouter } from 'next/router';
 
 const Wrapper = styled.div`
   grid-column: span 2;
@@ -52,16 +53,22 @@ export default function AdminDescriptionList({
   onNewDescriptionChange,
 }: AdminDescriptionListProps) {
   const isString = typeof value === 'string';
+  const { query } = useRouter();
+  const isNew = query.id === 'new';
+  console.log(query.id);
   return (
     <Wrapper>
       <header>
         <h3>{title}</h3>
-        <Btn onClick={() => onAdd(name)}>
-          <AiOutlinePlus />
-        </Btn>
+        {!isNew && (
+          <Btn onClick={() => onAdd(name)}>
+            <AiOutlinePlus />
+          </Btn>
+        )}
       </header>
       {isString && (
         <TextArea
+          title={title}
           text={value}
           name={name}
           onChange={onNewDescriptionChange}

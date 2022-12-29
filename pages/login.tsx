@@ -14,7 +14,7 @@ const Login = ({
         description="원하는 회사의 채용공고를 모으고 비교해보자"
         openGraph={{
           type: 'website',
-          url: 'https://moejob.vercel.app/login',
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
           title: '로그인 | 모으잡',
           description: '원하는 회사의 채용공고를 모으고 비교해보자',
         }}

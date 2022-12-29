@@ -16,14 +16,27 @@ const Wrapper = styled.textarea`
 
 type TextAreaType = {
   text: string;
+  title: string;
   name: DescriptionNameType;
   onChange: (name: DescriptionNameType, value: string) => void;
 };
 
-export default function TextArea({ name, text, onChange }: TextAreaType) {
+export default function TextArea({
+  title,
+  name,
+  text,
+  onChange,
+}: TextAreaType) {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
     onChange(name, value);
   };
-  return <Wrapper required value={text} onChange={handleChange}></Wrapper>;
+  return (
+    <Wrapper
+      placeholder={`${title}을 복사-붙여넣기 해주세요`}
+      required
+      value={text}
+      onChange={handleChange}
+    ></Wrapper>
+  );
 }

@@ -40,6 +40,7 @@ const Options = [
   '점핏',
   '사람인',
   '노션',
+  '그리팅',
 ];
 
 export default function Select({ onChange, platform }: SelectProps) {

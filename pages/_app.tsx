@@ -20,7 +20,7 @@ const defaultSEO = {
   titleTemplate: '%s | 모으잡',
   description: '원하는 회사의 채용공고를 모으고 비교해보자',
   canonical: 'https://moejob.vercel.app/',
-  keywords: ['moejob', 'choi2021'],
+  keywords: ['moejob', 'choi2021', '모으잡'],
   icon: '/favicon.ico',
   openGraph: {
     type: 'website',
@@ -41,7 +41,16 @@ const defaultSEO = {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 60,
+          },
+        },
+      })
+  );
   const dbService = new DBServiceImpl(firebaseApp);
   return (
     <>
