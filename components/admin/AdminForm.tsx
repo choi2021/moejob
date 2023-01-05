@@ -1,79 +1,19 @@
 import { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AiOutlineLeftCircle } from 'react-icons/ai';
-import AdminDescriptionList from './AdminDescriptionList';
-import AdminFormItem from './AdminFormItem';
-import Link from 'next/link';
+import { useForm } from '../../hooks/useForm';
+import { useJobs } from '../../hooks/useJobs';
 import {
   DescriptionNameType,
   DescriptionTitle,
   DescriptionType,
   Job,
 } from '../../src/types/Jobtype';
-import { useJobs } from '../../hooks/useJobs';
-import Modal from './../Modal';
+import { normalizeDescriptions } from '../../src/utils/normalizeDescriptions';
 import { JOB_SCHEMA } from '../../src/variables/jobVariable';
-import { useForm } from './../../hooks/useForm';
-import { normalizeDescriptions } from './../../src/utils/normalizeDescriptions';
+import AdminDescriptionList from './AdminDescriptionList';
+import AdminFormItem from './AdminFormItem';
 import Select from './Select';
-
-const Wrapper = styled.section`
-  border-radius: 1rem;
-  padding: 2rem;
-  max-width: 800px;
-  background-color: ${(props) => props.theme.colors.white};
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  header {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    h1 {
-      margin-right: 1rem;
-      font-size: 1.5rem;
-    }
-    a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5rem;
-    }
-  }
-
-  form {
-    position: relative;
-    width: 100%;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 3rem;
-    @media screen and (max-width: 500px) {
-      grid-template-columns: repeat(1, 1fr);
-    }
-  }
-`;
-
-const Btn = styled.button`
-  position: absolute;
-  bottom: -3rem;
-  right: 50%;
-  transform: translate(50%, 50%);
-  background-color: ${(props) => props.theme.colors.mainColor};
-  color: ${(props) => props.theme.colors.white};
-  padding: 0.5rem 1rem;
-  width: 5rem;
-  height: 2rem;
-  border-radius: 1rem;
-`;
-
-type AdminFormProps = {
-  initialValue: Job;
-  isNew: boolean;
-};
 
 type DescriptionListType = {
   name: DescriptionNameType;
@@ -81,16 +21,54 @@ type DescriptionListType = {
   value: DescriptionType[];
 };
 
-export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
-  const { job, onAdd, onChange, onDelete, onUpdateDescription } =
-    useForm(initialValue);
-  const [message, setMessage] = useState('');
+type AdminFormProps = {
+  initialValue: Job;
+  isNew: boolean;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const Wrapper = styled.form`
+  margin-top: 1rem;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Box = styled.div`
+  width: 100%;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 3rem;
+`;
+
+const Btn = styled.button`
+  grid-column: span 2;
+  background-color: ${(props) => props.theme.colors.mainColor};
+  color: ${(props) => props.theme.colors.white};
+  padding: 0.5rem 1rem;
+  height: 2rem;
+  width: 50%;
+  border-radius: 1rem;
+  text-align: center;
+`;
+
+export default function AdminForm({
+  initialValue,
+  setMessage,
+  isNew,
+}: AdminFormProps) {
   const [descriptions, setDescriptions] = useState({
     mainWork: '',
     qualification: '',
     preferential: '',
   });
-
+  const { job, onAdd, onChange, onDelete, onUpdateDescription } =
+    useForm(initialValue);
+  const { addOrUpdateJob } = useJobs();
+  const { mutate } = addOrUpdateJob;
   const DescriptionList: DescriptionListType[] = [
     {
       name: JOB_SCHEMA.MAIN_WORK,
@@ -110,11 +88,8 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
     },
   ];
 
-  const title = isNew ? '새로운 공고 추가하기' : '공고 수정하기';
   const BtnText = isNew ? '추가하기' : '수정하기';
 
-  const { addOrUpdateJob } = useJobs();
-  const { mutate } = addOrUpdateJob;
   const handleNewDescriptionChange = (
     name: DescriptionNameType,
     value: string
@@ -125,12 +100,7 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { dataset } = e.currentTarget;
-    if (dataset.tag !== 'form') {
-      return;
-    }
     let targetJob = job;
-
     if (isNew) {
       const normalizedDescriptions = normalizeDescriptions(descriptions);
       targetJob = { ...job, ...normalizedDescriptions };
@@ -156,16 +126,9 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
       },
     });
   };
-
   return (
-    <Wrapper>
-      <header>
-        <h1>{title}</h1>
-        <Link href="/admin">
-          <AiOutlineLeftCircle />
-        </Link>
-      </header>
-      <form data-tag="form" onSubmit={handleSubmit}>
+    <Wrapper onSubmit={handleSubmit}>
+      <Box>
         <AdminFormItem
           name={JOB_SCHEMA.NAME}
           title="회사 명"
@@ -201,9 +164,8 @@ export default function AdminForm({ isNew, initialValue }: AdminFormProps) {
             onChange={onUpdateDescription}
           />
         ))}
-        <Btn>{BtnText}</Btn>
-      </form>
-      {message && <Modal message={message} />}
+      </Box>
+      <Btn type="submit">{BtnText}</Btn>
     </Wrapper>
   );
 }

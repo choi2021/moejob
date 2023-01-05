@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import JobItem from './JobItem';
-import { Job, Jobs } from '../../src/types/Jobtype';
+import { Job } from '../../src/types/Jobtype';
 
 const Wrapper = styled.ul`
   width: 100%;

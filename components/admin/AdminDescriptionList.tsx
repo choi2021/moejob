@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 const Wrapper = styled.div`
   grid-column: span 2;
-  padding: 1rem;
+  padding: 0.5rem;
   min-height: 15rem;
   ul {
     padding: 0.5rem;
@@ -61,7 +61,7 @@ export default function AdminDescriptionList({
       <header>
         <h3>{title}</h3>
         {!isNew && (
-          <Btn onClick={() => onAdd(name)}>
+          <Btn type="button" onClick={() => onAdd(name)}>
             <AiOutlinePlus />
           </Btn>
         )}

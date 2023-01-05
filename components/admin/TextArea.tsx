@@ -12,6 +12,12 @@ const Wrapper = styled.textarea`
   height: 100%;
   outline: none;
   line-height: 1.5rem;
+  ::placeholder {
+    text-align: center;
+    @media screen and (max-width: 600px) {
+      font-size: 0.5rem;
+    }
+  }
 `;
 
 type TextAreaType = {
@@ -33,7 +39,7 @@ export default function TextArea({
   };
   return (
     <Wrapper
-      placeholder={`${title}을 복사-붙여넣기 해주세요`}
+      placeholder={`${title}을/를 복사-붙여넣기 해주세요`}
       required
       value={text}
       onChange={handleChange}

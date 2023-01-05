@@ -27,11 +27,11 @@ const Wrapper = styled.div`
     height: 20rem;
   }
   @media screen and (min-width: 501px) and (max-width: 700px) {
-    height: 18rem;
+    height: 16rem;
   }
 
   @media screen and (min-width: 701px) and (max-width: 900px) {
-    height: 16rem;
+    height: 15rem;
   }
 `;
 
@@ -148,15 +148,7 @@ export default function JobItem({ job }: { job: Job }) {
           </Btn>
         )}
         <ImgBox onClick={handleClick}>
-          <Img
-            src={img}
-            alt="job"
-            sizes='(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"'
-            fill
-            priority
-          />
+          <Img src={img} alt="job" sizes="100%" fill priority />
         </ImgBox>
         <MetaBox>
           <h1>{name}</h1>

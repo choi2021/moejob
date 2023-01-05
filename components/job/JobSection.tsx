@@ -4,12 +4,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import JobList from './JobList';
-import { Session } from 'next-auth';
 import { getTitle } from '../../src/utils/getTitle';
-import { Job, Jobs } from '../../src/types/Jobtype';
+import { Job } from '../../src/types/Jobtype';
 
 const Wrapper = styled.section`
-  padding: 2rem 1.5rem;
+  padding: 2rem 1rem;
   width: 100%;
   height: 100%;
   min-height: 40rem;

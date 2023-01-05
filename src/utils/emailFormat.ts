@@ -21,12 +21,12 @@ export function html({
     
     <h3 style="text-align: center; text-transform: uppercase;">${escapedHost}</h3>
     
-    <p style="text-align: center">방문해주셔서 감사합니다.
-      Sign in as <strong>${escapedEmail}</strong>.
+    <p style="text-align: center">모으잡에 방문해주셔서 감사합니다.
+      접속하신 이메일은 <strong>${escapedEmail}</strong>입니다.
     </p>
     
     <a href=${url} target="_blank" style="background: crimson; text-decoration: none; color: white; padding: 1rem 3rem; margin: 10px 0; display: inline-block;">Sign in with Email</a>
-    <p>If the button doesn't work for any reason, you can also click on the link below:</p>
+    <p>버튼이 작동하지 않으면, 아래 url을 이용해 접속해주세요</p>
     <div>${url}</div>
     </div>
   `;

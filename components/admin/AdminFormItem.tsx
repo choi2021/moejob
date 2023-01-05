@@ -10,11 +10,8 @@ type AdminFormItemProp = {
 };
 
 const Wrapper = styled.div`
-  width: 100%;
   display: flex;
-  align-items: center;
   font-size: 0.9rem;
-  padding: 1rem;
   label {
     text-align: center;
     margin-right: 0.2rem;
@@ -27,6 +24,9 @@ const Wrapper = styled.div`
     border: none;
     padding: 0.1rem 0.2rem;
     border-bottom: 1px solid ${(props) => props.theme.colors.gray};
+  }
+  @media screen and (max-width: 600px) {
+    grid-column: span 2;
   }
 `;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DescriptionNameType, DescriptionType } from '../../src/types/Jobtype';
-import { BsDot, BsTrash } from 'react-icons/bs';
+import { BsTrash } from 'react-icons/bs';
 const Wrapper = styled.li`
   padding: 0.5rem 1rem;
   width: 100%;
@@ -43,7 +43,6 @@ export default function AdminDescriptionItem({
 
   return (
     <Wrapper>
-      <BsDot />
       <input required value={item.text} onChange={handleChange} />
       <button onClick={handleClick}>
         <BsTrash />

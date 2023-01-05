@@ -12,6 +12,7 @@ export const JOB_SCHEMA = {
   MAIN_WORK: 'mainWork',
   PREFERENTIAL: 'preferential',
   QUALIFICATION: 'qualification',
+  POSITION: 'position',
 } as const;
 
 export const JOBS_KEY = 'jobs';

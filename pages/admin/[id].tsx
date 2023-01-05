@@ -12,6 +12,7 @@ import { getSession } from 'next-auth/react';
 import { JOBS_KEY } from '../../src/variables/jobVariable';
 import { AxiosError } from 'axios';
 import { useJobs } from '../../hooks/useJobs';
+import AdminSection from '../../components/admin/AdminSection';
 
 const newValue = {
   name: '',
@@ -51,7 +52,7 @@ export default function AdminDetail({
         }}
       />
       <MainLayout>
-        {<AdminForm isNew={isNew} initialValue={initialValue} />}
+        {<AdminSection isNew={isNew} initialValue={initialValue} />}
       </MainLayout>
     </>
   );

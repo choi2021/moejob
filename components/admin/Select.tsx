@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { JOB_SCHEMA } from '../../src/variables/jobVariable';
 
 const SelectBox = styled.div`
-  padding: 1rem;
   display: flex;
   align-items: center;
   label {
@@ -14,6 +13,7 @@ const SelectBox = styled.div`
     border-radius: 0.5rem;
   }
   select {
+    width: 100%;
     flex: 1;
     outline: none;
     padding: 0.1rem 0.2rem;
@@ -21,8 +21,8 @@ const SelectBox = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.colors.black};
     text-align: center;
   }
-  @media screen and (max-width: 500px) {
-    width: 100%;
+  @media screen and (max-width: 600px) {
+    grid-column: span 2;
   }
 `;
 
